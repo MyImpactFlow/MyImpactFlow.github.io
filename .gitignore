@@ -5,6 +5,9 @@
 # URL-Check Snapshots (lokal)
 .url-snapshots/
 
+# Backups (bleiben lokal — NIE löschen!)
+backups/
+
 # IDE
 .idea/
 .vscode/

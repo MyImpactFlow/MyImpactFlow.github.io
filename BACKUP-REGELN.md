@@ -1,9 +1,12 @@
 # Backup- & Sicherheitsregeln — go.myimpactflow.ch
 
-## Goldene Regel
+## Goldene Regeln
 
-> **Bevor du etwas änderst, das Live-Seiten betreffen könnte: `python3 check-live-urls.py --pre`**
-> **Nachdem du deployed hast: `python3 check-live-urls.py --post`**
+> **JEDE Seite ist kritisch.** Wenn eine URL ausfällt, brechen RefLinks, Partner-Systeme und Funnels.
+>
+> **VOR jeder Änderung:** `python3 check-live-urls.py --pre`
+> **NACH dem Deploy:** `python3 check-live-urls.py --post`
+> **Regelmässig:** `python3 backup-manager.py backup`
 
 ---
 
@@ -35,42 +38,58 @@ go.myimpactflow.ch/impact-flow-slides/   ← impact-flow-slides (Project Pages)
 
 ---
 
-## Sicherheitsnetz: 3 Dateien
+## Sicherheitsnetz: 4 Werkzeuge
 
-### 1. `live-urls.json` — URL-Registry
+### 1. `live-urls.json` — URL-Registry (ALLE kritisch!)
 
-Zentrale Liste ALLER Live-URLs. Wird vom Check-Script gelesen.
+Zentrale Liste ALLER Live-URLs. JEDE URL ist kritisch markiert.
 
 **Pflicht:** Bei jeder neuen Seite → URL hier eintragen!
 
 ### 2. `check-live-urls.py` — URL-Checker
 
 ```bash
-# VOR dem Deployment
-python3 check-live-urls.py --pre
-
-# NACH dem Deployment
-python3 check-live-urls.py --post
-
-# Einfacher Check
-python3 check-live-urls.py
-
-# Monitoring (alle 30s)
-python3 check-live-urls.py --watch
+python3 check-live-urls.py --pre     # VOR dem Deployment (Snapshot)
+python3 check-live-urls.py --post    # NACH dem Deployment (Vergleich)
+python3 check-live-urls.py           # Einfacher Check
+python3 check-live-urls.py --watch   # Monitoring alle 30s
 ```
 
-### 3. `.url-snapshots/` — Automatische Snapshots
+### 3. `backup-manager.py` — Vollständiges Backup & Restore
 
-Pre-Flight speichert den aktuellen Zustand. Post-Deploy vergleicht dagegen und schlägt Alarm, wenn Seiten neu kaputt sind.
+```bash
+python3 backup-manager.py backup     # Backup aller Live-Dateien (HTML, CNAME, docs/)
+python3 backup-manager.py list       # Alle Backups anzeigen
+python3 backup-manager.py verify     # Aktuellen Stand gegen Backup prüfen
+python3 backup-manager.py restore    # Letztes Backup 1:1 wiederherstellen
+```
+
+**Was wird gesichert:**
+- Alle HTML-Dateien (Landing Pages, Danke-Seiten, RefLink-Generatoren)
+- CNAME-Datei (Domain-Zuordnung)
+- docs/-Ordner (PDFs, Dokumentation)
+- SHA-256 Prüfsummen jeder einzelnen Datei
+
+**Was passiert beim Restore:**
+1. Sicherheitskopie des aktuellen (kaputten) Stands
+2. Alle Dateien aus dem Backup zurückkopieren
+3. Jede Datei gegen SHA-256 Hash verifizieren
+4. Anleitung zum Push anzeigen
+
+### 4. `backups/` — Lokale Backup-Kopien
+
+Vollständige Kopie aller Live-Dateien. Bleibt IMMER lokal auf dem Mac.
+Wird NIE gelöscht. Wird NIE in Git gepusht.
 
 ---
 
 ## Verbotene Aktionen ⛔
 
 1. **NIEMALS die CNAME-Datei löschen oder ändern** ohne vorherigen Pre-Flight-Check
-2. **NIEMALS Dateien in `MyImpactFlow.github.io` überschreiben** ohne zu prüfen, welche Live-Seiten betroffen sind
+2. **NIEMALS Dateien in `MyImpactFlow.github.io` überschreiben** ohne Backup
 3. **NIEMALS GitHub Pages deaktivieren** auf einem Repo, das Live-Seiten hostet
 4. **NIEMALS einen Custom-Domain auf ein anderes Repo verschieben** ohne alle Seiten vorher zu migrieren
+5. **NIEMALS `backups/`-Ordner löschen** — das ist die letzte Rettungsleine
 
 ---
 
@@ -78,50 +97,64 @@ Pre-Flight speichert den aktuellen Zustand. Post-Deploy vergleicht dagegen und s
 
 ### Neue Landing Page hinzufügen
 
-1. ✅ `python3 check-live-urls.py --pre`
-2. ✅ Neue HTML-Datei in `MyImpactFlow.github.io` erstellen
-3. ✅ URL in `live-urls.json` eintragen
+1. ✅ `python3 backup-manager.py backup` — Aktuellen Stand sichern
+2. ✅ `python3 check-live-urls.py --pre` — Alle URLs prüfen
+3. ✅ Neue HTML-Datei erstellen
+4. ✅ URL in `live-urls.json` eintragen
+5. ✅ `git add`, `git commit`, `git push`
+6. ✅ 30s warten (GitHub Pages Build)
+7. ✅ `python3 check-live-urls.py --post` — Alles noch da?
+
+### Bestehende Seite ändern
+
+1. ✅ `python3 backup-manager.py backup` — PFLICHT vor jeder Änderung
+2. ✅ `python3 check-live-urls.py --pre`
+3. ✅ Änderung durchführen
 4. ✅ `git add`, `git commit`, `git push`
-5. ✅ 30s warten (GitHub Pages Build)
-6. ✅ `python3 check-live-urls.py --post`
-
-### Bestehendes Projekt als Subpath hinzufügen
-
-1. ✅ `python3 check-live-urls.py --pre`
-2. ✅ Neues Repo erstellen + GitHub Pages aktivieren (KEIN Custom Domain!)
-3. ✅ Repo-URLs in `live-urls.json` eintragen
-4. ✅ Push + warten
 5. ✅ `python3 check-live-urls.py --post`
 
 ### Domain-Änderungen (GEFÄHRLICH!)
 
-1. ✅ `python3 check-live-urls.py --pre` — PFLICHT!
-2. ✅ Alle Seiten VOR der Änderung dokumentieren
-3. ✅ `python3 check-live-urls.py --watch` in einem separaten Terminal starten
+1. ✅ `python3 backup-manager.py backup` — PFLICHT!
+2. ✅ `python3 check-live-urls.py --pre` — PFLICHT!
+3. ✅ `python3 check-live-urls.py --watch` in einem separaten Terminal
 4. ✅ Änderung durchführen
 5. ✅ Sofort `python3 check-live-urls.py --post`
-6. ✅ Falls Fehler: Sofort `git revert` + Push
+6. ✅ Falls Fehler: Sofort `python3 backup-manager.py restore` + Push
 
 ---
 
-## Notfall-Recovery
-
-Falls Seiten plötzlich offline sind:
+## Notfall-Recovery (Seiten offline!)
 
 ```bash
-# 1. Status prüfen
+# 1. Was ist kaputt?
 python3 check-live-urls.py
 
-# 2. GitHub Pages Status prüfen
-gh api repos/MyImpactFlow/MyImpactFlow.github.io/pages --jq '.status'
+# 2. Welche Dateien fehlen/geändert?
+python3 backup-manager.py verify
 
-# 3. CNAME prüfen
+# 3. ALLES aus Backup wiederherstellen
+python3 backup-manager.py restore
+
+# 4. Wiederhergestellte Dateien pushen
+git add -A
+git commit -m "Notfall-Restore aus Backup"
+git push origin main
+
+# 5. Prüfen ob alles wieder da ist
+python3 check-live-urls.py --post
+```
+
+Falls auch Git kaputt ist:
+```bash
+# CNAME prüfen
 cat CNAME  # Muss "go.myimpactflow.ch" enthalten
 
-# 4. Letzten funktionierenden Commit finden
-git log --oneline -10
+# GitHub Pages Status
+gh api repos/MyImpactFlow/MyImpactFlow.github.io/pages --jq '.status'
 
-# 5. Zurücksetzen
+# Letzten guten Commit finden
+git log --oneline -10
 git revert HEAD
 git push
 ```

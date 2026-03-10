@@ -32,7 +32,7 @@
       "datei": "danke-v1.0.html",
       "repo": "MyImpactFlow.github.io",
       "beschreibung": "Danke-Seite Version 1.0 (Legacy)",
-      "kritisch": false
+      "kritisch": true
     },
     {
       "url": "https://go.myimpactflow.ch/impressum.html",
@@ -60,14 +60,14 @@
       "datei": "revlink-herzkraft.html",
       "repo": "MyImpactFlow.github.io",
       "beschreibung": "Ref-Link Generator Herzkraft-Edition",
-      "kritisch": false
+      "kritisch": true
     },
     {
       "url": "https://go.myimpactflow.ch/konzept-reflink-herzkraft.html",
       "datei": "konzept-reflink-herzkraft.html",
       "repo": "MyImpactFlow.github.io",
       "beschreibung": "Konzept Ref-Link Herzkraft",
-      "kritisch": false
+      "kritisch": true
     },
     {
       "url": "https://go.myimpactflow.ch/impact-flow-slides/",
