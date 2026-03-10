@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Danke &mdash; Deine Herzkraft-Analyse wird erstellt</title>
+  <meta name="description" content="Deine pers&ouml;nliche Herzkraft-Analyse wird gerade f&uuml;r dich erstellt. Pr&uuml;fe deinen Posteingang." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grey:       #878787;
+      --pink:       #f29cb6;
+      --mint:       #9dd3c7;
+      --dark:       #2d2d2d;
+      --light:      #faf9f7;
+      --white:      #ffffff;
+      --pink-soft:  #fff0f4;
+      --mint-soft:  #f0faf8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--light);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Navigation ──────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(250,249,247,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .nav-logo img { height: 40px; }
+    .nav-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--pink);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    /* ── Main Content ────────────────────────────────────── */
+    main {
+      flex: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 120px 24px 60px;
+      text-align: center;
+    }
+
+    /* ── Checkmark Animation ─────────────────────────────── */
+    .check-circle {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      animation: checkPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .check-circle svg {
+      width: 40px; height: 40px;
+      stroke: var(--white);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: checkDraw 0.5s 0.4s ease forwards;
+    }
+    @keyframes checkPop {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.15); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes checkDraw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ── Headline ────────────────────────────────────────── */
+    .danke-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+    .danke-headline .name { color: var(--pink); }
+
+    .danke-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: #666;
+      max-width: 520px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+
+    /* ── Steps ───────────────────────────────────────────── */
+    .steps-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 28px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      text-align: left;
+      padding: 24px 28px;
+      background: var(--white);
+      border: 2px solid rgba(242,156,182,0.1);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+
+    .step-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.4rem;
+    }
+    .step-icon-1 { background: var(--pink-soft); }
+    .step-icon-2 { background: #fef9ee; }
+    .step-icon-3 { background: var(--mint-soft); }
+
+    .step-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .step-content p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.55;
+    }
+    .step-content strong {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .step-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--pink);
+      margin-bottom: 2px;
+      display: block;
+    }
+
+    /* ── Spam Hinweis ────────────────────────────────────── */
+    .spam-box {
+      margin-top: 36px;
+      padding: 20px 24px;
+      background: var(--mint-soft);
+      border: 2px solid rgba(157,211,199,0.3);
+      border-radius: 16px;
+      text-align: center;
+    }
+    .spam-box p {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.6;
+    }
+    .spam-box strong {
+      color: var(--dark);
+      font-weight: 600;
+    }
+    .spam-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* ── Reveal Animation ────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      padding: 36px 24px;
+      background: var(--dark);
+      text-align: center;
+    }
+    footer img { height: 32px; margin-bottom: 12px; opacity: 0.7; }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: var(--white); }
+
+    /* ── Konfetti ────────────────────────────────────────── */
+    .confetti-container {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      top: -20px;
+      opacity: 0;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+      20%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(105vh) rotate(720deg) scale(0.4); }
+    }
+    @keyframes confettiSway {
+      0%, 100% { margin-left: 0; }
+      25%  { margin-left: 30px; }
+      75%  { margin-left: -30px; }
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      main { padding: 100px 16px 40px; }
+      .step { padding: 20px 20px; gap: 16px; }
+      .step-icon { width: 42px; height: 42px; font-size: 1.2rem; }
+      nav { padding: 12px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav>
+    <a href="herz-analyse.html" class="nav-logo">
+      <img
+        src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-dark.png"
+        alt="ImpactFlow"
+        loading="lazy"
+      />
+    </a>
+    <span class="nav-label">Herzkraft-Analyse</span>
+  </nav>
+
+  <!-- ── Main Content ───────────────────────────────────── -->
+  <main>
+
+    <!-- Checkmark -->
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24"><polyline points="6 12 10 16 18 8" /></svg>
+    </div>
+
+    <!-- Headline mit Vorname -->
+    <h1 class="danke-headline reveal">
+      Danke, <span class="name" id="user-name"></span>! &#128155;
+    </h1>
+
+    <p class="danke-subtitle reveal reveal-delay-1">
+      Deine pers&ouml;nliche Herzkraft-Analyse wird gerade f&uuml;r dich erstellt &mdash;
+      basierend auf deinen Antworten.
+    </p>
+
+    <!-- 3 Schritte -->
+    <p class="steps-label reveal reveal-delay-2">Was jetzt passiert</p>
+
+    <div class="step reveal reveal-delay-2">
+      <div class="step-icon step-icon-1">&#128231;</div>
+      <div class="step-content">
+        <span class="step-number">Schritt 1</span>
+        <h3>E-Mail best&auml;tigen</h3>
+        <p>
+          Pr&uuml;fe deinen Posteingang und klicke den <strong>Best&auml;tigungslink</strong>.
+          Erst danach wird deine Analyse erstellt und zugestellt.
+        </p>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-3">
+      <div class="step-icon step-icon-2">&#9203;</div>
+      <div class="step-content">
+        <span class="step-number">Schritt 2</span>
+        <h3>4&ndash;5 Minuten Geduld</h3>
+        <p>
+          Deine Analyse wird <strong>individuell f&uuml;r dich erstellt</strong>.
+          Das dauert einen Moment, weil sie auf deinen pers&ouml;nlichen Antworten basiert
+          &mdash; keine Standard-Vorlage.
+        </p>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-4">
+      <div class="step-icon step-icon-3">&#128196;</div>
+      <div class="step-content">
+        <span class="step-number">Schritt 3</span>
+        <h3>PDF &ouml;ffnen &amp; lesen</h3>
+        <p>
+          Du erh&auml;ltst dein pers&ouml;nliches PDF direkt per E-Mail.
+          Nimm dir <strong>6 Minuten in Ruhe</strong> daf&uuml;r &mdash; es lohnt sich.
+        </p>
+      </div>
+    </div>
+
+    <!-- Spam Hinweis -->
+    <div class="spam-box reveal reveal-delay-4">
+      <span class="spam-icon">&#128270;</span>
+      <p>
+        Falls du keine E-Mail findest: Pr&uuml;fe deinen <strong>Spam- oder Junk-Ordner</strong>.
+        Suche nach <strong>ImpactFlow</strong> oder <strong>go@impactflow.ch</strong>.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer>
+    <img
+      src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-white.png"
+      alt="ImpactFlow"
+    />
+    <p>
+      &copy; 2026 ImpactFlow &nbsp;&middot;&nbsp;
+      <a href="impressum.html">Impressum</a> &nbsp;&middot;&nbsp;
+      <a href="datenschutz.html">Datenschutz</a>
+    </p>
+  </footer>
+
+  <script>
+    // ── Vorname aus URL lesen ──────────────────────────────
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var name = params.get('name');
+      var el = document.getElementById('user-name');
+      if (name && name.trim()) {
+        el.textContent = name.trim();
+      } else {
+        // Fallback: kein Name → nur "Danke! 💛"
+        el.parentElement.innerHTML = 'Danke! &#128155;';
+      }
+    })();
+
+    // ── Scroll Reveal ──────────────────────────────────────
+    var reveals = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { observer.observe(el); });
+
+    // ── Nav scroll shadow ──────────────────────────────────
+    window.addEventListener('scroll', function() {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── Konfetti-Effekt ──────────────────────────────────
+    (function() {
+      var colors = ['#f29cb6', '#9dd3c7', '#ffd700', '#ff8fab', '#a8e6cf', '#ffb347', '#dda0dd', '#87ceeb'];
+      var shapes = ['circle', 'rect', 'diamond'];
+      var container = document.createElement('div');
+      container.className = 'confetti-container';
+      document.body.appendChild(container);
+
+      var count = 60;
+      for (var i = 0; i < count; i++) {
+        var piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        var shape = shapes[Math.floor(Math.random() * shapes.length)];
+        var size = 6 + Math.random() * 10;
+        var left = Math.random() * 100;
+        var delay = Math.random() * 1.2;
+        var duration = 2.5 + Math.random() * 2;
+        var swayDuration = 1.5 + Math.random() * 2;
+
+        piece.style.left = left + '%';
+        piece.style.width = size + 'px';
+        piece.style.height = (shape === 'rect' ? size * 0.5 : size) + 'px';
+        piece.style.background = color;
+        piece.style.animationDelay = (0.3 + delay) + 's';
+        piece.style.animationDuration = duration + 's';
+
+        if (shape === 'circle') {
+          piece.style.borderRadius = '50%';
+        } else if (shape === 'diamond') {
+          piece.style.borderRadius = '2px';
+          piece.style.transform = 'rotate(45deg)';
+        } else {
+          piece.style.borderRadius = '2px';
+        }
+
+        // Sway-Animation zusätzlich
+        piece.style.animation = 'confettiFall ' + duration + 's ' + (0.3 + delay) + 's linear forwards, confettiSway ' + swayDuration + 's ' + delay + 's ease-in-out infinite';
+
+        container.appendChild(piece);
+      }
+
+      // Container nach 6s entfernen (aufräumen)
+      setTimeout(function() {
+        container.remove();
+      }, 6000);
+    })();
+  </script>
+
+</body>
+</html>

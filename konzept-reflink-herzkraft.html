@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Konzept: RefLink-System Herzkraft-Analyse &mdash; ImpactFlow</title>
+  <meta name="robots" content="noindex" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 16mm 20mm 16mm;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #f29cb6;
+      --pink-soft: #fff0f4;
+      --mint: #9dd3c7;
+      --mint-soft: #f0faf8;
+      --dark: #2d2d2d;
+      --grey: #878787;
+      --light: #faf9f7;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.65;
+      font-size: 10.5pt;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+
+    /* ── Cover Page ──────────────────────────────────────── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(160deg, var(--white) 0%, var(--pink-soft) 40%, var(--mint-soft) 100%);
+      padding: 60px 40px;
+      page-break-after: always;
+    }
+
+    .cover-logo { height: 64px; margin-bottom: 40px; opacity: 0.85; }
+
+    .cover-badge {
+      display: inline-block;
+      background: var(--pink);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 28px;
+    }
+
+    .cover h1 {
+      font-size: 2.6rem;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .cover h1 span { color: var(--pink); }
+
+    .cover-subtitle {
+      font-size: 1.1rem;
+      color: var(--grey);
+      max-width: 480px;
+      margin: 0 auto 48px;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      font-size: 0.82rem;
+      color: var(--grey);
+    }
+    .cover-meta strong { color: var(--dark); }
+
+    /* ── Page Layout ─────────────────────────────────────── */
+    .page {
+      padding: 30px 0;
+      page-break-before: always;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--pink);
+    }
+    .page-number {
+      width: 36px; height: 36px;
+      background: var(--pink);
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .page-header h2 {
+      font-size: 1.5rem;
+      color: var(--dark);
+    }
+
+    /* ── Content Styles ──────────────────────────────────── */
+    p { margin-bottom: 12px; }
+
+    .lead {
+      font-size: 1rem;
+      color: var(--grey);
+      margin-bottom: 18px;
+      max-width: 600px;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section h3 {
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 12px;
+      padding-left: 14px;
+      border-left: 3px solid var(--mint);
+    }
+
+    /* ── Flow Diagram ────────────────────────────────────── */
+    .flow-diagram {
+      background: var(--light);
+      border-radius: 16px;
+      padding: 22px 20px;
+      margin: 16px 0;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .flow-row {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .flow-box {
+      flex: 1;
+      background: white;
+      border-radius: 10px;
+      padding: 12px 10px;
+      text-align: center;
+      border: 2px solid rgba(0,0,0,0.06);
+      position: relative;
+    }
+    .flow-box.pink { border-color: var(--pink); background: var(--pink-soft); }
+    .flow-box.mint { border-color: var(--mint); background: var(--mint-soft); }
+    .flow-box.dark { border-color: var(--dark); background: var(--dark); color: white; }
+    .flow-box.dark .flow-label { color: rgba(255,255,255,0.6); }
+
+    .flow-icon { font-size: 1.2rem; margin-bottom: 4px; display: block; }
+    .flow-title { font-weight: 700; font-size: 0.8rem; margin-bottom: 2px; }
+    .flow-label { font-size: 0.7rem; color: var(--grey); line-height: 1.35; }
+
+    .flow-arrow {
+      text-align: center;
+      font-size: 1.1rem;
+      color: var(--pink);
+      padding: 1px 0;
+      letter-spacing: 0.5em;
+    }
+    .flow-arrow-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--pink);
+      width: 28px;
+      flex-shrink: 0;
+    }
+
+    /* ── Cards ────────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 16px 0;
+    }
+
+    .card {
+      background: var(--light);
+      border-radius: 12px;
+      padding: 16px 15px;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .card.pink-border { border-left: 4px solid var(--pink); }
+    .card.mint-border { border-left: 4px solid var(--mint); }
+
+    .card-icon { font-size: 1.3rem; margin-bottom: 8px; display: block; }
+    .card h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--dark);
+    }
+    .card p {
+      font-size: 0.82rem;
+      color: var(--grey);
+      margin-bottom: 0;
+      line-height: 1.55;
+    }
+
+    /* ── Table ────────────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 0.85rem;
+    }
+    th {
+      background: var(--dark);
+      color: white;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    th:first-child { border-radius: 8px 0 0 0; }
+    th:last-child { border-radius: 0 8px 0 0; }
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: var(--light); }
+    td code {
+      background: var(--pink-soft);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      color: var(--dark);
+    }
+
+    /* ── Code Block ───────────────────────────────────────── */
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      border-radius: 10px;
+      padding: 18px 20px;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+    .code-block .comment { color: #6a9955; }
+    .code-block .string { color: #ce9178; }
+    .code-block .keyword { color: #569cd6; }
+    .code-block .param { color: #9cdcfe; }
+
+    /* ── Info Box ─────────────────────────────────────────── */
+    .info-box {
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 16px 0;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .info-box.pink { background: var(--pink-soft); border: 1px solid rgba(242,156,182,0.3); }
+    .info-box.mint { background: var(--mint-soft); border: 1px solid rgba(157,211,199,0.3); }
+    .info-box-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+    .info-box-text { font-size: 0.88rem; line-height: 1.6; }
+    .info-box-text strong { color: var(--dark); }
+
+    /* ── Checklist ────────────────────────────────────────── */
+    .checklist {
+      list-style: none;
+      margin: 12px 0;
+    }
+    .checklist li {
+      padding: 10px 14px 10px 40px;
+      position: relative;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      font-size: 0.88rem;
+    }
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--pink);
+      border-radius: 4px;
+    }
+    .checklist li.done::before {
+      content: '\2713';
+      background: var(--mint);
+      border-color: var(--mint);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .checklist li.done strong { color: var(--grey); text-decoration: line-through; }
+    .checklist li strong { display: block; margin-bottom: 2px; }
+    .checklist li span { font-size: 0.78rem; color: var(--grey); }
+
+    /* ── Priority Badges ────────────────────────────────────── */
+    .prio { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-left: 6px; vertical-align: middle; }
+    .prio.p1 { background: #fce4ec; color: #c62828; }
+    .prio.p2 { background: #fff3e0; color: #e65100; }
+    .prio.p3 { background: #e3f2fd; color: #1565c0; }
+
+    /* ── Timeline ─────────────────────────────────────────── */
+    .timeline {
+      margin: 20px 0;
+      padding-left: 24px;
+      border-left: 3px solid var(--pink);
+    }
+    .timeline-item {
+      padding: 14px 0 14px 20px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 18px;
+      width: 14px;
+      height: 14px;
+      background: var(--pink);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--pink);
+    }
+    .timeline-item .tl-phase {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--pink);
+      margin-bottom: 4px;
+    }
+    .timeline-item .tl-title {
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+    }
+    .timeline-item .tl-desc {
+      font-size: 0.82rem;
+      color: var(--grey);
+    }
+
+    /* ── Badge ────────────────────────────────────────────── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .badge.green { background: #e8f5e9; color: #2e7d32; }
+    .badge.orange { background: #fff3e0; color: #e65100; }
+    .badge.blue { background: #e3f2fd; color: #1565c0; }
+    .badge.pink { background: var(--pink-soft); color: #c2185b; }
+
+    /* ── Print Optimizations ──────────────────────────────── */
+    @media print {
+      body {
+        font-size: 9pt;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .no-print { display: none; }
+
+      /* ── Cover compact ── */
+      .cover { min-height: auto; padding: 60px 40px; }
+
+      /* ── Page spacing ── */
+      .page { padding: 16px 0; }
+      .page-header { margin-bottom: 14px; padding-bottom: 8px; }
+      .lead { margin-bottom: 12px; font-size: 0.92rem; }
+      .section { margin-bottom: 16px; }
+      p { margin-bottom: 8px; }
+
+      /* ── Cards compact ── */
+      .card-grid { gap: 8px; margin: 10px 0; }
+      .card { padding: 12px 12px; }
+      .card-icon { font-size: 1.1rem; margin-bottom: 4px; }
+      .card h4 { font-size: 0.82rem; margin-bottom: 3px; }
+      .card p { font-size: 0.78rem; }
+
+      /* ── Flow diagram compact ── */
+      .flow-diagram { padding: 16px 14px; margin: 10px 0; }
+      .flow-row { gap: 8px; margin-bottom: 2px; }
+      .flow-box { padding: 8px 8px; border-radius: 8px; }
+      .flow-icon { font-size: 1rem; margin-bottom: 2px; }
+      .flow-title { font-size: 0.74rem; margin-bottom: 1px; }
+      .flow-label { font-size: 0.65rem; }
+      .flow-arrow { padding: 0; font-size: 0.9rem; }
+      .flow-arrow-right { width: 22px; font-size: 0.85rem; }
+
+      /* ── Tables compact ── */
+      table { margin: 8px 0; font-size: 0.8rem; }
+      th { padding: 6px 10px; font-size: 0.72rem; }
+      td { padding: 6px 10px; }
+      td code { font-size: 0.72rem; }
+
+      /* ── Code blocks compact ── */
+      .code-block { padding: 12px 14px; margin: 8px 0; font-size: 0.72rem; line-height: 1.55; }
+
+      /* ── Info boxes compact ── */
+      .info-box { padding: 10px 14px; margin: 10px 0; gap: 10px; }
+      .info-box-icon { font-size: 1.1rem; }
+      .info-box-text { font-size: 0.82rem; line-height: 1.5; }
+
+      /* ── Timeline compact ── */
+      .timeline { margin: 12px 0; padding-left: 20px; }
+      .timeline-item { padding: 8px 0 8px 16px; }
+      .timeline-item .tl-phase { font-size: 0.65rem; margin-bottom: 2px; }
+      .timeline-item .tl-title { font-size: 0.85rem; margin-bottom: 2px; }
+      .timeline-item .tl-desc { font-size: 0.78rem; }
+      .timeline-item::before { left: -28px; top: 12px; width: 12px; height: 12px; }
+
+      /* ── Checklist compact ── */
+      .checklist li { padding: 6px 12px 6px 34px; font-size: 0.82rem; }
+      .checklist li::before { left: 10px; top: 9px; width: 14px; height: 14px; }
+      .checklist li strong { margin-bottom: 1px; }
+      .checklist li span { font-size: 0.74rem; }
+
+      /* ── Avoid breaking inside key elements ── */
+      .flow-diagram { page-break-inside: avoid; }
+      .card-grid { page-break-inside: avoid; }
+      .info-box { page-break-inside: avoid; }
+      .code-block { page-break-inside: avoid; }
+      .timeline { page-break-inside: avoid; }
+      table { page-break-inside: avoid; }
+      .flow-row { page-break-inside: avoid; }
+    }
+
+    /* ── Screen: Print Button ─────────────────────────────── */
+    .print-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: var(--dark);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 999;
+      font-size: 0.85rem;
+    }
+    .print-bar button {
+      background: var(--pink);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+    }
+    .print-bar button:hover { background: #ee8aa6; }
+
+    @media print {
+      .print-bar { display: none !important; }
+      body { padding-top: 0 !important; }
+    }
+    @media screen {
+      body { padding-top: 56px; max-width: 780px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Print Bar (nur am Bildschirm) -->
+  <div class="print-bar no-print">
+    <span>Konzept: RefLink-System Herzkraft-Analyse</span>
+    <button onclick="window.print()">&#128424; Als PDF drucken</button>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- DECKBLATT                                              -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="cover">
+    <img
+      class="cover-logo"
+      src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-color.png"
+      alt="ImpactFlow"
+    />
+    <span class="cover-badge">Internes Konzeptpapier</span>
+    <h1>RefLink-System<br/><span>Herzkraft-Analyse</span></h1>
+    <p class="cover-subtitle">
+      Empfehlungsprogramm f&uuml;r die Herzkraft-Analyse Landing Page &mdash;
+      sauberes Tracking, Quentn-Integration und automatisierte Zuordnung.
+    </p>
+    <div class="cover-meta">
+      <span><strong>Projekt:</strong> ImpactFlow</span>
+      <span><strong>Datum:</strong> 3. M&auml;rz 2026</span>
+      <span><strong>Version:</strong> 1.1</span>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SEITE 1: &Uuml;BERSICHT                                    -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <div class="page-number">1</div>
+      <h2>&Uuml;bersicht &amp; Ziel</h2>
+    </div>
+
+    <p class="lead">
+      Partner (Coaches, Therapeutinnen, Netzwerk-Kontakte) sollen die Herzkraft-Analyse
+      mit ihrem eigenen Link bewerben k&ouml;nnen. Jede Anforderung wird dem Empfehler zugeordnet.
+    </p>
+
+    <div class="card-grid">
+      <div class="card pink-border">
+        <span class="card-icon">&#127919;</span>
+        <h4>Ziel</h4>
+        <p>Jeder Partner erh&auml;lt einen pers&ouml;nlichen Link. Wer &uuml;ber diesen Link die Analyse anfordert, wird automatisch dem Partner zugeordnet.</p>
+      </div>
+      <div class="card mint-border">
+        <span class="card-icon">&#128279;</span>
+        <h4>Link-Format</h4>
+        <p><code>go.myimpactflow.ch/herz-analyse.html ?ref=partner-code&amp;src=linkedin</code></p>
+      </div>
+      <div class="card pink-border">
+        <span class="card-icon">&#128200;</span>
+        <h4>Tracking</h4>
+        <p>Pageview, Formular-Absendung und E-Mail werden mit Partner + Plattform erfasst und in N8N gespeichert.</p>
+      </div>
+      <div class="card mint-border">
+        <span class="card-icon">&#128231;</span>
+        <h4>Quentn-Integration</h4>
+        <p>Der Empfehler-Code wird als Hidden Field direkt an Quentn &uuml;bermittelt &mdash; sichtbar im Kontakt-Profil.</p>
+      </div>
+    </div>
+
+    <div class="info-box mint">
+      <span class="info-box-icon">&#128161;</span>
+      <div class="info-box-text">
+        <strong>Wichtig:</strong> Das System l&auml;uft komplett client-seitig (GitHub Pages).
+        Kein Backend n&ouml;tig. Tracking erfolgt via <code>sendBeacon</code> an N8N-Webhooks.
+        Die Partner-Zuordnung geschieht &uuml;ber einen einfachen URL-Parameter.
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>IST-Zustand vs. SOLL</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Komponente</th>
+            <th>IST (heute)</th>
+            <th>SOLL (nach Umsetzung)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>RefLink-Generator</strong></td>
+            <td>Nur f&uuml;r WhatsApp-Seite (<code>revlink.html</code>)</td>
+            <td>Erweitert f&uuml;r Herzkraft-Analyse</td>
+          </tr>
+          <tr>
+            <td><strong>Partner-Tracking</strong></td>
+            <td><code>?wa=</code> Parameter (WhatsApp-Link)</td>
+            <td><code>?ref=</code> Parameter (Partner-Code)</td>
+          </tr>
+          <tr>
+            <td><strong>Quentn-Zuordnung</strong></td>
+            <td>Nicht vorhanden</td>
+            <td>Hidden Field <code>empfohlen_von</code></td>
+          </tr>
+          <tr>
+            <td><strong>Conversion-Tracking</strong></td>
+            <td>sendBeacon ohne Empfangs-Workflow</td>
+            <td>N8N-Workflow speichert in DataTable</td>
+          </tr>
+          <tr>
+            <td><strong>Reporting</strong></td>
+            <td>Keines</td>
+            <td>Slack-Benachrichtigung + Wochen-Report</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SEITE 2: SYSTEM-ARCHITEKTUR                             -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <div class="page-number">2</div>
+      <h2>System-Architektur</h2>
+    </div>
+
+    <p class="lead">
+      Der komplette Datenfluss &mdash; vom Partner-Link bis zur Zuordnung in Quentn und dem Reporting.
+    </p>
+
+    <!-- ── Flow Diagram ──────────────────────────────────── -->
+    <div class="flow-diagram">
+
+      <!-- Row 1: Partner generiert Link -->
+      <div class="flow-row">
+        <div class="flow-box pink">
+          <span class="flow-icon">&#129489;</span>
+          <div class="flow-title">Partner</div>
+          <div class="flow-label">&Ouml;ffnet RefLink-Generator</div>
+        </div>
+        <div class="flow-arrow-right">&rarr;</div>
+        <div class="flow-box">
+          <span class="flow-icon">&#128296;</span>
+          <div class="flow-title">Generator-Seite</div>
+          <div class="flow-label">W&auml;hlt Name + Plattform</div>
+        </div>
+        <div class="flow-arrow-right">&rarr;</div>
+        <div class="flow-box mint">
+          <span class="flow-icon">&#128279;</span>
+          <div class="flow-title">Pers&ouml;nlicher Link</div>
+          <div class="flow-label">herz-analyse.html?ref=code&amp;src=linkedin</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">&darr;</div>
+
+      <!-- Row 2: Besucherin klickt -->
+      <div class="flow-row">
+        <div class="flow-box pink">
+          <span class="flow-icon">&#128105;</span>
+          <div class="flow-title">Besucherin</div>
+          <div class="flow-label">Klickt Partner-Link</div>
+        </div>
+        <div class="flow-arrow-right">&rarr;</div>
+        <div class="flow-box">
+          <span class="flow-icon">&#127760;</span>
+          <div class="flow-title">Landing Page</div>
+          <div class="flow-label"><code>?ref=</code> &rarr; localStorage<br/>Pageview-Tracking &rarr; N8N</div>
+        </div>
+        <div class="flow-arrow-right">&rarr;</div>
+        <div class="flow-box mint">
+          <span class="flow-icon">&#128196;</span>
+          <div class="flow-title">Formular</div>
+          <div class="flow-label">E-Mail + 5 Fragen + Hidden: ref</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">&darr;</div>
+
+      <!-- Row 3: Daten fliessen -->
+      <div class="flow-row">
+        <div class="flow-box">
+          <span class="flow-icon">&#128232;</span>
+          <div class="flow-title">Quentn</div>
+          <div class="flow-label">Kontakt mit Feld<br/>&bdquo;Empfohlen von&ldquo;</div>
+        </div>
+        <div class="flow-arrow-right">&rarr;</div>
+        <div class="flow-box">
+          <span class="flow-icon">&#9989;</span>
+          <div class="flow-title">DOI E-Mail</div>
+          <div class="flow-label">Best&auml;tigung klicken</div>
+        </div>
+        <div class="flow-arrow-right">&rarr;</div>
+        <div class="flow-box dark">
+          <span class="flow-icon">&#9881;&#65039;</span>
+          <div class="flow-title">N8N Workflow</div>
+          <div class="flow-label">Gemini AI &rarr; PDF &rarr; E-Mail</div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">&darr;</div>
+
+      <!-- Row 4: Parallel Tracking -->
+      <div class="flow-row">
+        <div class="flow-box mint">
+          <span class="flow-icon">&#128202;</span>
+          <div class="flow-title">Conversion-Tracking</div>
+          <div class="flow-label">sendBeacon &rarr; N8N Webhook<br/>&rarr; DataTable speichern</div>
+        </div>
+        <div class="flow-arrow-right">&rarr;</div>
+        <div class="flow-box">
+          <span class="flow-icon">&#128172;</span>
+          <div class="flow-title">Slack-Meldung</div>
+          <div class="flow-label">&bdquo;Neue Analyse &uuml;ber<br/>Partner XY angefordert&ldquo;</div>
+        </div>
+        <div class="flow-arrow-right">&rarr;</div>
+        <div class="flow-box pink">
+          <span class="flow-icon">&#128203;</span>
+          <div class="flow-title">Wochen-Report</div>
+          <div class="flow-label">Conversions pro Partner<br/>+ Plattform-Auswertung</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box pink">
+      <span class="info-box-icon">&#128269;</span>
+      <div class="info-box-text">
+        <strong>Zwei parallele Datenwege:</strong><br/>
+        <strong>Weg 1 (Quentn):</strong> Formular &rarr; Quentn (mit Hidden Field <code>ref</code>) &rarr; DOI &rarr; N8N &rarr; PDF<br/>
+        <strong>Weg 2 (Tracking):</strong> sendBeacon &rarr; N8N-Webhook &rarr; DataTable &rarr; Slack + Report
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SEITE 3: KOMPONENTEN IM DETAIL                          -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <div class="page-number">3</div>
+      <h2>Komponenten im Detail</h2>
+    </div>
+
+    <!-- ── A: RefLink-Generator ──────────────────────────── -->
+    <div class="section">
+      <h3>A &mdash; RefLink-Generator (Neue Seite oder Erweiterung)</h3>
+      <p>
+        Der Partner gibt seinen <strong>Namen oder Code</strong> ein und w&auml;hlt die Plattform(en).
+        Der Generator erzeugt den fertigen Link + QR-Code + PDF zum Ausdrucken.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Eingabe</th>
+            <th>Beispiel</th>
+            <th>Ergebnis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Partner-Name</td>
+            <td><code>susanne-meier</code></td>
+            <td><code>herz-analyse.html?ref=susanne-meier</code></td>
+          </tr>
+          <tr>
+            <td>+ Plattform</td>
+            <td>LinkedIn</td>
+            <td><code>herz-analyse.html?ref=susanne-meier&amp;src=linkedin</code></td>
+          </tr>
+          <tr>
+            <td>+ Plattform</td>
+            <td>Instagram</td>
+            <td><code>herz-analyse.html?ref=susanne-meier&amp;src=instagram</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box mint">
+        <span class="info-box-icon">&#128196;</span>
+        <div class="info-box-text">
+          <strong>PDF-Export f&uuml;r Partner:</strong> Enth&auml;lt alle Links, QR-Code und Kurzanleitung
+          &mdash; genau wie beim bestehenden <code>revlink.html</code>, aber f&uuml;r die Herzkraft-Analyse.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── B: Landing Page Anpassung ─────────────────────── -->
+    <div class="section">
+      <h3>B &mdash; Landing Page (<code>herz-analyse.html</code>)</h3>
+      <p>Was auf der Seite angepasst werden muss:</p>
+
+      <div class="card-grid">
+        <div class="card pink-border">
+          <h4>1. Parameter lesen</h4>
+          <p><code>?ref=</code> und <code>?src=</code> aus der URL auslesen und in <code>localStorage</code> speichern.</p>
+        </div>
+        <div class="card mint-border">
+          <h4>2. Hidden Field setzen</h4>
+          <p>Neues Feld <code>field_empfohlen_von</code> im Formular mit dem Partner-Code bef&uuml;llen.</p>
+        </div>
+        <div class="card pink-border">
+          <h4>3. sendBeacon erweitern</h4>
+          <p>Bei Formular-Submit den <code>ref</code>-Code zus&auml;tzlich an den N8N-Tracking-Webhook senden.</p>
+        </div>
+        <div class="card mint-border">
+          <h4>4. Pageview-Tracking</h4>
+          <p>Beim Seitenaufruf mit <code>?ref=</code> ein Event an N8N senden (Besuch z&auml;hlen).</p>
+        </div>
+      </div>
+
+      <p style="margin-top:16px"><strong>Datenfluss im Formular:</strong></p>
+      <div class="code-block">
+        <span class="comment">// Beim Laden der Seite:</span><br/>
+        <span class="keyword">var</span> <span class="param">ref</span> = params.get(<span class="string">'ref'</span>); &nbsp; <span class="comment">// z.B. "susanne-meier"</span><br/>
+        <span class="keyword">var</span> <span class="param">src</span> = params.get(<span class="string">'src'</span>); &nbsp; <span class="comment">// z.B. "linkedin"</span><br/>
+        localStorage.setItem(<span class="string">'if_ref'</span>, ref);<br/>
+        localStorage.setItem(<span class="string">'if_source'</span>, src);<br/><br/>
+        <span class="comment">// Hidden Field im Formular bef&uuml;llen:</span><br/>
+        document.getElementById(<span class="string">'ref-field'</span>).value = ref;<br/><br/>
+        <span class="comment">// Bei Submit &rarr; Quentn erh&auml;lt automatisch:</span><br/>
+        <span class="comment">// field_empfohlen_von = "susanne-meier"</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SEITE 4: QUENTN + N8N                                   -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <div class="page-number">4</div>
+      <h2>Quentn &amp; N8N Integration</h2>
+    </div>
+
+    <!-- ── Quentn ────────────────────────────────────────── -->
+    <div class="section">
+      <h3>C &mdash; Quentn: Custom Field anlegen</h3>
+      <p>
+        In Quentn muss ein neues benutzerdefiniertes Feld angelegt werden,
+        damit der Empfehler-Code direkt am Kontakt gespeichert wird.
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Einstellung</th>
+            <th>Wert</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Feldname</strong></td><td>Empfohlen von</td></tr>
+          <tr><td><strong>Technischer Name</strong></td><td><code>field_empfohlen_von</code></td></tr>
+          <tr><td><strong>Typ</strong></td><td>Textfeld (einzeilig)</td></tr>
+          <tr><td><strong>Sichtbar in</strong></td><td>Kontaktdetails</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box pink">
+        <span class="info-box-icon">&#9888;&#65039;</span>
+        <div class="info-box-text">
+          <strong>Manueller Schritt in Quentn:</strong> Das Custom Field muss in der Quentn-Oberfl&auml;che
+          unter <em>Kontakte &rarr; Felder verwalten</em> angelegt werden. Der technische Name wird
+          von Quentn automatisch generiert &mdash; diesen brauchen wir dann f&uuml;r das Hidden Field im Formular.
+        </div>
+      </div>
+    </div>
+
+    <!-- ── N8N Workflows ─────────────────────────────────── -->
+    <div class="section">
+      <h3>D &mdash; N8N: Zwei Workflows</h3>
+
+      <div class="card-grid">
+        <div class="card pink-border">
+          <span class="card-icon">&#9881;&#65039;</span>
+          <h4>Workflow 1: RefLink Conversion Tracker</h4>
+          <p>
+            <strong>Webhook:</strong> <code>/webhook/reflink-herz-conversion</code><br/>
+            Empf&auml;ngt: <code>{ ref, src, email, variant, timestamp }</code><br/>
+            <strong>Aktionen:</strong> DataTable speichern, Slack-Nachricht, optional Quentn-Suche
+          </p>
+        </div>
+        <div class="card mint-border">
+          <span class="card-icon">&#128203;</span>
+          <h4>Workflow 2: Wochen-Report</h4>
+          <p>
+            <strong>Trigger:</strong> Schedule (Freitags 17:00) + Slack-Button<br/>
+            <strong>Aktionen:</strong> DataTable auslesen, nach Partner + Plattform gruppieren, AI-Zusammenfassung, Slack-Report
+          </p>
+        </div>
+      </div>
+
+      <table style="margin-top: 14px;">
+        <caption style="text-align:left; font-weight:700; font-size:0.88rem; margin-bottom:6px; caption-side:top;">N8N DataTable Struktur:</caption>
+        <thead>
+          <tr>
+            <th>Spalte</th>
+            <th>Typ</th>
+            <th>Beispiel</th>
+            <th>Beschreibung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>ref</code></td><td>Text</td><td>susanne-meier</td><td>Partner-Code</td></tr>
+          <tr><td><code>email</code></td><td>Text</td><td>anna@mail.ch</td><td>E-Mail der Besucherin</td></tr>
+          <tr><td><code>src</code></td><td>Text</td><td>linkedin</td><td>Plattform</td></tr>
+          <tr><td><code>variant</code></td><td>Text</td><td>B</td><td>A/B-Test Variante</td></tr>
+          <tr><td><code>event</code></td><td>Text</td><td>conversion</td><td>pageview oder conversion</td></tr>
+          <tr><td><code>timestamp</code></td><td>DateTime</td><td>2026-03-02T14:23:00Z</td><td>Zeitpunkt</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SEITE 5: UMSETZUNGSPLAN                                 -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <div class="page-number">5</div>
+      <h2>Umsetzungsplan</h2>
+    </div>
+
+    <p class="lead">
+      Schritt-f&uuml;r-Schritt Implementierung &mdash; von der Vorbereitung bis zum Go-Live.
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-phase">Phase 1 &mdash; Vorbereitung</div>
+        <div class="tl-title">Quentn: Custom Field anlegen</div>
+        <div class="tl-desc">
+          Neues Feld &bdquo;Empfohlen von&ldquo; in Quentn erstellen.
+          Technischen Feldnamen notieren (z.B. <code>field_empfohlen_von</code>).
+          <span class="badge orange">Manuell in Quentn</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-phase">Phase 2 &mdash; Landing Page</div>
+        <div class="tl-title">herz-analyse.html anpassen</div>
+        <div class="tl-desc">
+          <code>?ref=</code> Parameter lesen &rarr; localStorage.
+          Hidden Field im Formular einf&uuml;gen.
+          sendBeacon mit <code>ref</code> + <code>src</code> erweitern.
+          Pageview-Tracking bei RefLink-Besuchen.
+          <span class="badge blue">Claude Code</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-phase">Phase 3 &mdash; RefLink-Generator</div>
+        <div class="tl-title">Generator-Seite erstellen oder erweitern</div>
+        <div class="tl-desc">
+          Partner gibt Namen ein &rarr; Link wird generiert.
+          Plattform-Links (LinkedIn, Facebook, Instagram, E-Mail).
+          PDF + QR-Code Export f&uuml;r Partner.
+          <span class="badge blue">Claude Code</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-phase">Phase 4 &mdash; N8N Workflows</div>
+        <div class="tl-title">Conversion Tracker + DataTable</div>
+        <div class="tl-desc">
+          Webhook-Workflow: Empf&auml;ngt Conversions &rarr; DataTable.
+          Slack-Benachrichtigung bei jeder Conversion.
+          Wochen-Report Workflow (Schedule + Slack-Button).
+          <span class="badge blue">Claude Code + N8N</span>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="tl-phase">Phase 5 &mdash; Test &amp; Go-Live</div>
+        <div class="tl-title">End-to-End testen + Ausrollen</div>
+        <div class="tl-desc">
+          Test-Partner-Link erstellen &rarr; Analyse anfordern &rarr;
+          Pr&uuml;fen: Quentn-Feld, DataTable-Eintrag, Slack-Meldung.
+          Dann Push + ersten echten Partnern den Generator geben.
+          <span class="badge green">Go-Live</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box mint">
+      <span class="info-box-icon">&#9200;</span>
+      <div class="info-box-text">
+        <strong>Gesch&auml;tzter Aufwand:</strong> Phase 1 (5 Min.) + Phase 2 (30 Min.) + Phase 3 (45 Min.)
+        + Phase 4 (60 Min.) + Phase 5 (20 Min.) = <strong>ca. 2&ndash;3 Stunden</strong> Gesamtaufwand.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SEITE 6: CHECKLISTE + ENTSCHEIDUNGEN                    -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <div class="page-number">6</div>
+      <h2>Checkliste &amp; Status</h2>
+    </div>
+
+    <div class="section">
+      <h3>Erledigte Arbeiten <span class="badge green">Stand 03.03.2026</span></h3>
+      <ul class="checklist">
+        <li class="done">
+          <strong>Landing Page: 2-Step-Formular</strong>
+          <span>E-Mail &rarr; Vorname + 5 Fragen (Schritt-f&uuml;r-Schritt mit Auto-Advance). Progressive Disclosure mit Fortschrittsanzeige.</span>
+        </li>
+        <li class="done">
+          <strong>Danke-Seite v2.0</strong>
+          <span><code>danke.html</code> mit personalisierter Begr&uuml;ssung, Konfetti-Effekt, sequenziellem Pulsieren der 3 Schritte (Step 1 &rarr; Step 2 &rarr; Step 3), Spam-Hinweis als Inline-Box unter Schritt 1. Backup: <code>danke-v1.0.html</code></span>
+        </li>
+        <li class="done">
+          <strong>Success-Message Synchronisation gefixt</strong>
+          <span>Erfolgs-Kachel erschien fr&uuml;hzeitig nach Step 1. Behoben: <code>display:none</code> Failsafe + Redirect auf Danke-Seite.</span>
+        </li>
+        <li class="done">
+          <strong>Typewriter-Effekt repariert</strong>
+          <span>Verwaister <code>updateAnalysen()</code>-Aufruf warf ReferenceError und stoppte den gesamten Script-Block. Entfernt.</span>
+        </li>
+        <li class="done">
+          <strong>Z&auml;hler-Synchronisation (Kachel &#8596; Formular)</strong>
+          <span>Analysen-Z&auml;hler in Kachel, Hero-Formular und Final-Formular zeigen immer exakt die gleiche Zahl via <code>syncFormAnalysen()</code>.</span>
+        </li>
+        <li class="done">
+          <strong>Monotone Z&auml;hler (nur aufw&auml;rts)</strong>
+          <span>Besucher- und Analysen-Counter speichern Hochstwert in localStorage. Kein R&uuml;ckfall bei Page-Reload. Interval-Updates nur noch +0 bis +2.</span>
+        </li>
+        <li class="done">
+          <strong>Social Proof Elemente</strong>
+          <span>Besucher-Kachel, L&auml;nder-Verteilung, &bdquo;lesen gerade&ldquo;, Social-Media-Quellen, Nav-Notifications mit Namen + St&auml;dten.</span>
+        </li>
+        <li class="done">
+          <strong>sendBeacon Tracking</strong>
+          <span>CTA-Tracking via <code>sendBeacon</code> an N8N-Webhook (<code>/webhook/reflink-conversion</code>). &Uuml;berlebt Navigation/Redirect.</span>
+        </li>
+        <li class="done">
+          <strong>Formular-Checkmarks</strong>
+          <span>Gr&uuml;ner Haken (&#10003;) ersetzt Pflichtfeld-Stern (*) bei beantworteten Fragen + Vorname. Visuelles Feedback f&uuml;r den User.</span>
+        </li>
+        <li class="done">
+          <strong>Cache-Busting</strong>
+          <span>Meta-Tags (<code>no-cache, no-store, must-revalidate</code>) auf beiden Seiten. Updates sind sofort sichtbar ohne Hard-Refresh.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Offene Aufgaben: RefLink-System</h3>
+      <ul class="checklist">
+        <li>
+          <strong>Quentn Custom Field <span class="prio p1">Prio 1</span></strong>
+          <span>Neues Textfeld &bdquo;Empfohlen von&ldquo; anlegen. Technischen Namen notieren. <span class="badge orange">Manuell in Quentn</span></span>
+        </li>
+        <li>
+          <strong>Partner-Codes definieren <span class="prio p1">Prio 1</span></strong>
+          <span>Format festlegen: Vorname-Nachname (z.B. <code>susanne-meier</code>) oder K&uuml;rzel (z.B. <code>SM26</code>).</span>
+        </li>
+        <li>
+          <strong>Hidden Field im Formular <span class="prio p1">Prio 1</span></strong>
+          <span><code>?ref=</code> Parameter lesen &rarr; localStorage &rarr; Hidden Field <code>field_empfohlen_von</code> im Quentn-Formular setzen.</span>
+        </li>
+        <li>
+          <strong>Generator-Seite <span class="prio p2">Prio 2</span></strong>
+          <span>Neue <code>reflink-herz.html</code> &mdash; Partner gibt Namen ein, w&auml;hlt Plattform, bekommt Link + QR-Code + PDF.</span>
+        </li>
+        <li>
+          <strong>N8N DataTable <span class="prio p2">Prio 2</span></strong>
+          <span>Neue DataTable f&uuml;r RefLink-Conversions anlegen (6 Spalten: ref, email, src, variant, event, timestamp).</span>
+        </li>
+        <li>
+          <strong>N8N Conversion-Tracker Workflow <span class="prio p2">Prio 2</span></strong>
+          <span>Webhook-Workflow: Empf&auml;ngt Conversions &rarr; DataTable speichern &rarr; Slack-Benachrichtigung.</span>
+        </li>
+        <li>
+          <strong>N8N Wochen-Report Workflow <span class="prio p3">Prio 3</span></strong>
+          <span>Schedule (Freitags 17:00) + Slack-Button. Gruppierung nach Partner + Plattform, AI-Zusammenfassung.</span>
+        </li>
+        <li>
+          <strong>End-to-End Test <span class="prio p1">Prio 1</span></strong>
+          <span>Kompletten Fluss testen: Link &rarr; Seite &rarr; Formular &rarr; Quentn &rarr; PDF + Tracking.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SEITE 7: ZUKÜNFTIGE VERBESSERUNGEN                      -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <div class="page-number">7</div>
+      <h2>Zuk&uuml;nftige Verbesserungen</h2>
+    </div>
+
+    <p class="lead">
+      Geplante Optimierungen f&uuml;r Landing Page, Conversion und Technik &mdash; priorisiert nach Wirkung.
+    </p>
+
+    <div class="section">
+      <h3>Glaubw&uuml;rdigkeit &amp; Konsistenz <span class="prio p1">Prio 1</span></h3>
+      <ul class="checklist">
+        <li>
+          <strong>IP-basierter Counter-Schutz (Backend)</strong>
+          <span>N8N-Webhook der Hochstwert pro IP speichert. Z&auml;hler sinkt nie &mdash; auch bei Inkognito-Modus oder anderem Ger&auml;t. Aktuell nur localStorage (pro Browser).</span>
+        </li>
+        <li>
+          <strong>Counter-Wachstum begrenzen</strong>
+          <span>Bei vielen Page-Reloads steigt der Besucher-Counter unrealistisch schnell. Tageslimit oder zeitbasierte Wachstumsrate einbauen.</span>
+        </li>
+        <li>
+          <strong>Verh&auml;ltnis Besucher &#8596; Analysen validieren</strong>
+          <span>Logische Konsistenz pr&uuml;fen: Wenn 28 Besucher online, aber nur 8 Analysen heute &mdash; passt das? Automatische Verh&auml;ltnis-Korrektur.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Conversion-Optimierung <span class="prio p2">Prio 2</span></h3>
+      <ul class="checklist">
+        <li>
+          <strong>A/B-Test Auswertung</strong>
+          <span>Variante A vs. B: Welche konvertiert besser? Tracking-Daten aus Quentn und N8N analysieren. Gewinner-Variante ausrollen.</span>
+        </li>
+        <li class="done">
+          <strong>Danke-Seite erweitern</strong>
+          <span>Sequenzielles Pulsieren (Step 1&rarr;2&rarr;3), Spam-Hinweis inline unter Step 1, erledigte Steps gedimmt mit &#10003;. Offen: Social Sharing, Empfehlungs-Link, Countdown.</span>
+        </li>
+        <li>
+          <strong>Exit-Intent Popup</strong>
+          <span>Besucherinnen die die Seite verlassen wollen nochmal ansprechen. Sanfter Reminder mit Kern-Nutzenversprechen.</span>
+        </li>
+        <li>
+          <strong>Formular-Abbruch-Tracking</strong>
+          <span>Wo genau brechen User im 2-Step-Formular ab? Welche Frage hat die h&ouml;chste Absprungrate? Event-Tracking pro Schritt.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Technik &amp; Performance <span class="prio p3">Prio 3</span></h3>
+      <ul class="checklist">
+        <li class="done">
+          <strong>Cache-Busting</strong>
+          <span>Meta-Tags (<code>no-cache, no-store, must-revalidate</code>) auf herz-analyse.html + danke.html. Browser fragt bei jedem Besuch beim Server nach.</span>
+        </li>
+        <li>
+          <strong>Lighthouse / Core Web Vitals</strong>
+          <span>Performance-Score pr&uuml;fen und optimieren. Bilder komprimieren, CSS/JS minimieren, LCP und CLS verbessern.</span>
+        </li>
+        <li>
+          <strong>Error Monitoring</strong>
+          <span>JavaScript-Fehler auf der Live-Seite automatisch tracken. <code>window.onerror</code> &rarr; N8N-Webhook &rarr; Slack-Alert bei Fehlern.</span>
+        </li>
+        <li>
+          <strong>Script-Block aufteilen</strong>
+          <span>Aktuell ein einziger <code>&lt;script&gt;</code>-Block (3000+ Zeilen). Ein Fehler in einer Funktion killt alles. Aufteilen in separate Bl&ouml;cke oder try/catch pro Feature.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h3>Offene Entscheidungen</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Frage</th>
+            <th>Option A</th>
+            <th>Option B</th>
+            <th>Empfehlung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Partner-Code Format</strong></td>
+            <td>Name: <code>susanne-meier</code></td>
+            <td>K&uuml;rzel: <code>SM26</code></td>
+            <td><span class="badge pink">Option A</span> &mdash; lesbarer</td>
+          </tr>
+          <tr>
+            <td><strong>Generator &ouml;ffentlich?</strong></td>
+            <td>Jeder kann Link erstellen</td>
+            <td>Nur per Einladung</td>
+            <td><span class="badge pink">Option A</span> &mdash; skalierbar</td>
+          </tr>
+          <tr>
+            <td><strong>Generator-Seite</strong></td>
+            <td><code>revlink.html</code> erweitern</td>
+            <td>Neue <code>reflink-herz.html</code></td>
+            <td><span class="badge pink">Option B</span> &mdash; saubere Trennung</td>
+          </tr>
+          <tr>
+            <td><strong>Counter-Backend</strong></td>
+            <td>N8N-Webhook (DataTable)</td>
+            <td>Cloudflare Worker (KV Store)</td>
+            <td><span class="badge pink">Option A</span> &mdash; passt ins System</td>
+          </tr>
+          <tr>
+            <td><strong>Provisions-Tracking</strong></td>
+            <td>Jetzt einbauen</td>
+            <td>Sp&auml;ter erg&auml;nzen</td>
+            <td><span class="badge pink">Option B</span> &mdash; erst Basis</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-box pink" style="margin-top: 14px;">
+      <span class="info-box-icon">&#128640;</span>
+      <div class="info-box-text">
+        <strong>N&auml;chster Schritt:</strong> Sobald das Quentn Custom Field angelegt ist, kann Phase 1 des
+        RefLink-Systems direkt umgesetzt werden. Die Verbesserungen auf Seite 7 werden parallel nach Priorit&auml;t abgearbeitet.
+      </div>
+    </div>
+
+    <!-- Versions-History -->
+    <div class="section" style="margin-top: 32px;">
+      <h3>Versions-Historie</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Datei</th>
+            <th>Aktuelle Version</th>
+            <th>Backup</th>
+            <th>&Auml;nderungen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>danke.html</strong></td>
+            <td><span class="badge green">v2.0</span> (03.03.2026)</td>
+            <td><code>danke-v1.0.html</code></td>
+            <td>Sequenzielles Pulsieren, Spam-Hint inline, Step-Done Dimming</td>
+          </tr>
+          <tr>
+            <td><strong>herz-analyse.html</strong></td>
+            <td><span class="badge green">v1.4</span> (03.03.2026)</td>
+            <td>&mdash;</td>
+            <td>Checkmarks, monotone Counter, Cache-Busting, Typewriter Fix</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.8rem; color: #999; margin-top: 8px;">
+        &#128274; Bei Problemen: <code>git log --oneline</code> f&uuml;r Commit-Historie.
+        Alte Version wiederherstellen: <code>cp danke-v1.0.html danke.html</code> + push.
+      </p>
+    </div>
+
+  </div>
+
+</body>
+</html>

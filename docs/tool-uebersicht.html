@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex" />
+<title>Tool-Übersicht — ImpactFlow Herzkraft & WhatsApp Funnel</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #e91e8c;
+    --pink-light: #fdf2f8;
+    --mint: #00c9a7;
+    --mint-light: #f0fdf9;
+    --dark: #1a1a2e;
+    --grey: #6b7280;
+    --grey-light: #f3f4f6;
+    --white: #ffffff;
+    --red: #ef4444;
+    --red-light: #fef2f2;
+    --yellow: #f59e0b;
+    --yellow-light: #fffbeb;
+    --blue: #3b82f6;
+    --blue-light: #eff6ff;
+    --green: #22c55e;
+    --green-light: #f0fdf4;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; color:var(--dark); background:var(--grey-light); line-height:1.6; }
+
+  /* === PRINT === */
+  @media print {
+    body { background:white; }
+    .page { box-shadow:none !important; margin:0 !important; page-break-after:always; border-radius:0 !important; }
+    .page:last-child { page-break-after:avoid; }
+    .no-print { display:none !important; }
+    @page { margin: 1.5cm; size: A4; }
+  }
+
+  /* === PAGE LAYOUT === */
+  .page {
+    max-width:900px; margin:30px auto; background:white;
+    border-radius:12px; box-shadow:0 2px 20px rgba(0,0,0,.08);
+    padding:50px 55px; position:relative; overflow:hidden;
+    page-break-after:always;
+  }
+  .page::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg, var(--pink), var(--mint));
+  }
+
+  /* === COVER === */
+  .cover { text-align:center; padding:80px 40px; }
+  .cover h1 { font-family:'Playfair Display',serif; font-size:2.4rem; color:var(--dark); margin-bottom:12px; }
+  .cover .subtitle { font-size:1.15rem; color:var(--grey); margin-bottom:40px; }
+  .cover .meta { display:flex; gap:30px; justify-content:center; flex-wrap:wrap; margin-top:30px; }
+  .cover .meta-item { text-align:center; }
+  .cover .meta-item .number { font-size:2.2rem; font-weight:700; color:var(--pink); }
+  .cover .meta-item .label { font-size:.85rem; color:var(--grey); }
+
+  /* === HEADINGS === */
+  h2 { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--dark); margin-bottom:20px; padding-bottom:10px; border-bottom:2px solid var(--pink); }
+  h3 { font-size:1.1rem; font-weight:700; color:var(--dark); margin:25px 0 12px; }
+  h4 { font-size:.95rem; font-weight:600; color:var(--pink); margin:18px 0 8px; }
+
+  /* === TABLE === */
+  table { width:100%; border-collapse:collapse; margin:15px 0 25px; font-size:.85rem; }
+  th { background:var(--dark); color:white; padding:10px 12px; text-align:left; font-weight:600; font-size:.8rem; text-transform:uppercase; letter-spacing:.5px; }
+  td { padding:9px 12px; border-bottom:1px solid #e5e7eb; vertical-align:top; }
+  tr:hover td { background:var(--grey-light); }
+  tr:last-child td { border-bottom:none; }
+
+  /* === BADGES === */
+  .badge { display:inline-block; padding:2px 10px; border-radius:20px; font-size:.75rem; font-weight:600; }
+  .badge-green { background:var(--green-light); color:#16a34a; }
+  .badge-yellow { background:var(--yellow-light); color:#d97706; }
+  .badge-red { background:var(--red-light); color:#dc2626; }
+  .badge-blue { background:var(--blue-light); color:#2563eb; }
+  .badge-mint { background:var(--mint-light); color:#059669; }
+  .badge-pink { background:var(--pink-light); color:var(--pink); }
+  .badge-grey { background:var(--grey-light); color:var(--grey); }
+
+  /* === CARDS === */
+  .tool-card {
+    border:1px solid #e5e7eb; border-radius:10px; padding:16px 20px;
+    margin:12px 0; transition:box-shadow .2s;
+  }
+  .tool-card:hover { box-shadow:0 2px 12px rgba(0,0,0,.06); }
+  .tool-card .tool-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+  .tool-card .tool-name { font-weight:700; font-size:1rem; }
+  .tool-card .tool-desc { font-size:.85rem; color:var(--grey); margin-bottom:8px; }
+  .tool-card .tool-workflows { font-size:.8rem; color:var(--grey); }
+  .tool-card .tool-workflows strong { color:var(--dark); }
+
+  /* === OPTIMIZATION BOXES === */
+  .opt-box {
+    border-left:4px solid var(--mint); background:var(--mint-light);
+    padding:14px 18px; border-radius:0 8px 8px 0; margin:12px 0;
+    font-size:.88rem;
+  }
+  .opt-box.warning {
+    border-left-color:var(--yellow); background:var(--yellow-light);
+  }
+  .opt-box.danger {
+    border-left-color:var(--red); background:var(--red-light);
+  }
+  .opt-box .opt-title { font-weight:700; margin-bottom:4px; }
+
+  /* === LISTS === */
+  ul { margin:8px 0 8px 20px; }
+  li { margin:4px 0; font-size:.88rem; }
+
+  /* === FOOTER === */
+  .page-footer { text-align:center; font-size:.75rem; color:var(--grey); margin-top:40px; padding-top:15px; border-top:1px solid #e5e7eb; }
+
+  /* === TOC === */
+  .toc { margin:20px 0; }
+  .toc a { display:block; padding:8px 16px; color:var(--dark); text-decoration:none; border-radius:6px; font-size:.9rem; transition:background .2s; }
+  .toc a:hover { background:var(--pink-light); color:var(--pink); }
+  .toc .toc-num { display:inline-block; width:28px; color:var(--pink); font-weight:700; }
+
+  /* === COST SUMMARY === */
+  .cost-grid { display:grid; grid-template-columns:1fr 1fr; gap:15px; margin:20px 0; }
+  .cost-card { border:1px solid #e5e7eb; border-radius:10px; padding:16px; text-align:center; }
+  .cost-card .cost-label { font-size:.8rem; color:var(--grey); text-transform:uppercase; letter-spacing:.5px; }
+  .cost-card .cost-value { font-size:1.6rem; font-weight:700; margin:6px 0; }
+  .cost-card.free .cost-value { color:var(--green); }
+  .cost-card.paid .cost-value { color:var(--pink); }
+
+  /* === RESPONSIVE === */
+  @media (max-width:700px) {
+    .page { margin:10px; padding:30px 25px; }
+    .cover h1 { font-size:1.8rem; }
+    .cost-grid { grid-template-columns:1fr; }
+    table { font-size:.78rem; }
+    td, th { padding:6px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- SEITE 1: COVER                               -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="cover">
+    <div style="font-size:3rem;margin-bottom:15px;">🛠️</div>
+    <h1>Tool- & Service-Übersicht</h1>
+    <p class="subtitle">Alle APIs, Dienste und Bibliotheken für<br><strong>Herzkraft-Analyse</strong> &amp; <strong>WhatsApp Funnel</strong></p>
+    <p style="color:var(--grey);font-size:.9rem;margin-top:8px;">Stand: 3. März 2026 · ImpactFlow</p>
+
+    <div class="meta" style="margin-top:50px;">
+      <div class="meta-item">
+        <div class="number">15</div>
+        <div class="label">Externe Dienste</div>
+      </div>
+      <div class="meta-item">
+        <div class="number">7</div>
+        <div class="label">Kostenlos</div>
+      </div>
+      <div class="meta-item">
+        <div class="number">8</div>
+        <div class="label">Kostenpflichtig</div>
+      </div>
+      <div class="meta-item">
+        <div class="number">5</div>
+        <div class="label">Optimierbar</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inhaltsverzeichnis -->
+  <div class="toc" style="margin-top:40px;">
+    <h3 style="text-align:center;margin-bottom:15px;">Inhaltsverzeichnis</h3>
+    <a href="#s2"><span class="toc-num">1</span> Aktive Dienste — Komplettübersicht</a>
+    <a href="#s3"><span class="toc-num">2</span> Dienste pro Workflow — Wer braucht was?</a>
+    <a href="#s4"><span class="toc-num">3</span> Frontend-Bibliotheken & CDN</a>
+    <a href="#s5"><span class="toc-num">4</span> Kostenanalyse & Einsparpotenzial</a>
+    <a href="#s6"><span class="toc-num">5</span> Optimierungsvorschläge — Weniger Abos, mehr Leistung</a>
+    <a href="#s7"><span class="toc-num">6</span> Zukunfts-Tools — Was fehlt noch?</a>
+    <a href="#s8"><span class="toc-num">7</span> Credentials & API-Keys Referenz</a>
+  </div>
+
+  <div class="page-footer">Tool-Übersicht · ImpactFlow · Seite 1/7</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SEITE 2: AKTIVE DIENSTE                      -->
+<!-- ============================================ -->
+<div class="page" id="s2">
+  <h2>1 · Aktive Dienste — Komplettübersicht</h2>
+  <p style="color:var(--grey);font-size:.88rem;margin-bottom:20px;">Alle externen Services, die aktuell im Einsatz sind — sortiert nach Kategorie.</p>
+
+  <h3>🤖 KI & Sprachverarbeitung</h3>
+  <table>
+    <tr><th>Dienst</th><th>Verwendet für</th><th>Kosten</th><th>Status</th></tr>
+    <tr>
+      <td><strong>OpenRouter</strong><br><span style="color:var(--grey);font-size:.78rem;">GPT-4o-mini, Vision</span></td>
+      <td>Intent-Erkennung, Briefings, Coaching, Recherche-Analyse, E-Mail-Texte, Sparring</td>
+      <td><span class="badge badge-yellow">Pay-per-Use</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+    <tr>
+      <td><strong>Google Gemini 2.5 Pro</strong></td>
+      <td>Herzkraft-Analyse PDF-Generierung (personalisierte Auswertung)</td>
+      <td><span class="badge badge-yellow">Pay-per-Use</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+    <tr>
+      <td><strong>OpenAI Whisper</strong><br><span style="color:var(--grey);font-size:.78rem;">via OpenRouter</span></td>
+      <td>Sprachnachrichten-Transkription im Supervisor</td>
+      <td><span style="font-size:.78rem;color:var(--grey);">In OpenRouter enthalten</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+  </table>
+
+  <h3>💬 Kommunikation</h3>
+  <table>
+    <tr><th>Dienst</th><th>Verwendet für</th><th>Kosten</th><th>Status</th></tr>
+    <tr>
+      <td><strong>Slack API</strong></td>
+      <td>Primärer Bot-Kanal, Buttons, Briefings, Benachrichtigungen, Cleanup</td>
+      <td><span class="badge badge-yellow">Free/Pro</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+    <tr>
+      <td><strong>WhatsApp</strong><br><span style="color:var(--grey);font-size:.78rem;">wa.me Deep-Links</span></td>
+      <td>CTA-Links auf Landing Pages (Direktnachricht an +41 79 894 66 66)</td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+  </table>
+
+  <h3>📊 CRM & Marketing</h3>
+  <table>
+    <tr><th>Dienst</th><th>Verwendet für</th><th>Kosten</th><th>Status</th></tr>
+    <tr>
+      <td><strong>Pipedrive</strong></td>
+      <td>Kontaktverwaltung, Briefing-Daten, Notizen, Kontakt-Sync</td>
+      <td><span class="badge badge-red">Monatlich</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+    <tr>
+      <td><strong>Quentn</strong><br><span style="color:var(--grey);font-size:.78rem;">klick.impactflow.ch</span></td>
+      <td>Formular-Verarbeitung, Double-Opt-In, E-Mail-Sequenzen, E-Termin-Buchungen</td>
+      <td><span class="badge badge-red">Monatlich</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+  </table>
+
+  <h3>🔗 Link-Management & Tracking</h3>
+  <table>
+    <tr><th>Dienst</th><th>Verwendet für</th><th>Kosten</th><th>Status</th></tr>
+    <tr>
+      <td><strong>Short.io</strong><br><span style="color:var(--grey);font-size:.78rem;">Domain: myimpactflow.ch</span></td>
+      <td>RevLink-Kürzung, Klick-Tracking, Partner-Statistiken</td>
+      <td><span class="badge badge-yellow">Free/Paid</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+  </table>
+
+  <h3>📅 Produktivität</h3>
+  <table>
+    <tr><th>Dienst</th><th>Verwendet für</th><th>Kosten</th><th>Status</th></tr>
+    <tr>
+      <td><strong>Google Calendar</strong></td>
+      <td>Terminverwaltung, Pre-Meeting-Briefing, Erinnerungen, Tagesübersicht</td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+    <tr>
+      <td><strong>Google Drive</strong></td>
+      <td>Herzkraft-PDF-Speicherung, Dateiablage</td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+  </table>
+
+  <h3>🔍 Web-Recherche & Scraping</h3>
+  <table>
+    <tr><th>Dienst</th><th>Verwendet für</th><th>Kosten</th><th>Status</th></tr>
+    <tr>
+      <td><strong>Brave Search API</strong></td>
+      <td>Web-Suche im Recherche-Sub-Agent (5 Ergebnisse pro Abfrage)</td>
+      <td><span class="badge badge-yellow">Free Tier</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+    <tr>
+      <td><strong>FireCrawl</strong><br><span style="color:var(--grey);font-size:.78rem;">api.firecrawl.dev</span></td>
+      <td>Deep Scraping von JS-gerenderten Webseiten (Fallback)</td>
+      <td><span class="badge badge-yellow">Free Tier</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+  </table>
+
+  <h3>📄 Dokument-Generierung</h3>
+  <table>
+    <tr><th>Dienst</th><th>Verwendet für</th><th>Kosten</th><th>Status</th></tr>
+    <tr>
+      <td><strong>Gamma.app</strong></td>
+      <td>PDF-Erstellung für Briefings und Health-Reports (A4, coral-glow Theme)</td>
+      <td><span class="badge badge-yellow">Free/Paid</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+  </table>
+
+  <h3>🏗️ Infrastruktur & Hosting</h3>
+  <table>
+    <tr><th>Dienst</th><th>Verwendet für</th><th>Kosten</th><th>Status</th></tr>
+    <tr>
+      <td><strong>n8n</strong><br><span style="color:var(--grey);font-size:.78rem;">erfolg-n8n.peaknetworks.cloud</span></td>
+      <td>Workflow-Automatisierung — 45+ Workflows, Webhooks, DataTables</td>
+      <td><span class="badge badge-red">Monatlich</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+    <tr>
+      <td><strong>GitHub Pages</strong><br><span style="color:var(--grey);font-size:.78rem;">go.myimpactflow.ch</span></td>
+      <td>Hosting aller Landing Pages (herz-analyse, danke, revlink, index)</td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+    <tr>
+      <td><strong>GitHub</strong><br><span style="color:var(--grey);font-size:.78rem;">MyImpactFlow/whatsapp-funnel</span></td>
+      <td>Versionskontrolle, Asset-Hosting (Logos, Illustrationen via raw.githubusercontent)</td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+      <td><span class="badge badge-green">✅ Aktiv</span></td>
+    </tr>
+  </table>
+
+  <div class="page-footer">Tool-Übersicht · ImpactFlow · Seite 2/7</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SEITE 3: DIENSTE PRO WORKFLOW                -->
+<!-- ============================================ -->
+<div class="page" id="s3">
+  <h2>2 · Dienste pro Workflow — Wer braucht was?</h2>
+  <p style="color:var(--grey);font-size:.88rem;margin-bottom:20px;">Jeder Workflow und seine externen Abhängigkeiten auf einen Blick.</p>
+
+  <h3>❤️ Herzkraft-Analyse Pipeline</h3>
+  <table>
+    <tr><th>Workflow</th><th>ID</th><th>Benötigte Dienste</th></tr>
+    <tr>
+      <td><strong>Herzkraft-Analyse</strong><br><span style="font-size:.78rem;color:var(--grey);">PDF-Generierung</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">AJyA7w3t7ycaaluH</td>
+      <td>
+        <span class="badge badge-pink">Quentn</span>
+        <span class="badge badge-blue">Gemini 2.5 Pro</span>
+        <span class="badge badge-mint">Google Drive</span>
+        <span class="badge badge-grey">E-Mail</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>🔗 RevLink Kürzer API</strong><br><span style="font-size:.78rem;color:var(--grey);">v1.1</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">RKv3jSAcXJRp28RZ</td>
+      <td>
+        <span class="badge badge-yellow">Short.io</span>
+        <span class="badge badge-mint">n8n DataTable</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>📊 RevLink Klick-Statistik</strong><br><span style="font-size:.78rem;color:var(--grey);">v1.0 · alle 6h</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">Jg6eA8Zu1O5CnNCx</td>
+      <td>
+        <span class="badge badge-yellow">Short.io</span>
+        <span class="badge badge-mint">n8n DataTable</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Danke Step-Tracking</strong></td>
+      <td style="font-size:.78rem;font-family:monospace;">Yrp0u4UHq3awaxeV</td>
+      <td><span class="badge badge-mint">n8n DataTable</span></td>
+    </tr>
+    <tr>
+      <td><strong>E-Mail Bestätigung Tracker</strong></td>
+      <td style="font-size:.78rem;font-family:monospace;">lzHSlcTWDKa5CbGk</td>
+      <td><span class="badge badge-mint">n8n DataTable</span></td>
+    </tr>
+    <tr>
+      <td><strong>E-Mail Bestätigung Status</strong></td>
+      <td style="font-size:.78rem;font-family:monospace;">gy8pTdq7wajIgS9Y</td>
+      <td><span class="badge badge-mint">n8n DataTable</span></td>
+    </tr>
+  </table>
+
+  <h3>🧠 ImpactFlow Multi-Agent System</h3>
+  <table>
+    <tr><th>Workflow</th><th>ID</th><th>Benötigte Dienste</th></tr>
+    <tr>
+      <td><strong>🧠 Supervisor</strong><br><span style="font-size:.78rem;color:var(--grey);">v3.0 · Zentrale Steuerung</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">VmVHvUQTsZvjkHcJ</td>
+      <td>
+        <span class="badge badge-blue">Slack</span>
+        <span class="badge badge-pink">OpenRouter</span>
+        <span class="badge badge-grey">Whisper</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>🔘 Interaction Handler</strong><br><span style="font-size:.78rem;color:var(--grey);">v1.1 · Button-Verarbeitung</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">0ZpQavZlicBk6EJo</td>
+      <td><span class="badge badge-blue">Slack</span></td>
+    </tr>
+    <tr>
+      <td><strong>📅 Kalender Sub-Agent</strong><br><span style="font-size:.78rem;color:var(--grey);">v2.0</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">kdoDW5tsQyoM3fVs</td>
+      <td>
+        <span class="badge badge-mint">Google Calendar</span>
+        <span class="badge badge-pink">OpenRouter</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>👥 Pipedrive Sub-Agent</strong><br><span style="font-size:.78rem;color:var(--grey);">v1.0</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">uFwFGKuDjC39KToE</td>
+      <td><span class="badge badge-red">Pipedrive</span></td>
+    </tr>
+    <tr>
+      <td><strong>🔍 Recherche Sub-Agent</strong><br><span style="font-size:.78rem;color:var(--grey);">v2.0 · Deep Scraping</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">mfghuOV4Q0joihok</td>
+      <td>
+        <span class="badge badge-yellow">Brave Search</span>
+        <span class="badge badge-yellow">FireCrawl</span>
+        <span class="badge badge-pink">OpenRouter</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>📧 E-Mail Sub-Agent</strong><br><span style="font-size:.78rem;color:var(--grey);">v1.0</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">liPOA8S4ibdw8cRL</td>
+      <td>
+        <span class="badge badge-grey">Gmail</span>
+        <span class="badge badge-pink">OpenRouter</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>🪞 Reflexion Sub-Agent</strong><br><span style="font-size:.78rem;color:var(--grey);">v3.0 · One Thing System</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">ZhKkciFecvaHqJnb</td>
+      <td>
+        <span class="badge badge-pink">OpenRouter</span>
+        <span class="badge badge-mint">n8n DataTable ×3</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>📋 Aufgaben Sub-Agent</strong><br><span style="font-size:.78rem;color:var(--grey);">v1.0</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">OSnH1xCIsx5x8v3K</td>
+      <td><span class="badge badge-mint">n8n DataTable</span></td>
+    </tr>
+    <tr>
+      <td><strong>🤝 Kontakt-Sync</strong><br><span style="font-size:.78rem;color:var(--grey);">v1.1 · Briefing + Recherche</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">8BXAYPZn92RPhw23</td>
+      <td>
+        <span class="badge badge-red">Pipedrive</span>
+        <span class="badge badge-mint">Google Calendar</span>
+        <span class="badge badge-pink">OpenRouter</span>
+        <span class="badge badge-blue">Slack</span>
+      </td>
+    </tr>
+  </table>
+
+  <h3>📅 Kalender & Termine</h3>
+  <table>
+    <tr><th>Workflow</th><th>ID</th><th>Benötigte Dienste</th></tr>
+    <tr>
+      <td><strong>📅 Pre-Meeting Briefing</strong><br><span style="font-size:.78rem;color:var(--grey);">v1.1 · alle 15 Min</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">IbdWIKn1OBs2XQWM</td>
+      <td>
+        <span class="badge badge-mint">Google Calendar</span>
+        <span class="badge badge-red">Pipedrive</span>
+        <span class="badge badge-pink">OpenRouter</span>
+        <span class="badge badge-yellow">Gamma.app</span>
+        <span class="badge badge-blue">Slack</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>📅 E-Termin → Pipedrive</strong><br><span style="font-size:.78rem;color:var(--grey);">alle 15 Min</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">X2cIA2CkQd7lyIJR</td>
+      <td>
+        <span class="badge badge-mint">Google Calendar</span>
+        <span class="badge badge-red">Pipedrive</span>
+        <span class="badge badge-blue">Slack</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>🔔 Termin-Erinnerung</strong><br><span style="font-size:.78rem;color:var(--grey);">v2.1.1 · 3× täglich</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">Be4hdQBBZwMvX6AW</td>
+      <td>
+        <span class="badge badge-mint">Google Calendar</span>
+        <span class="badge badge-blue">Slack</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>📩 E-Termin Buchungen</strong><br><span style="font-size:.78rem;color:var(--grey);">Quentn Webhook</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">bAiCmZdi3JGh8she</td>
+      <td><span class="badge badge-pink">Quentn</span></td>
+    </tr>
+  </table>
+
+  <h3>📊 Monitoring & Reports</h3>
+  <table>
+    <tr><th>Workflow</th><th>ID</th><th>Benötigte Dienste</th></tr>
+    <tr>
+      <td><strong>📊 System Health Monitor</strong><br><span style="font-size:.78rem;color:var(--grey);">v3.1 · täglich 11:00</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">Bh7NIuwkSwR0uTUY</td>
+      <td>
+        <span class="badge badge-blue">Slack</span>
+        <span class="badge badge-yellow">Gamma.app</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>🚨 Fehler-Alarm</strong></td>
+      <td style="font-size:.78rem;font-family:monospace;">ZpqxNDWYgLCEGqnO</td>
+      <td><span class="badge badge-blue">Slack</span></td>
+    </tr>
+    <tr>
+      <td><strong>📊 Tages-Execution-Report</strong><br><span style="font-size:.78rem;color:var(--grey);">täglich 08:10</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">aCtRQj5C6VbpmhKv</td>
+      <td><span class="badge badge-blue">Slack</span></td>
+    </tr>
+    <tr>
+      <td><strong>🔍 Versions-Monitor</strong><br><span style="font-size:.78rem;color:var(--grey);">täglich 08:05</span></td>
+      <td style="font-size:.78rem;font-family:monospace;">lbfhglePOGhyneBK</td>
+      <td>
+        <span class="badge badge-green">npm Registry</span>
+        <span class="badge badge-blue">Slack</span>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>🪞 Reflexion Wochenanalyse</strong></td>
+      <td style="font-size:.78rem;font-family:monospace;">2v6KUs5oFF8c75b1</td>
+      <td>
+        <span class="badge badge-pink">OpenRouter</span>
+        <span class="badge badge-mint">n8n DataTable</span>
+        <span class="badge badge-blue">Slack</span>
+      </td>
+    </tr>
+  </table>
+
+  <div class="page-footer">Tool-Übersicht · ImpactFlow · Seite 3/7</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SEITE 4: FRONTEND-BIBLIOTHEKEN               -->
+<!-- ============================================ -->
+<div class="page" id="s4">
+  <h2>3 · Frontend-Bibliotheken & CDN</h2>
+  <p style="color:var(--grey);font-size:.88rem;margin-bottom:20px;">Alle JavaScript-Bibliotheken und externen Ressourcen, die direkt im Browser geladen werden.</p>
+
+  <h3>📦 JavaScript-Bibliotheken (alle kostenlos)</h3>
+  <table>
+    <tr><th>Bibliothek</th><th>Version</th><th>CDN</th><th>Verwendet in</th><th>Zweck</th></tr>
+    <tr>
+      <td><strong>jsPDF</strong></td>
+      <td>2.5.2</td>
+      <td>jsDelivr</td>
+      <td>revlink.html, revlink-herzkraft.html</td>
+      <td>PDF-Generierung (QR-Code-Karten)</td>
+    </tr>
+    <tr>
+      <td><strong>qrcode-generator</strong></td>
+      <td>1.4.4</td>
+      <td>jsDelivr</td>
+      <td>revlink.html, revlink-herzkraft.html</td>
+      <td>QR-Code-Erstellung im Browser</td>
+    </tr>
+    <tr>
+      <td><strong>JSZip</strong></td>
+      <td>3.10.1</td>
+      <td>jsDelivr</td>
+      <td>revlink.html, revlink-herzkraft.html</td>
+      <td>ZIP-Dateien im Browser erstellen</td>
+    </tr>
+  </table>
+
+  <h3>🔤 Schriften</h3>
+  <table>
+    <tr><th>Dienst</th><th>Schriften</th><th>Verwendet in</th><th>Kosten</th></tr>
+    <tr>
+      <td><strong>Google Fonts</strong></td>
+      <td>Playfair Display (Überschriften), Inter (Fliesstext)</td>
+      <td>Alle HTML-Seiten</td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+    </tr>
+  </table>
+
+  <h3>🖼️ Asset-Hosting</h3>
+  <table>
+    <tr><th>Quelle</th><th>Was</th><th>URL-Muster</th><th>Kosten</th></tr>
+    <tr>
+      <td><strong>GitHub Raw</strong></td>
+      <td>Logos (Color, Dark, White), Illustrationen (Maskottchen)</td>
+      <td><code style="font-size:.75rem;">raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/</code></td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+    </tr>
+  </table>
+
+  <h3>🌐 Browser-APIs (nativ, kein externer Dienst)</h3>
+  <table>
+    <tr><th>API</th><th>Verwendet für</th><th>Dateien</th></tr>
+    <tr><td><strong>navigator.sendBeacon</strong></td><td>Tracking-Events an n8n-Webhooks (verlässlich bei Seitenwechsel)</td><td>herz-analyse.html, index.html, danke.html</td></tr>
+    <tr><td><strong>fetch API</strong></td><td>JSON-Kommunikation mit n8n-Webhooks</td><td>Alle Seiten</td></tr>
+    <tr><td><strong>localStorage</strong></td><td>Partner-Tracking, A/B-Test, Zähler-Persistenz, PDF-Counter</td><td>Alle Seiten</td></tr>
+    <tr><td><strong>Canvas API</strong></td><td>Branded QR-Code-Rendering mit Logo</td><td>revlink-herzkraft.html</td></tr>
+    <tr><td><strong>Page Visibility API</strong></td><td>E-Mail-Polling pausieren wenn Tab inaktiv</td><td>danke.html</td></tr>
+    <tr><td><strong>URLSearchParams</strong></td><td>Partner-Parameter auslesen (?wa=, ?src=)</td><td>herz-analyse.html, index.html</td></tr>
+  </table>
+
+  <h3>📧 E-Mail-Provider-Links (danke.html)</h3>
+  <p style="font-size:.85rem;color:var(--grey);margin-bottom:10px;">Direkte Webmail-Links für schnelle DOI-Bestätigung — kein API-Zugriff, nur Weiterleitungen:</p>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;">
+    <span class="badge badge-grey">Gmail</span>
+    <span class="badge badge-grey">Outlook</span>
+    <span class="badge badge-grey">Yahoo</span>
+    <span class="badge badge-grey">GMX</span>
+    <span class="badge badge-grey">Web.de</span>
+    <span class="badge badge-grey">Bluewin</span>
+    <span class="badge badge-grey">ProtonMail</span>
+    <span class="badge badge-grey">iCloud</span>
+    <span class="badge badge-grey">Sunrise</span>
+  </div>
+
+  <h3 style="margin-top:30px;">🔌 n8n Webhook-Endpunkte (5 aktiv)</h3>
+  <table>
+    <tr><th>Endpunkt</th><th>Methode</th><th>Aufgerufen von</th></tr>
+    <tr>
+      <td><code style="font-size:.78rem;">/webhook/revlink-shorten-v2</code></td>
+      <td>POST</td>
+      <td>revlink.html, revlink-herzkraft.html</td>
+    </tr>
+    <tr>
+      <td><code style="font-size:.78rem;">/webhook/reflink-conversion</code></td>
+      <td>sendBeacon</td>
+      <td>herz-analyse.html, index.html</td>
+    </tr>
+    <tr>
+      <td><code style="font-size:.78rem;">/webhook/danke-step-tracking</code></td>
+      <td>POST</td>
+      <td>danke.html</td>
+    </tr>
+    <tr>
+      <td><code style="font-size:.78rem;">/webhook/email-confirmation-status</code></td>
+      <td>GET</td>
+      <td>danke.html (Polling)</td>
+    </tr>
+    <tr>
+      <td><code style="font-size:.78rem;">/webhook/ab-tracking</code></td>
+      <td>sendBeacon</td>
+      <td>herz-analyse.html</td>
+    </tr>
+  </table>
+
+  <div class="page-footer">Tool-Übersicht · ImpactFlow · Seite 4/7</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SEITE 5: KOSTENANALYSE                       -->
+<!-- ============================================ -->
+<div class="page" id="s5">
+  <h2>4 · Kostenanalyse & Einsparpotenzial</h2>
+
+  <div class="cost-grid">
+    <div class="cost-card free">
+      <div class="cost-label">Kostenlose Dienste</div>
+      <div class="cost-value">7 Tools</div>
+      <div style="font-size:.8rem;color:var(--grey);">GitHub, Google Calendar, Google Drive, Google Fonts, WhatsApp, jsDelivr, npm Registry</div>
+    </div>
+    <div class="cost-card paid">
+      <div class="cost-label">Kostenpflichtige Dienste</div>
+      <div class="cost-value">8 Tools</div>
+      <div style="font-size:.8rem;color:var(--grey);">n8n, Pipedrive, Quentn, OpenRouter, Short.io, Brave, FireCrawl, Gamma.app</div>
+    </div>
+  </div>
+
+  <h3>💰 Kostenpflichtige Dienste im Detail</h3>
+  <table>
+    <tr><th>Dienst</th><th>Preismodell</th><th>Geschätzt/Monat</th><th>Workflows</th><th>Ersetzbar?</th></tr>
+    <tr>
+      <td><strong>n8n Cloud</strong></td>
+      <td>Monats-Abo</td>
+      <td>~€20-50</td>
+      <td>45+ (Kern)</td>
+      <td><span class="badge badge-red">Nein — Kern</span></td>
+    </tr>
+    <tr>
+      <td><strong>Pipedrive</strong></td>
+      <td>Monats-Abo</td>
+      <td>~€15-25</td>
+      <td>4+</td>
+      <td><span class="badge badge-yellow">Möglich ⚡</span></td>
+    </tr>
+    <tr>
+      <td><strong>Quentn</strong></td>
+      <td>Monats-Abo</td>
+      <td>~€35-50</td>
+      <td>2</td>
+      <td><span class="badge badge-yellow">Möglich ⚡</span></td>
+    </tr>
+    <tr>
+      <td><strong>OpenRouter</strong></td>
+      <td>Pay-per-Use</td>
+      <td>~€5-15</td>
+      <td>12+</td>
+      <td><span class="badge badge-red">Nein — Kern</span></td>
+    </tr>
+    <tr>
+      <td><strong>Short.io</strong></td>
+      <td>Free + Paid</td>
+      <td>€0-10</td>
+      <td>2</td>
+      <td><span class="badge badge-yellow">Möglich ⚡</span></td>
+    </tr>
+    <tr>
+      <td><strong>Brave Search</strong></td>
+      <td>Free Tier</td>
+      <td>€0</td>
+      <td>1</td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+    </tr>
+    <tr>
+      <td><strong>FireCrawl</strong></td>
+      <td>Free Tier</td>
+      <td>€0</td>
+      <td>1</td>
+      <td><span class="badge badge-green">Kostenlos</span></td>
+    </tr>
+    <tr>
+      <td><strong>Gamma.app</strong></td>
+      <td>Free + Credits</td>
+      <td>€0-10</td>
+      <td>3</td>
+      <td><span class="badge badge-yellow">Möglich ⚡</span></td>
+    </tr>
+    <tr>
+      <td><strong>Gemini 2.5 Pro</strong></td>
+      <td>Pay-per-Use</td>
+      <td>~€2-10</td>
+      <td>1</td>
+      <td><span class="badge badge-green">Günstig</span></td>
+    </tr>
+  </table>
+
+  <h3 style="margin-top:30px;">⚡ Grösste Einsparpotenziale</h3>
+
+  <div class="opt-box">
+    <div class="opt-title">💡 Quentn ersetzen → n8n + Brevo/Mailgun</div>
+    Quentn wird nur für Double-Opt-In und einfache E-Mail-Sequenzen genutzt. Das kann n8n mit einem günstigen Transaktions-E-Mail-Dienst (Brevo Free: 300 Mails/Tag, Mailgun: 1'000 Mails/Monat kostenlos) selbst übernehmen. <strong>Ersparnis: ~€35-50/Monat.</strong>
+  </div>
+
+  <div class="opt-box">
+    <div class="opt-title">💡 Pipedrive ersetzen → n8n DataTables + Notion</div>
+    Pipedrive wird hauptsächlich als Kontakt-Datenbank genutzt (kein Sales-Pipeline). n8n DataTables können Kontakte direkt speichern, Notion als kostenloses CRM dienen. <strong>Ersparnis: ~€15-25/Monat.</strong>
+  </div>
+
+  <div class="opt-box">
+    <div class="opt-title">💡 Gamma.app ersetzen → jsPDF direkt in n8n</div>
+    Briefing-PDFs werden aktuell über Gamma.app generiert (externes API + Polling). Mit der jsPDF-Bibliothek direkt in einem n8n Code-Node könnten PDFs sofort generiert werden — schneller und ohne externes Abo. <strong>Ersparnis: Credits + Latenz.</strong>
+  </div>
+
+  <div class="opt-box">
+    <div class="opt-title">💡 Short.io → eigene Kurzlinks via n8n + 404.html</div>
+    Das bestehende 404.html-Routing (für WhatsApp-Funnel) kann auch für Herzkraft-Links genutzt werden. Kurzlinks werden in n8n DataTable gespeichert, 404.html macht den Redirect. Kein externer Dienst nötig. <strong>Ersparnis: Short.io-Abo komplett.</strong>
+  </div>
+
+  <div class="cost-grid" style="margin-top:25px;">
+    <div class="cost-card paid">
+      <div class="cost-label">Aktuelle Kosten (geschätzt)</div>
+      <div class="cost-value">~€95-170</div>
+      <div style="font-size:.8rem;color:var(--grey);">pro Monat für alle Dienste</div>
+    </div>
+    <div class="cost-card free">
+      <div class="cost-label">Nach Optimierung möglich</div>
+      <div class="cost-value">~€25-75</div>
+      <div style="font-size:.8rem;color:var(--grey);">nur n8n + OpenRouter + Gemini</div>
+    </div>
+  </div>
+
+  <div class="page-footer">Tool-Übersicht · ImpactFlow · Seite 5/7</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SEITE 6: OPTIMIERUNGSVORSCHLÄGE              -->
+<!-- ============================================ -->
+<div class="page" id="s6">
+  <h2>5 · Optimierungsvorschläge — Weniger Abos, mehr Leistung</h2>
+
+  <h3>🔴 Priorität 1 — Grösste Kostenersparnis</h3>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-name">Quentn → n8n + Brevo (oder Mailgun)</span>
+      <span class="badge badge-red">~€40/Monat sparen</span>
+    </div>
+    <div class="tool-desc">Quentn wird nur für Formular-Empfang und Double-Opt-In genutzt. Beides kann n8n selbst:</div>
+    <ul>
+      <li><strong>Formular:</strong> Bereits per n8n-Webhook empfangen (herz-analyse.html sendet schon an n8n)</li>
+      <li><strong>Double-Opt-In:</strong> n8n generiert Token → speichert in DataTable → sendet Bestätigungsmail via Brevo/Mailgun → Klick bestätigt</li>
+      <li><strong>E-Mail-Sequenzen:</strong> n8n Schedule-Trigger mit Wartezeiten statt Quentn-Funnels</li>
+    </ul>
+    <div class="tool-workflows"><strong>Aufwand:</strong> ~4-6 Stunden · <strong>Risiko:</strong> Mittel (E-Mail-Zustellbarkeit testen)</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-name">Pipedrive → n8n DataTables + Notion CRM</span>
+      <span class="badge badge-red">~€20/Monat sparen</span>
+    </div>
+    <div class="tool-desc">Pipedrive wird als Kontakt-Datenbank genutzt — keine echte Sales-Pipeline im Einsatz.</div>
+    <ul>
+      <li><strong>Kontakte:</strong> n8n DataTable mit Name, E-Mail, Telefon, Notizen, Tags</li>
+      <li><strong>Suche:</strong> n8n Code-Node mit Filter (Kaskade wie bisher: E-Mail → Name → Telefon)</li>
+      <li><strong>Notizen:</strong> Direkt in DataTable als JSON-Feld</li>
+      <li><strong>Alternative:</strong> Notion als kostenloses CRM-Frontend (Datenbank-Ansicht)</li>
+    </ul>
+    <div class="tool-workflows"><strong>Aufwand:</strong> ~6-10 Stunden · <strong>Risiko:</strong> Hoch (viele Workflows betroffen — schrittweise migrieren)</div>
+  </div>
+
+  <h3>🟡 Priorität 2 — Vereinfachung</h3>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-name">Short.io → Eigenes Kurzlink-System (404.html)</span>
+      <span class="badge badge-yellow">~€10/Monat sparen</span>
+    </div>
+    <div class="tool-desc">Das 404.html-Routing existiert bereits für den WhatsApp-Funnel:</div>
+    <ul>
+      <li><strong>Aktuell:</strong> <code>go.myimpactflow.ch/CODE</code> → 404.html → Redirect mit ?wa= und ?src=</li>
+      <li><strong>Erweiterung:</strong> n8n DataTable als Link-Datenbank, 404.html liest Code → sucht Ziel-URL → leitet weiter</li>
+      <li><strong>Klick-Tracking:</strong> 404.html sendet sendBeacon an n8n vor dem Redirect</li>
+      <li><strong>Vorteil:</strong> Volle Kontrolle, keine API-Limits, keine Drittanbieter-Abhängigkeit</li>
+    </ul>
+    <div class="tool-workflows"><strong>Aufwand:</strong> ~3-4 Stunden · <strong>Risiko:</strong> Niedrig</div>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-name">Gamma.app → jsPDF in n8n Code-Node</span>
+      <span class="badge badge-yellow">Credits sparen</span>
+    </div>
+    <div class="tool-desc">Gamma wird für Briefing-PDFs und Health-Reports genutzt. Die Polling-Wartezeit (bis zu 3 Min) ist ein Bottleneck.</div>
+    <ul>
+      <li><strong>Alternative:</strong> jsPDF/PDFKit in einem n8n Code-Node — sofortige PDF-Generierung</li>
+      <li><strong>Design:</strong> HTML → PDF mit Puppeteer (n8n Community Node) für hübsche PDFs</li>
+      <li><strong>Vorteil:</strong> Sofortige Erstellung (kein Polling), ImpactFlow-Branding konsistent</li>
+    </ul>
+    <div class="tool-workflows"><strong>Aufwand:</strong> ~4-6 Stunden · <strong>Risiko:</strong> Niedrig</div>
+  </div>
+
+  <h3>🟢 Priorität 3 — Zukunfts-Optimierung</h3>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-name">OpenRouter → Direkt-API (OpenAI / Anthropic)</span>
+      <span class="badge badge-green">Eventuell günstiger</span>
+    </div>
+    <div class="tool-desc">OpenRouter nimmt einen kleinen Aufschlag (~5-15%) auf die API-Preise. Bei steigendem Volumen könnte ein direkter API-Zugang günstiger sein.</div>
+    <ul>
+      <li><strong>Vorteil OpenRouter:</strong> Multi-Modell-Zugang (GPT-4o, Claude, Gemini) über einen Key</li>
+      <li><strong>Vorteil Direkt:</strong> ~10% günstiger, weniger Latenz, kein Mittelsmann</li>
+      <li><strong>Empfehlung:</strong> Erst ab ~€50/Monat OpenRouter-Kosten wechseln</li>
+    </ul>
+  </div>
+
+  <div class="tool-card">
+    <div class="tool-header">
+      <span class="tool-name">Brave Search → SearXNG (Self-Hosted)</span>
+      <span class="badge badge-green">Langfristig</span>
+    </div>
+    <div class="tool-desc">Bei Überschreitung des Free-Tiers könnte eine eigene SearXNG-Instanz (Open Source) unbegrenzte Suchen ermöglichen.</div>
+  </div>
+
+  <div class="page-footer">Tool-Übersicht · ImpactFlow · Seite 6/7</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SEITE 7: ZUKUNFTS-TOOLS + CREDENTIALS        -->
+<!-- ============================================ -->
+<div class="page" id="s7">
+  <h2>6 · Zukunfts-Tools — Was fehlt noch?</h2>
+  <p style="color:var(--grey);font-size:.88rem;margin-bottom:20px;">Tools, die das System verbessern würden — priorisiert nach Impact.</p>
+
+  <h3>🎯 Empfohlen — Hoher Impact</h3>
+  <table>
+    <tr><th>Tool</th><th>Zweck</th><th>Kosten</th><th>Nutzen</th></tr>
+    <tr>
+      <td><strong>Plausible Analytics</strong><br><span style="font-size:.78rem;color:var(--grey);">oder Umami</span></td>
+      <td>Datenschutzfreundliche Website-Analytik (kein Cookie-Banner nötig)</td>
+      <td><span class="badge badge-yellow">€9/Monat</span><br><span style="font-size:.75rem;">oder Self-Hosted: €0</span></td>
+      <td>Echte Besucherzahlen statt localStorage-Simulation, A/B-Test-Auswertung, Conversion-Tracking</td>
+    </tr>
+    <tr>
+      <td><strong>Brevo</strong><br><span style="font-size:.78rem;color:var(--grey);">(ex-Sendinblue)</span></td>
+      <td>Transaktions-E-Mails + Newsletter (Quentn-Ersatz)</td>
+      <td><span class="badge badge-green">Free: 300/Tag</span></td>
+      <td>Double-Opt-In, E-Mail-Sequenzen, Zustellbarkeits-Reports</td>
+    </tr>
+    <tr>
+      <td><strong>Hotjar / Microsoft Clarity</strong></td>
+      <td>Heatmaps und Session-Recordings für Formular-Optimierung</td>
+      <td><span class="badge badge-green">Clarity: Kostenlos</span></td>
+      <td>Sehen wo Besucher abbrechen, Formular-Feld-Analyse, Scroll-Tiefe</td>
+    </tr>
+    <tr>
+      <td><strong>PostHog</strong><br><span style="font-size:.78rem;color:var(--grey);">Self-Hosted oder Cloud</span></td>
+      <td>Feature Flags, A/B-Testing, Event-Tracking</td>
+      <td><span class="badge badge-green">Free: 1M Events</span></td>
+      <td>Professionelles A/B-Testing statt localStorage, Funnel-Analyse</td>
+    </tr>
+  </table>
+
+  <h3>🔮 Nice-to-Have — Langfristig</h3>
+  <table>
+    <tr><th>Tool</th><th>Zweck</th><th>Kosten</th><th>Wann sinnvoll?</th></tr>
+    <tr>
+      <td><strong>Cloudflare</strong></td>
+      <td>CDN, DDoS-Schutz, schnellere Ladezeiten, SSL</td>
+      <td><span class="badge badge-green">Free Tier</span></td>
+      <td>Bei wachsendem Traffic (>1'000 Besucher/Tag)</td>
+    </tr>
+    <tr>
+      <td><strong>Sentry</strong></td>
+      <td>Frontend Error-Monitoring (JS-Fehler live tracken)</td>
+      <td><span class="badge badge-green">Free: 5K Events</span></td>
+      <td>Wenn Fehler auf der Live-Seite kritisch werden</td>
+    </tr>
+    <tr>
+      <td><strong>Uptime Robot</strong></td>
+      <td>Uptime-Monitoring für n8n-Instanz und Landing Pages</td>
+      <td><span class="badge badge-green">Free: 50 Monitore</span></td>
+      <td>Sofort — kostenlos und wertvoll</td>
+    </tr>
+    <tr>
+      <td><strong>Cal.com</strong></td>
+      <td>Terminbuchung (E-Termin Alternative, Open Source)</td>
+      <td><span class="badge badge-green">Free Tier</span></td>
+      <td>Falls E-Termin zu teuer wird oder mehr Features braucht</td>
+    </tr>
+    <tr>
+      <td><strong>Notion</strong></td>
+      <td>CRM-Frontend, Projekt-Management, Dokumentation</td>
+      <td><span class="badge badge-green">Free für 1 Person</span></td>
+      <td>Als visuelles CRM-Frontend für n8n DataTables</td>
+    </tr>
+  </table>
+
+  <h2 id="s8" style="margin-top:40px;">7 · Credentials & API-Keys Referenz</h2>
+  <p style="color:var(--grey);font-size:.88rem;margin-bottom:15px;">Alle aktiven Zugangsdaten in der n8n-Instanz (ohne Klartext-Keys).</p>
+
+  <h3>🔐 Aktive Credentials</h3>
+  <table>
+    <tr><th>Credential-ID</th><th>Dienst</th><th>Typ</th><th>Verwendet von</th></tr>
+    <tr>
+      <td><code style="font-size:.78rem;">wffFF5RoaS5QdKPt</code></td>
+      <td><strong>Slack</strong></td>
+      <td>Bot Token</td>
+      <td>Supervisor, Interaction Handler, Cleanup, Briefings, Erinnerungen, Reports</td>
+    </tr>
+    <tr>
+      <td><code style="font-size:.78rem;">TnytIeckTVqQ0btq</code></td>
+      <td><strong>OpenRouter</strong></td>
+      <td>API Key</td>
+      <td>Alle KI-Agents (Intent, Coaching, Recherche, Briefing, Sparring)</td>
+    </tr>
+    <tr>
+      <td><code style="font-size:.78rem;">E76Jek2MsSnAhoHk</code></td>
+      <td><strong>Google Calendar</strong></td>
+      <td>OAuth2</td>
+      <td>Kalender-Agent, Briefing, Erinnerungen, Kontakt-Sync</td>
+    </tr>
+    <tr>
+      <td><code style="font-size:.78rem;">gdQI3sYljvp4OHt4</code></td>
+      <td><strong>Google Drive</strong></td>
+      <td>OAuth2</td>
+      <td>Herzkraft-PDF-Speicherung, Report-Agent</td>
+    </tr>
+    <tr>
+      <td><code style="font-size:.78rem;">9vzYSXGboe0LJZti</code></td>
+      <td><strong>Gamma.app</strong></td>
+      <td>API Key</td>
+      <td>Health Monitor, Pre-Meeting Briefing</td>
+    </tr>
+  </table>
+
+  <h3>🔑 Direkte API-Keys (in Workflows gespeichert)</h3>
+  <table>
+    <tr><th>Dienst</th><th>Schlüssel-Typ</th><th>Verwendet in</th></tr>
+    <tr>
+      <td><strong>Short.io</strong></td>
+      <td>API Key (sk_...)</td>
+      <td>RevLink Kürzer, Klick-Statistik</td>
+    </tr>
+    <tr>
+      <td><strong>Brave Search</strong></td>
+      <td>API Key</td>
+      <td>Recherche Sub-Agent</td>
+    </tr>
+    <tr>
+      <td><strong>Pipedrive</strong></td>
+      <td>API Token</td>
+      <td>Pipedrive Sub-Agent, Kontakt-Sync, E-Termin-Sync</td>
+    </tr>
+    <tr>
+      <td><strong>FireCrawl</strong></td>
+      <td>API Key</td>
+      <td>Recherche Sub-Agent (Fallback)</td>
+    </tr>
+  </table>
+
+  <div class="opt-box warning" style="margin-top:25px;">
+    <div class="opt-title">⚠️ Sicherheitshinweis</div>
+    Einige API-Keys sind direkt in Workflow-Code-Nodes gespeichert statt in n8n Credentials. Empfehlung: Alle Keys in n8n Credentials migrieren für bessere Sicherheit und einfachere Rotation.
+  </div>
+
+  <div class="opt-box" style="margin-top:12px;">
+    <div class="opt-title">📊 Fehlende Credentials</div>
+    <ul style="margin-top:4px;">
+      <li><strong>n8n API:</strong> Für Workflow-Monitor benötigt (aktuell nicht konfiguriert)</li>
+      <li><strong>LinkedIn API:</strong> Für Content-Veröffentlichung (Status unklar)</li>
+      <li><strong>Meta Graph API:</strong> Für Instagram-Posting (nicht konfiguriert)</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">Tool-Übersicht · ImpactFlow · Seite 7/7</div>
+</div>
+
+</body>
+</html>

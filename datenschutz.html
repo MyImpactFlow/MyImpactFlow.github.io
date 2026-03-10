@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Datenschutzerkl&auml;rung — ImpactFlow</title>
+  <meta name="robots" content="noindex" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grey:   #878787;
+      --pink:   #f29cb6;
+      --mint:   #9dd3c7;
+      --dark:   #2d2d2d;
+      --light:  #faf9f7;
+      --white:  #ffffff;
+      --pink-soft: #fff0f4;
+      --mint-soft: #f0faf8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.65;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+    }
+
+    /* ── Navigation ──────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(242,156,182,0.15);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    nav img.logo { height: 44px; width: auto; }
+
+    nav .nav-cta {
+      background: var(--pink);
+      color: var(--white);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    nav .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(242,156,182,0.5);
+      background: #ee8aa6;
+    }
+
+    /* ── Legal Page Styles ───────────────────────────────── */
+    .legal-header {
+      padding: 120px 24px 60px;
+      background: linear-gradient(160deg, var(--white) 0%, var(--pink-soft) 50%, var(--mint-soft) 100%);
+      text-align: center;
+    }
+
+    .legal-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .legal-header p {
+      color: var(--grey);
+      font-size: 0.95rem;
+    }
+
+    .legal-content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    .legal-content h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 40px 0 14px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .legal-content h2:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .legal-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 24px 0 10px;
+    }
+
+    .legal-content p,
+    .legal-content li {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .legal-content ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 16px;
+    }
+
+    .legal-content ul li {
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .legal-content ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      background: var(--pink);
+      border-radius: 50%;
+    }
+
+    .legal-content a {
+      color: var(--pink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .legal-content a:hover {
+      color: #ee8aa6;
+      text-decoration: underline;
+    }
+
+    .legal-content strong {
+      color: var(--dark);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--pink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 40px;
+      padding: 12px 24px;
+      border: 2px solid var(--pink);
+      border-radius: 50px;
+      transition: all 0.3s;
+    }
+    .back-link:hover {
+      background: var(--pink);
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      padding: 36px 24px;
+      background: var(--dark);
+      text-align: center;
+    }
+
+    footer img { height: 36px; margin-bottom: 14px; opacity: 0.6; }
+
+    footer p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+
+    @media (max-width: 600px) {
+      nav { justify-content: center; }
+      nav .nav-cta { display: none; }
+      .legal-header { padding: 100px 20px 40px; }
+      .legal-content { padding: 40px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav>
+    <a href="index.html">
+      <img
+        class="logo"
+        src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-color.png"
+        alt="ImpactFlow Logo"
+      />
+    </a>
+    <a href="index.html#whatsapp" class="nav-cta">Jetzt beitreten &#8594;</a>
+  </nav>
+
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <section class="legal-header">
+    <h1>Datenschutzerkl&auml;rung</h1>
+    <p>Informationen zum Umgang mit Ihren Daten</p>
+  </section>
+
+
+  <!-- ── Content ────────────────────────────────────────── -->
+  <div class="legal-content">
+
+    <h2>1. Allgemeines</h2>
+    <p>
+      Der Schutz Ihrer pers&ouml;nlichen Daten ist uns ein wichtiges Anliegen.
+      In dieser Datenschutzerkl&auml;rung informieren wir Sie dar&uuml;ber, welche Daten wir erheben,
+      wof&uuml;r wir sie verwenden und welche Rechte Sie haben.
+    </p>
+    <p>
+      <strong>Verantwortliche Stelle:</strong><br />
+      Impact Flow<br />
+      Sperletweg 36<br />
+      8052 Z&uuml;rich, Schweiz<br />
+      E-Mail: <a href="mailto:go@impactflow.ch">go@impactflow.ch</a>
+    </p>
+
+    <h2>2. Erhebung und Verwendung von Daten</h2>
+
+    <h3>2.1 Beim Besuch unserer Webseite</h3>
+    <p>
+      Diese Webseite wird &uuml;ber GitHub Pages gehostet. Beim Besuch unserer Webseite werden
+      automatisch folgende Daten durch den Hosting-Anbieter erfasst:
+    </p>
+    <ul>
+      <li>IP-Adresse des anfragenden Ger&auml;ts</li>
+      <li>Datum und Uhrzeit der Anfrage</li>
+      <li>Adresse der aufgerufenen Seite (URL)</li>
+      <li>Verwendeter Webbrowser und Betriebssystem</li>
+    </ul>
+    <p>
+      Diese Daten werden von GitHub, Inc. (USA) verarbeitet. Weitere Informationen finden Sie
+      in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Datenschutzerkl&auml;rung von GitHub</a>.
+    </p>
+
+    <h3>2.2 Kontaktaufnahme via WhatsApp</h3>
+    <p>
+      Wenn Sie uns &uuml;ber WhatsApp kontaktieren, werden Ihre Nachricht, Ihr Name und Ihre
+      Telefonnummer durch WhatsApp (Meta Platforms Ireland Ltd.) verarbeitet. Die Kommunikation
+      ist Ende-zu-Ende verschl&uuml;sselt.
+    </p>
+    <p>
+      Weitere Informationen finden Sie in der
+      <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">Datenschutzerkl&auml;rung von WhatsApp</a>.
+    </p>
+
+    <h2>3. Externe Dienste</h2>
+
+    <h3>3.1 Google Fonts</h3>
+    <p>
+      Diese Webseite nutzt Google Fonts zur Darstellung von Schriftarten.
+      Beim Laden der Seite stellt Ihr Browser eine Verbindung zu Servern von Google LLC (USA) her.
+      Dabei kann Ihre IP-Adresse an Google &uuml;bermittelt werden.
+    </p>
+    <p>
+      Weitere Informationen:
+      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerkl&auml;rung</a>.
+    </p>
+
+    <h3>3.2 GitHub (Bilder und Assets)</h3>
+    <p>
+      Bilder und Logos werden &uuml;ber GitHub (raw.githubusercontent.com) geladen.
+      Dabei kann Ihre IP-Adresse an GitHub, Inc. (USA) &uuml;bermittelt werden.
+    </p>
+
+    <h2>4. Cookies</h2>
+    <p>
+      Diese Webseite verwendet <strong>keine Cookies</strong> und keine Tracking-Tools.
+      Es werden keine Analyse- oder Marketing-Cookies gesetzt.
+    </p>
+
+    <h2>5. Datenweitergabe an Dritte</h2>
+    <p>
+      Ihre Daten werden nur an Dritte weitergegeben, wenn dies f&uuml;r die Erbringung unserer Dienste
+      erforderlich ist (z.&thinsp;B. Hosting-Anbieter) oder Sie ausdr&uuml;cklich eingewilligt haben.
+      Eine Weitergabe zu Werbezwecken findet nicht statt.
+    </p>
+
+    <h2>6. Datensicherheit</h2>
+    <p>
+      Wir treffen angemessene technische und organisatorische Massnahmen zum Schutz Ihrer Daten.
+      Die &Uuml;bertragung erfolgt &uuml;ber eine verschl&uuml;sselte HTTPS-Verbindung.
+    </p>
+
+    <h2>7. Ihre Rechte</h2>
+    <p>
+      Sie haben das Recht auf Auskunft, Berichtigung, L&ouml;schung und Einschr&auml;nkung der
+      Verarbeitung Ihrer personenbezogenen Daten. Ausserdem haben Sie das Recht auf
+      Daten&uuml;bertragbarkeit und das Recht, Beschwerde bei einer Aufsichtsbeh&ouml;rde einzureichen.
+    </p>
+    <p>
+      F&uuml;r die Aus&uuml;bung Ihrer Rechte wenden Sie sich bitte an:<br />
+      <a href="mailto:go@impactflow.ch">go@impactflow.ch</a>
+    </p>
+
+    <h2>8. &Auml;nderungen</h2>
+    <p>
+      Wir behalten uns vor, diese Datenschutzerkl&auml;rung jederzeit anzupassen.
+      Die aktuelle Fassung ist auf dieser Seite abrufbar.
+    </p>
+    <p><strong>Stand:</strong> M&auml;rz 2026 &mdash; Z&uuml;rich, Schweiz &#127464;&#127469;</p>
+
+    <a href="index.html" class="back-link">&#8592; Zur&uuml;ck zur Startseite</a>
+  </div>
+
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <footer>
+    <img
+      src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-white.png"
+      alt="ImpactFlow"
+    />
+    <p>
+      &copy; 2026 ImpactFlow &nbsp;&middot;&nbsp;
+      <a href="impressum.html">Impressum</a> &nbsp;&middot;&nbsp;
+      <a href="datenschutz.html">Datenschutz</a>
+    </p>
+  </footer>
+
+</body>
+</html>

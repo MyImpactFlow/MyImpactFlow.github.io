@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Danke &mdash; Deine Herzkraft-Analyse wird erstellt</title>
+  <meta name="description" content="Deine pers&ouml;nliche Herzkraft-Analyse wird gerade f&uuml;r dich erstellt. Pr&uuml;fe deinen Posteingang." />
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grey:       #878787;
+      --pink:       #f29cb6;
+      --mint:       #9dd3c7;
+      --dark:       #2d2d2d;
+      --light:      #faf9f7;
+      --white:      #ffffff;
+      --pink-soft:  #fff0f4;
+      --mint-soft:  #f0faf8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--light);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Navigation ──────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(250,249,247,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .nav-logo img { height: 40px; }
+    .nav-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--pink);
+      font-weight: 400;
+      font-style: italic;
+    }
+
+    /* ── Main Content ────────────────────────────────────── */
+    main {
+      flex: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 120px 24px 60px;
+      text-align: center;
+    }
+
+    /* ── Checkmark Animation ─────────────────────────────── */
+    .check-circle {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      animation: checkPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .check-circle svg {
+      width: 40px; height: 40px;
+      stroke: var(--white);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: checkDraw 0.5s 0.4s ease forwards;
+    }
+    @keyframes checkPop {
+      0% { transform: scale(0); opacity: 0; }
+      60% { transform: scale(1.15); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes checkDraw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ── Headline ────────────────────────────────────────── */
+    .danke-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+    .danke-headline .name { color: var(--pink); }
+
+    .danke-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: #666;
+      max-width: 520px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+
+    /* ── Steps ───────────────────────────────────────────── */
+    .steps-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 28px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      text-align: left;
+      padding: 24px 28px;
+      background: var(--white);
+      border: 2px solid rgba(242,156,182,0.1);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: border-color 0.5s, box-shadow 0.5s, transform 0.3s;
+    }
+
+    /* Progressive Reveal — versteckte Steps */
+    .step-hidden {
+      display: none !important;
+    }
+    @keyframes stepReveal {
+      0%   { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sequenzielles Pulsieren — aktiver Schritt */
+    .step.step-pulse {
+      border-color: var(--pink);
+      box-shadow: 0 4px 24px rgba(242,156,182,0.25);
+      transform: scale(1.015);
+      animation: stepGlow 1.5s ease-in-out infinite;
+    }
+    @keyframes stepGlow {
+      0%   { box-shadow: 0 4px 24px rgba(242,156,182,0.2); }
+      50%  { box-shadow: 0 4px 32px rgba(242,156,182,0.4); }
+      100% { box-shadow: 0 4px 24px rgba(242,156,182,0.2); }
+    }
+
+    /* Erledigter Schritt — grüner Haken-Badge */
+    .step.step-done {
+      border-color: rgba(157,211,199,0.4);
+      opacity: 0.75;
+    }
+    .step.step-done .step-number::after {
+      content: '\2713';
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--mint);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── Step-Checkbox Button ──────────────────────────── */
+    .step-check-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      padding: 8px 18px;
+      border: 2px solid rgba(157,211,199,0.5);
+      border-radius: 24px;
+      background: var(--mint-soft);
+      color: #5ba898;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(4px);
+    }
+    .step-check-btn.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .step-check-btn.active:hover {
+      background: var(--mint);
+      color: var(--white);
+      border-color: var(--mint);
+      transform: scale(1.04);
+      box-shadow: 0 4px 16px rgba(157,211,199,0.35);
+    }
+    .step-check-btn.checked {
+      background: var(--mint);
+      color: var(--white);
+      border-color: var(--mint);
+      pointer-events: none;
+      opacity: 0.6;
+      animation: btnCheck 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    @keyframes btnCheck {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
+    /* ── Sniper Link Button ──────────────────────────────── */
+    .sniper-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 22px;
+      border: 2px solid var(--pink);
+      border-radius: 24px;
+      background: var(--pink-soft);
+      color: var(--pink);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .sniper-link-btn:hover {
+      background: var(--pink);
+      color: var(--white);
+      transform: scale(1.04);
+      box-shadow: 0 4px 16px rgba(242,156,182,0.35);
+    }
+    .sniper-link-hint {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: #b0b0b0;
+      font-style: italic;
+    }
+
+    /* ── E-Mail-Anzeige in Schritt 1 ──────────────────────── */
+    .email-display {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 10px 16px;
+      background: var(--mint-soft);
+      border: 1px solid var(--mint);
+      border-radius: 10px;
+      font-size: 0.88rem;
+    }
+    .email-display .email-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .email-display .email-text {
+      color: var(--grey);
+      font-size: 0.82rem;
+      line-height: 1.4;
+    }
+    .email-display .email-address {
+      display: block;
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 0.92rem;
+      word-break: break-all;
+    }
+    .email-wrong-link {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: var(--pink);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--pink);
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+    .email-wrong-link:hover {
+      opacity: 0.7;
+    }
+
+    /* ── Inline E-Mail-Korrektur ───────────────────────────── */
+    .email-edit-form {
+      display: none;
+      margin-top: 12px;
+      padding: 14px 16px;
+      background: var(--pink-soft);
+      border: 1.5px solid var(--pink);
+      border-radius: 12px;
+      animation: stepReveal 0.35s ease both;
+    }
+    .email-edit-form.active {
+      display: block;
+    }
+    .email-edit-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .email-edit-row {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+    .email-edit-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: var(--dark);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.25s;
+    }
+    .email-edit-input:focus {
+      border-color: var(--pink);
+    }
+    .email-edit-input.error {
+      border-color: #e74c3c;
+    }
+    .email-edit-btn {
+      padding: 10px 18px;
+      background: var(--pink);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s;
+    }
+    .email-edit-btn:hover {
+      background: #e88aa6;
+      transform: scale(1.03);
+    }
+    .email-edit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .email-edit-cancel {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.72rem;
+      color: #999;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .email-edit-cancel:hover {
+      color: var(--dark);
+    }
+    .email-edit-error {
+      display: none;
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: #e74c3c;
+      font-weight: 500;
+    }
+    .email-edit-success {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 16px;
+      background: var(--mint-soft);
+      border: 1.5px solid var(--mint);
+      border-radius: 10px;
+      font-size: 0.82rem;
+      color: #3a8f7f;
+      font-weight: 500;
+      animation: stepReveal 0.35s ease both;
+    }
+
+    /* ── Countdown Timer ─────────────────────────────────── */
+    .countdown-container {
+      margin-top: 16px;
+      padding: 14px 0;
+    }
+    .countdown-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .countdown-label {
+      font-size: 0.8rem;
+      color: #888;
+      font-weight: 500;
+    }
+    .countdown-timer {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--pink);
+      letter-spacing: 0.05em;
+      font-variant-numeric: tabular-nums;
+    }
+    .countdown-bar-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(242,156,182,0.15);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .countdown-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pink), #ff8fab);
+      border-radius: 3px;
+      transition: width 1s linear;
+    }
+    .countdown-done {
+      display: none;
+      text-align: center;
+      padding: 12px 0 0;
+    }
+    .countdown-done .done-emoji {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 4px;
+    }
+    .countdown-done .done-text {
+      color: var(--mint);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .countdown-done.visible {
+      display: block;
+      animation: bannerPop 0.4s ease both;
+    }
+
+    /* ── Toast Notification ──────────────────────────────── */
+    .toast {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-120px);
+      padding: 14px 28px;
+      background: var(--white);
+      border: 2px solid var(--mint);
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--dark);
+      z-index: 200;
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      white-space: nowrap;
+    }
+    .toast.visible {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Completion Banner ─────────────────────────────── */
+    .step-complete-banner {
+      display: none;
+      margin-top: 32px;
+      padding: 28px 24px;
+      background: var(--mint-soft);
+      border: 2px solid var(--mint);
+      border-radius: 16px;
+      text-align: center;
+    }
+    .step-complete-banner.visible {
+      display: block;
+      animation: bannerPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    .step-complete-banner h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .step-complete-banner p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.55;
+    }
+    @keyframes bannerPop {
+      0% { transform: scale(0.92); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .step-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.4rem;
+    }
+    .step-icon-1 { background: var(--pink-soft); }
+    .step-icon-2 { background: #fef9ee; }
+    .step-icon-3 { background: var(--mint-soft); }
+
+    .step-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .step-content p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.55;
+    }
+    .step-content strong {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .step-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--pink);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Spam-Hinweis als Inline-Tipp unter Schritt 1 ──── */
+    .step-hint {
+      display: block;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--mint-soft);
+      border-radius: 10px;
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.5;
+    }
+    .step-hint strong {
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    /* ── Reveal Animation ────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .step.step-pulse { animation: none; }
+      .step-check-btn.checked { animation: none; }
+      .step-complete-banner.visible { animation: none; }
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      padding: 36px 24px;
+      background: var(--dark);
+      text-align: center;
+    }
+    footer img { height: 32px; margin-bottom: 12px; opacity: 0.7; }
+    footer p { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: var(--white); }
+
+    /* ── Konfetti ────────────────────────────────────────── */
+    .confetti-container {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      top: -20px;
+      opacity: 0;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+      20%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(105vh) rotate(720deg) scale(0.4); }
+    }
+    @keyframes confettiSway {
+      0%, 100% { margin-left: 0; }
+      25%  { margin-left: 30px; }
+      75%  { margin-left: -30px; }
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      main { padding: 100px 16px 40px; }
+      .step { padding: 20px 20px; gap: 16px; }
+      .step-icon { width: 42px; height: 42px; font-size: 1.2rem; }
+      .step-number { font-size: 0.95rem; }
+      .step.step-done .step-number::after { width: 24px; height: 24px; font-size: 0.75rem; }
+      .step-check-btn { font-size: 0.78rem; padding: 7px 14px; }
+      .sniper-link-btn { font-size: 0.8rem; padding: 8px 18px; }
+      .countdown-timer { font-size: 1.3rem; }
+      nav { padding: 12px 16px; }
+      .toast { font-size: 0.82rem; padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav>
+    <a href="herz-analyse.html" class="nav-logo">
+      <img
+        src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-dark.png"
+        alt="ImpactFlow"
+        loading="lazy"
+      />
+    </a>
+    <span class="nav-label">Herzkraft-Analyse</span>
+  </nav>
+
+  <!-- ── Main Content ───────────────────────────────────── -->
+  <main>
+
+    <!-- Checkmark -->
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24"><polyline points="6 12 10 16 18 8" /></svg>
+    </div>
+
+    <!-- Headline mit Vorname -->
+    <h1 class="danke-headline reveal">
+      Danke, <span class="name" id="user-name"></span>! &#128155;
+    </h1>
+
+    <p class="danke-subtitle reveal reveal-delay-1">
+      Deine pers&ouml;nliche Herzkraft-Analyse wird gerade f&uuml;r dich erstellt &mdash;
+      basierend auf deinen Antworten.
+    </p>
+
+    <!-- 3 Schritte -->
+    <p class="steps-label reveal reveal-delay-2">Was jetzt passiert</p>
+
+    <div class="step reveal reveal-delay-2" id="step-1">
+      <div class="step-icon step-icon-1">&#128231;</div>
+      <div class="step-content">
+        <span class="step-number">Schritt 1</span>
+        <h3>E-Mail best&auml;tigen</h3>
+        <p>
+          Pr&uuml;fe deinen Posteingang und klicke den <strong>Best&auml;tigungslink</strong>.
+          Erst danach wird deine Analyse erstellt und zugestellt.
+        </p>
+        <!-- E-Mail-Anzeige — wird per JS befüllt -->
+        <div class="email-display" id="email-display" style="display:none;">
+          <span class="email-icon">📧</span>
+          <div class="email-text">
+            Wir senden die Best&auml;tigung an:
+            <strong class="email-address" id="email-address-display"></strong>
+          </div>
+        </div>
+        <a href="#" class="email-wrong-link" id="email-wrong-link" style="display:none;"
+           onclick="event.preventDefault(); window.startEmailEdit();">
+          Stimmt nicht? &rarr; E-Mail korrigieren
+        </a>
+        <!-- Inline E-Mail-Korrektur -->
+        <div class="email-edit-form" id="email-edit-form">
+          <span class="email-edit-label">Neue E-Mail-Adresse eingeben:</span>
+          <div class="email-edit-row">
+            <input type="email" class="email-edit-input" id="email-edit-input"
+                   placeholder="deine@email.ch" autocomplete="email" />
+            <button type="button" class="email-edit-btn" id="email-edit-btn"
+                    onclick="window.submitEmailCorrection();">
+              Aktualisieren
+            </button>
+          </div>
+          <span class="email-edit-error" id="email-edit-error"></span>
+          <button type="button" class="email-edit-cancel" onclick="window.cancelEmailEdit();">
+            Abbrechen
+          </button>
+        </div>
+        <div class="email-edit-success" id="email-edit-success">
+          &#10003; E-Mail aktualisiert! Neue Best&auml;tigung wird gesendet.
+        </div>
+        <span class="step-hint">
+          &#128270; Keine E-Mail? Pr&uuml;fe deinen <strong>Spam-/Junk-Ordner</strong>.
+          Suche nach <strong>ImpactFlow</strong> oder <strong>go@impactflow.ch</strong>.
+        </span>
+        <!-- Sniper Link wird per JS eingefügt -->
+        <div id="sniper-link-slot"></div>
+        <button class="step-check-btn" type="button">&#9744; Erledigt</button>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-3 step-hidden" id="step-2">
+      <div class="step-icon step-icon-2">&#9203;</div>
+      <div class="step-content">
+        <span class="step-number">Schritt 2</span>
+        <h3>4&ndash;5 Minuten Geduld</h3>
+        <p>
+          Deine Analyse wird <strong>individuell f&uuml;r dich erstellt</strong>.
+          Das dauert einen Moment, weil sie auf deinen pers&ouml;nlichen Antworten basiert
+          &mdash; keine Standard-Vorlage.
+        </p>
+        <!-- Countdown Timer -->
+        <div class="countdown-container" id="countdown-container" style="display:none;">
+          <div class="countdown-display">
+            <span class="countdown-label">Deine Analyse wird erstellt</span>
+            <span class="countdown-timer" id="countdown-timer">05:00</span>
+          </div>
+          <div class="countdown-bar-track">
+            <div class="countdown-bar-fill" id="countdown-bar" style="width:100%;"></div>
+          </div>
+          <div class="countdown-done" id="countdown-done"><span class="done-emoji">&#127881;</span><span class="done-text">Fertig!</span><br><span class="done-text">Deine Analyse ist bereit.</span></div>
+        </div>
+        <button class="step-check-btn" type="button">&#9744; Erledigt</button>
+      </div>
+    </div>
+
+    <div class="step reveal reveal-delay-4 step-hidden" id="step-3">
+      <div class="step-icon step-icon-3">&#128196;</div>
+      <div class="step-content">
+        <span class="step-number">Schritt 3</span>
+        <h3>PDF &ouml;ffnen &amp; lesen</h3>
+        <p>
+          Du erh&auml;ltst dein pers&ouml;nliches PDF direkt per E-Mail.
+          Nimm dir <strong>6 Minuten in Ruhe</strong> daf&uuml;r &mdash; es lohnt sich.
+        </p>
+        <button class="step-check-btn" type="button">&#9744; Erledigt</button>
+      </div>
+    </div>
+
+    <!-- Completion Banner -->
+    <div class="step-complete-banner" id="step-complete-banner">
+      <h3>&#127881; Du bist startklar!</h3>
+      <p>Alle Schritte erledigt. Deine Herzkraft-Analyse wartet auf dich in deinem Posteingang.</p>
+    </div>
+
+  </main>
+
+  <!-- ── Toast Notification ───────────────────────────────── -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer>
+    <img
+      src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-white.png"
+      alt="ImpactFlow"
+    />
+    <p>
+      &copy; 2026 ImpactFlow &nbsp;&middot;&nbsp;
+      <a href="impressum.html">Impressum</a> &nbsp;&middot;&nbsp;
+      <a href="datenschutz.html">Datenschutz</a>
+    </p>
+  </footer>
+
+  <script>
+    // ── SOFORT: Session-Reset wenn vom Formular kommend ──────
+    // Muss VOR allem anderen laufen damit savedSteps leer ist
+    (function() {
+      var p = new URLSearchParams(window.location.search);
+      // Wenn URL einen "name" Parameter hat → frische Formular-Eintragung
+      if (p.get('name')) {
+        // Kompletten alten Zustand löschen
+        localStorage.removeItem('hk_steps');
+        localStorage.removeItem('hk_session_id');
+        localStorage.removeItem('hk_timer_start');
+        // Name + E-Mail für spätere Reloads sichern
+        localStorage.setItem('hk_last_name', (p.get('name') || '').trim());
+        localStorage.setItem('hk_last_email', (p.get('email') || '').trim());
+        // URL säubern — verhindert erneuten Reset bei Seiten-Reload
+        try { history.replaceState({}, '', location.pathname); } catch(e) {}
+      }
+    })();
+
+    // ── Vorname + E-Mail aus URL oder localStorage lesen ─────
+    var params = new URLSearchParams(window.location.search);
+    var userName = (params.get('name') || '').trim() || (localStorage.getItem('hk_last_name') || '');
+    var userEmail = (params.get('email') || '').trim() || (localStorage.getItem('hk_last_email') || '');
+
+    (function() {
+      var el = document.getElementById('user-name');
+      if (userName) {
+        el.textContent = userName;
+      } else {
+        el.parentElement.innerHTML = 'Danke! &#128155;';
+      }
+    })();
+
+    // ── E-Mail-Adresse in Schritt 1 anzeigen ─────────────
+    (function() {
+      if (!userEmail) return;
+      var displayEl = document.getElementById('email-display');
+      var addressEl = document.getElementById('email-address-display');
+      var wrongLink = document.getElementById('email-wrong-link');
+      if (displayEl && addressEl) {
+        addressEl.textContent = userEmail;
+        displayEl.style.display = 'flex';
+      }
+      if (wrongLink) {
+        wrongLink.style.display = 'inline-block';
+      }
+    })();
+
+    // ── Inline E-Mail-Korrektur ─────────────────────────────
+    (function() {
+      var QUENTN_ENDPOINT = 'https://klick.impactflow.ch/public/forms/497/raw/submit';
+
+      var editForm    = document.getElementById('email-edit-form');
+      var editInput   = document.getElementById('email-edit-input');
+      var editBtn     = document.getElementById('email-edit-btn');
+      var editError   = document.getElementById('email-edit-error');
+      var editSuccess = document.getElementById('email-edit-success');
+      var displayEl   = document.getElementById('email-display');
+      var addressEl   = document.getElementById('email-address-display');
+      var wrongLink   = document.getElementById('email-wrong-link');
+
+      // Edit-Modus öffnen
+      window.startEmailEdit = function() {
+        if (!editForm || !editInput) return;
+        editInput.value = userEmail || '';
+        editForm.classList.add('active');
+        editError.style.display = 'none';
+        editSuccess.style.display = 'none';
+        wrongLink.style.display = 'none';
+        editInput.classList.remove('error');
+        setTimeout(function() { editInput.focus(); editInput.select(); }, 100);
+      };
+
+      // Abbrechen
+      window.cancelEmailEdit = function() {
+        editForm.classList.remove('active');
+        if (userEmail) wrongLink.style.display = 'inline-block';
+      };
+
+      // E-Mail validieren (einfach)
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      // Korrigierte E-Mail absenden
+      window.submitEmailCorrection = function() {
+        var newEmail = (editInput.value || '').trim().toLowerCase();
+
+        // Validierung
+        if (!newEmail) {
+          editError.textContent = 'Bitte gib eine E-Mail-Adresse ein.';
+          editError.style.display = 'block';
+          editInput.classList.add('error');
+          return;
+        }
+        if (!isValidEmail(newEmail)) {
+          editError.textContent = 'Bitte gib eine gültige E-Mail-Adresse ein.';
+          editError.style.display = 'block';
+          editInput.classList.add('error');
+          return;
+        }
+        if (newEmail === (userEmail || '').toLowerCase()) {
+          editError.textContent = 'Das ist die gleiche E-Mail-Adresse.';
+          editError.style.display = 'block';
+          editInput.classList.add('error');
+          return;
+        }
+
+        // Button deaktivieren
+        editBtn.disabled = true;
+        editBtn.textContent = 'Wird gesendet…';
+        editError.style.display = 'none';
+        editInput.classList.remove('error');
+
+        // FormData für Quentn erstellen — MIT allen Fragen-Antworten
+        // (herz-analyse.html speichert die Antworten in localStorage 'hk_form_fields')
+        var fd = new FormData();
+        fd.append('mail', newEmail);
+
+        // Gespeicherte Formular-Felder laden (first_name, Fragen, Hidden-Felder)
+        try {
+          var savedFields = JSON.parse(localStorage.getItem('hk_form_fields') || '{}');
+          Object.keys(savedFields).forEach(function(key) {
+            fd.append(key, savedFields[key]);
+          });
+        } catch(e) {
+          // Fallback: Mindestens first_name mitsenden
+          fd.append('first_name', userName || '');
+        }
+        // Falls first_name nicht in savedFields war
+        if (!fd.has('first_name')) {
+          fd.append('first_name', userName || '');
+        }
+
+        // Alte E-Mail merken (für Tracking-Korrektur)
+        var oldEmail = (userEmail || '').toLowerCase().trim();
+
+        // An Quentn senden (mode: no-cors — gleich wie das Original-Formular)
+        fetch(QUENTN_ENDPOINT, {
+          method: 'POST',
+          body: fd,
+          mode: 'no-cors'
+        }).then(function() {
+          // Erfolgreich — State aktualisieren
+          userEmail = newEmail;
+          localStorage.setItem('hk_last_email', newEmail);
+
+          // Display aktualisieren
+          if (addressEl) addressEl.textContent = newEmail;
+          if (displayEl) displayEl.style.display = 'flex';
+
+          // Edit-Form ausblenden, Erfolg anzeigen
+          editForm.classList.remove('active');
+          editSuccess.style.display = 'block';
+
+          // Sniper-Link aktualisieren (falls Provider gewechselt)
+          updateSniperLink(newEmail);
+
+          // Gesamten Bestätigungs-Prozess zurücksetzen
+          // (Schritt 1 wieder aktiv, Timer/Polling neu, Steps 2+3 versteckt)
+          if (typeof window.resetEmailProcess === 'function') {
+            window.resetEmailProcess();
+          }
+
+          // Toast
+          showToast('✉️ Neue Bestätigung wird gesendet!', 4000);
+
+          // ── Tracking: E-Mail-Korrektur in DataTable aktualisieren ──
+          try {
+            var trackSessionId = localStorage.getItem('hk_session_id_tracking') || '';
+            if (trackSessionId) {
+              var savedFieldsTrack = {};
+              try { savedFieldsTrack = JSON.parse(localStorage.getItem('hk_form_fields') || '{}'); } catch(e2) {}
+              var corrPayload = {
+                action: 'email_correction',
+                session_id: trackSessionId,
+                old_email: oldEmail,
+                new_email: newEmail,
+                vorname: savedFieldsTrack.first_name || userName || '',
+                frage_1: savedFieldsTrack.field_1_wie_oft_triffst_du_entsc || '',
+                frage_2: savedFieldsTrack.field_was_f_llt_dir_schwerer_ || '',
+                frage_3: savedFieldsTrack.field_3_wann_warst_du_zuletzt_wi || '',
+                frage_4: savedFieldsTrack.field_4_wobei_verlierst_du_gerad || '',
+                frage_5: savedFieldsTrack.field_5_was_w_nschst_du_dir_wenn || '',
+                ab_variante: localStorage.getItem('ab_herz') || 'unknown',
+                partner: localStorage.getItem('if_partner') || '',
+                source: localStorage.getItem('if_source') || 'direkt',
+                formular: 'email-korrektur',
+                zeitstempel: new Date().toISOString()
+              };
+              if (navigator.sendBeacon) {
+                navigator.sendBeacon(
+                  'https://erfolg-n8n.peaknetworks.cloud/webhook/herzkraft-form-tracking',
+                  new Blob([JSON.stringify(corrPayload)], { type: 'application/json' })
+                );
+              }
+            }
+          } catch(e) {}
+
+          // Nach 5 Sek Erfolgs-Box ausblenden + "Stimmt nicht?" wieder zeigen
+          setTimeout(function() {
+            editSuccess.style.display = 'none';
+            wrongLink.style.display = 'inline-block';
+          }, 5000);
+
+          // Button zurücksetzen
+          editBtn.disabled = false;
+          editBtn.textContent = 'Aktualisieren';
+        }).catch(function() {
+          // Bei no-cors kommt quasi nie ein Fehler, aber sicherheitshalber
+          editBtn.disabled = false;
+          editBtn.textContent = 'Aktualisieren';
+          editError.textContent = 'Fehler beim Senden. Bitte versuche es erneut.';
+          editError.style.display = 'block';
+        });
+      };
+
+      // Enter-Taste im Input
+      if (editInput) {
+        editInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            window.submitEmailCorrection();
+          }
+          // Fehler zurücksetzen bei Eingabe
+          editError.style.display = 'none';
+          editInput.classList.remove('error');
+        });
+      }
+    })();
+
+    // ── Sniper-Link dynamisch aktualisieren ─────────────────
+    function updateSniperLink(email) {
+      var slot = document.getElementById('sniper-link-slot');
+      if (!slot || !email) return;
+      var domain = email.split('@')[1];
+      if (!domain) return;
+      domain = domain.toLowerCase();
+
+      var providers = {
+        'gmail.com':        'https://mail.google.com/mail/u/0/#search/from%3Aimpactflow',
+        'googlemail.com':   'https://mail.google.com/mail/u/0/#search/from%3Aimpactflow',
+        'outlook.com':      'https://outlook.live.com/mail/0/inbox',
+        'hotmail.com':      'https://outlook.live.com/mail/0/inbox',
+        'hotmail.de':       'https://outlook.live.com/mail/0/inbox',
+        'hotmail.ch':       'https://outlook.live.com/mail/0/inbox',
+        'live.com':         'https://outlook.live.com/mail/0/inbox',
+        'live.de':          'https://outlook.live.com/mail/0/inbox',
+        'yahoo.com':        'https://mail.yahoo.com/',
+        'yahoo.de':         'https://mail.yahoo.com/',
+        'gmx.de':           'https://navigator.gmx.net/mail',
+        'gmx.ch':           'https://navigator.gmx.net/mail',
+        'gmx.net':          'https://navigator.gmx.net/mail',
+        'gmx.at':           'https://navigator.gmx.net/mail',
+        'web.de':           'https://web.de/email/',
+        'bluewin.ch':       'https://mail.bluewin.ch/',
+        'protonmail.com':   'https://mail.proton.me/u/0/all-mail',
+        'proton.me':        'https://mail.proton.me/u/0/all-mail',
+        'icloud.com':       'https://www.icloud.com/mail/',
+        'me.com':           'https://www.icloud.com/mail/',
+        'sunrise.ch':       'https://mail.sunrise.ch/',
+        'outlook.de':       'https://outlook.live.com/mail/0/inbox',
+        'outlook.ch':       'https://outlook.live.com/mail/0/inbox'
+      };
+
+      var url = providers[domain];
+      // Alten Sniper-Link entfernen
+      slot.innerHTML = '';
+      if (!url) return;
+
+      var link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.className = 'sniper-link-btn';
+      link.innerHTML = '&#128236; Postfach &ouml;ffnen';
+      slot.appendChild(link);
+
+      var hint = document.createElement('span');
+      hint.className = 'sniper-link-hint';
+      hint.textContent = '\u2197\uFE0F \u00D6ffnet einen neuen Tab \u2014 bitte kehre danach hierher zur\u00FCck.';
+      slot.appendChild(hint);
+    }
+
+    // ── Scroll Reveal ──────────────────────────────────────
+    var reveals = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { observer.observe(el); });
+
+    // ── Nav scroll shadow ──────────────────────────────────
+    window.addEventListener('scroll', function() {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── Sniper Link — Postfach öffnen ──────────────────────
+    (function() {
+      if (!userEmail) return;
+      var domain = userEmail.split('@')[1];
+      if (!domain) return;
+      domain = domain.toLowerCase();
+
+      var providers = {
+        'gmail.com':        'https://mail.google.com/mail/u/0/#search/from%3Aimpactflow',
+        'googlemail.com':   'https://mail.google.com/mail/u/0/#search/from%3Aimpactflow',
+        'outlook.com':      'https://outlook.live.com/mail/0/inbox',
+        'hotmail.com':      'https://outlook.live.com/mail/0/inbox',
+        'hotmail.de':       'https://outlook.live.com/mail/0/inbox',
+        'hotmail.ch':       'https://outlook.live.com/mail/0/inbox',
+        'live.com':         'https://outlook.live.com/mail/0/inbox',
+        'live.de':          'https://outlook.live.com/mail/0/inbox',
+        'yahoo.com':        'https://mail.yahoo.com/',
+        'yahoo.de':         'https://mail.yahoo.com/',
+        'gmx.de':           'https://navigator.gmx.net/mail',
+        'gmx.ch':           'https://navigator.gmx.net/mail',
+        'gmx.net':          'https://navigator.gmx.net/mail',
+        'gmx.at':           'https://navigator.gmx.net/mail',
+        'web.de':           'https://web.de/email/',
+        'bluewin.ch':       'https://mail.bluewin.ch/',
+        'protonmail.com':   'https://mail.proton.me/u/0/all-mail',
+        'proton.me':        'https://mail.proton.me/u/0/all-mail',
+        'icloud.com':       'https://www.icloud.com/mail/',
+        'me.com':           'https://www.icloud.com/mail/',
+        'sunrise.ch':       'https://mail.sunrise.ch/',
+        'outlook.de':       'https://outlook.live.com/mail/0/inbox',
+        'outlook.ch':       'https://outlook.live.com/mail/0/inbox'
+      };
+
+      var url = providers[domain];
+      if (!url) return;
+
+      var slot = document.getElementById('sniper-link-slot');
+      var link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.className = 'sniper-link-btn';
+      link.innerHTML = '&#128236; Postfach &ouml;ffnen';
+      slot.appendChild(link);
+
+      var hint = document.createElement('span');
+      hint.className = 'sniper-link-hint';
+      hint.textContent = '\u2197\uFE0F \u00D6ffnet einen neuen Tab \u2014 bitte kehre danach hierher zur\u00FCck.';
+      slot.appendChild(hint);
+    })();
+
+    // ── Konfetti-Effekt (als Funktion) ─────────────────────
+    function launchConfetti() {
+      var colors = ['#f29cb6', '#9dd3c7', '#ffd700', '#ff8fab', '#a8e6cf', '#ffb347', '#dda0dd', '#87ceeb'];
+      var shapes = ['circle', 'rect', 'diamond'];
+      var container = document.createElement('div');
+      container.className = 'confetti-container';
+      document.body.appendChild(container);
+
+      var count = 60;
+      for (var i = 0; i < count; i++) {
+        var piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        var shape = shapes[Math.floor(Math.random() * shapes.length)];
+        var size = 6 + Math.random() * 10;
+        var left = Math.random() * 100;
+        var delay = Math.random() * 1.2;
+        var duration = 2.5 + Math.random() * 2;
+        var swayDuration = 1.5 + Math.random() * 2;
+
+        piece.style.left = left + '%';
+        piece.style.width = size + 'px';
+        piece.style.height = (shape === 'rect' ? size * 0.5 : size) + 'px';
+        piece.style.background = color;
+
+        if (shape === 'circle') {
+          piece.style.borderRadius = '50%';
+        } else if (shape === 'diamond') {
+          piece.style.borderRadius = '2px';
+          piece.style.transform = 'rotate(45deg)';
+        } else {
+          piece.style.borderRadius = '2px';
+        }
+
+        piece.style.animation = 'confettiFall ' + duration + 's ' + (0.3 + delay) + 's linear forwards, confettiSway ' + swayDuration + 's ' + delay + 's ease-in-out infinite';
+        container.appendChild(piece);
+      }
+
+      setTimeout(function() { container.remove(); }, 6000);
+    }
+
+    // Konfetti als Begrüssung beim Seitenaufruf
+    launchConfetti();
+
+    // ── Toast-Benachrichtigung ─────────────────────────────
+    function showToast(text, durationMs) {
+      var toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.classList.add('visible');
+      setTimeout(function() {
+        toast.classList.remove('visible');
+      }, durationMs || 3000);
+    }
+
+    // ── Interaktive Step-Checkboxen mit Tracking ──────────
+    (function() {
+      var WEBHOOK_URL = 'https://erfolg-n8n.peaknetworks.cloud/webhook/danke-step-tracking';
+      var CONFIRM_URL = 'https://erfolg-n8n.peaknetworks.cloud/webhook/email-confirmation-status';
+      var TIMER_DURATION = 300000; // 5 Minuten
+
+      // Session-ID: eindeutig pro Formular-Abschluss
+      var sessionId = localStorage.getItem('hk_session_id');
+      if (!sessionId) {
+        sessionId = 'hk_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+        localStorage.setItem('hk_session_id', sessionId);
+      }
+
+      var savedSteps = JSON.parse(localStorage.getItem('hk_steps') || '{}');
+      var stepEls = [
+        document.getElementById('step-1'),
+        document.getElementById('step-2'),
+        document.getElementById('step-3')
+      ];
+      var btns = document.querySelectorAll('.step-check-btn');
+      var banner = document.getElementById('step-complete-banner');
+
+      // Timer-Referenzen
+      var countdownInterval = null;
+      var pollInterval = null;
+
+      // ── Tracking Event senden (fire-and-forget) ──────────
+      function track(event, stepNum) {
+        var labels = ['E-Mail best\u00e4tigen', '4-5 Minuten Geduld', 'PDF \u00f6ffnen & lesen'];
+        try {
+          fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              event: event,
+              name: userName || 'Unbekannt',
+              email: userEmail || '',
+              step: stepNum || 0,
+              stepLabel: stepNum ? labels[stepNum - 1] : '',
+              timestamp: new Date().toISOString(),
+              sessionId: sessionId,
+              stepsCompleted: Object.keys(savedSteps).length
+            })
+          }).catch(function() {});
+        } catch (e) {}
+      }
+
+      // ── Step aufdecken (Progressive Reveal) ──────────────
+      function revealStep(idx) {
+        var el = stepEls[idx];
+        if (!el || !el.classList.contains('step-hidden')) return;
+        el.classList.remove('step-hidden');
+        el.style.animation = 'stepReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards';
+        // Scroll sanft zum neuen Step
+        setTimeout(function() {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      }
+
+      // ── Schritt als erledigt markieren ────────────────────
+      function markDone(idx, silent) {
+        stepEls[idx].classList.remove('step-pulse');
+        stepEls[idx].classList.add('step-done');
+        btns[idx].classList.remove('active');
+        btns[idx].classList.add('checked');
+        btns[idx].innerHTML = '&#10003; Erledigt';
+        if (!silent) {
+          savedSteps['step_' + (idx + 1)] = new Date().toISOString();
+          localStorage.setItem('hk_steps', JSON.stringify(savedSteps));
+          track('step_completed', idx + 1);
+        }
+      }
+
+      // ── Nächsten aktiven Schritt aktivieren ───────────────
+      function activateNext(fromClick) {
+        for (var i = 0; i < 3; i++) {
+          if (!savedSteps['step_' + (i + 1)]) {
+            // Step aufdecken falls versteckt
+            revealStep(i);
+            stepEls[i].classList.add('step-pulse');
+            btns[i].classList.add('active');
+
+            // Step 2 aktiviert → Countdown starten
+            if (i === 1) startCountdown();
+
+            return;
+          }
+        }
+        // Alle erledigt
+        banner.classList.add('visible');
+        if (fromClick) {
+          launchConfetti();
+          track('all_completed', 3);
+        }
+      }
+
+      // ── Countdown Timer ──────────────────────────────────
+      function startCountdown() {
+        var container = document.getElementById('countdown-container');
+        var timerEl = document.getElementById('countdown-timer');
+        var barEl = document.getElementById('countdown-bar');
+        var doneEl = document.getElementById('countdown-done');
+
+        // Timer bereits abgelaufen? (Step 2 schon erledigt)
+        if (savedSteps['step_2']) return;
+
+        container.style.display = 'block';
+
+        // Startzeit aus localStorage (überlebt Tab-Wechsel)
+        var timerStart = localStorage.getItem('hk_timer_start');
+        if (!timerStart) {
+          timerStart = Date.now().toString();
+          localStorage.setItem('hk_timer_start', timerStart);
+        }
+        timerStart = parseInt(timerStart, 10);
+
+        function updateTimer() {
+          var elapsed = Date.now() - timerStart;
+          var remaining = Math.max(0, TIMER_DURATION - elapsed);
+          var pct = (remaining / TIMER_DURATION) * 100;
+
+          var mins = Math.floor(remaining / 60000);
+          var secs = Math.floor((remaining % 60000) / 1000);
+          timerEl.textContent = (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+          barEl.style.width = pct + '%';
+
+          if (remaining <= 0) {
+            completeStep2('timer');
+          }
+        }
+
+        // Sofort aktualisieren, dann jede Sekunde
+        updateTimer();
+        countdownInterval = setInterval(updateTimer, 1000);
+
+        // Polling für Workflow-Bestätigung starten
+        startPolling();
+      }
+
+      // ── Step 2 auto-vervollständigen ─────────────────────
+      function completeStep2(trigger) {
+        if (savedSteps['step_2']) return; // Bereits erledigt
+
+        // Timer stoppen
+        if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+        if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+
+        // Timer-UI aktualisieren — Countdown ausblenden, "Fertig" einblenden
+        var container = document.getElementById('countdown-container');
+        var timerEl = document.getElementById('countdown-timer');
+        var doneEl = document.getElementById('countdown-done');
+        var barEl = document.getElementById('countdown-bar');
+        var labelEl = container ? container.querySelector('.countdown-display') : null;
+        if (labelEl) labelEl.style.display = 'none';
+        if (barEl) barEl.parentElement.style.display = 'none';
+        // Container-Hintergrund entfernen — clean auf weiss
+        if (container) {
+          container.style.background = 'transparent';
+          container.style.border = 'none';
+          container.style.padding = '0';
+        }
+        if (doneEl) doneEl.classList.add('visible');
+
+        // Konfetti!
+        launchConfetti();
+
+        // Step 2 als erledigt markieren (mit kurzer Verzögerung für visuellen Effekt)
+        setTimeout(function() {
+          markDone(1, false);
+          activateNext(true);
+        }, 800);
+      }
+
+      // ── Polling für E-Mail-Bestätigung ───────────────────
+      function startPolling() {
+        if (!userEmail || pollInterval) return;
+
+        function checkConfirmation() {
+          if (savedSteps['step_2']) {
+            if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+            return;
+          }
+          fetch(CONFIRM_URL + '?email=' + encodeURIComponent(userEmail), {
+            method: 'GET'
+          }).then(function(res) { return res.json(); })
+            .then(function(data) {
+              if (data && data.confirmed) {
+                completeStep2('workflow');
+              }
+            }).catch(function() {}); // Stille Fehler — Timer ist Fallback
+        }
+
+        // Alle 15 Sekunden prüfen
+        pollInterval = setInterval(checkConfirmation, 15000);
+        // Erste Prüfung nach 5 Sekunden
+        setTimeout(checkConfirmation, 5000);
+      }
+
+      // ── Zustand aus localStorage wiederherstellen ─────────
+      // Erst alle erledigten Steps sofort wiederherstellen
+      for (var i = 0; i < 3; i++) {
+        if (savedSteps['step_' + (i + 1)]) {
+          // Erledigte Steps aufdecken (sofort, ohne Animation)
+          stepEls[i].classList.remove('step-hidden');
+          stepEls[i].style.animation = 'none';
+          markDone(i, true);
+        }
+      }
+
+      // ── Click-Handler ────────────────────────────────────
+      for (var j = 0; j < btns.length; j++) {
+        (function(idx) {
+          btns[idx].addEventListener('click', function() {
+            if (this.classList.contains('checked')) return;
+            markDone(idx, false);
+            activateNext(true);
+          });
+        })(j);
+      }
+
+      // ── Prozess zurücksetzen (bei E-Mail-Korrektur) ─────
+      window.resetEmailProcess = function() {
+        // 1. Alle laufenden Timer/Polling stoppen
+        if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+        if (pollInterval) { clearInterval(pollInterval); pollInterval = null; }
+
+        // 2. savedSteps komplett leeren
+        savedSteps = {};
+        localStorage.removeItem('hk_steps');
+        localStorage.removeItem('hk_timer_start');
+
+        // 3. Alle Steps visuell zurücksetzen
+        for (var i = 0; i < 3; i++) {
+          stepEls[i].classList.remove('step-done', 'step-pulse');
+          btns[i].classList.remove('active', 'checked');
+          btns[i].innerHTML = '&#9744; Erledigt';
+          // Steps 2+3 wieder verstecken
+          if (i > 0) {
+            stepEls[i].classList.add('step-hidden');
+            stepEls[i].style.animation = '';
+          }
+        }
+
+        // 4. Countdown-UI zurücksetzen
+        var cdContainer = document.getElementById('countdown-container');
+        var cdTimer = document.getElementById('countdown-timer');
+        var cdBar = document.getElementById('countdown-bar');
+        var cdDone = document.getElementById('countdown-done');
+        var cdLabel = cdContainer ? cdContainer.querySelector('.countdown-display') : null;
+        if (cdContainer) {
+          cdContainer.style.display = 'none';
+          cdContainer.style.background = '';
+          cdContainer.style.border = '';
+          cdContainer.style.padding = '';
+        }
+        if (cdLabel) cdLabel.style.display = '';
+        if (cdBar) { cdBar.style.width = '100%'; cdBar.parentElement.style.display = ''; }
+        if (cdTimer) cdTimer.textContent = '05:00';
+        if (cdDone) cdDone.classList.remove('visible');
+
+        // 5. Completion-Banner ausblenden
+        banner.classList.remove('visible');
+
+        // 6. Schritt 1 wieder als aktiv pulsieren
+        stepEls[0].classList.add('step-pulse');
+        btns[0].classList.add('active');
+
+        // 7. Tracking
+        track('email_corrected', 0);
+      };
+
+      // Ersten aktiven Schritt pulsieren lassen
+      activateNext(false);
+
+      // Page-View tracken (einmal pro Browser-Tab)
+      if (!sessionStorage.getItem('hk_page_view')) {
+        track('page_view', 0);
+        sessionStorage.setItem('hk_page_view', '1');
+      }
+
+      // ── Page Visibility API — Willkommen zurück ──────────
+      var wasHidden = false;
+      document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+          wasHidden = true;
+        } else if (wasHidden) {
+          wasHidden = false;
+          // Nur zeigen wenn Step 1 erledigt und Step 2 noch offen
+          if (savedSteps['step_1'] && !savedSteps['step_2']) {
+            showToast('Willkommen zur\u00fcck! \uD83D\uDC4B', 3000);
+          }
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Impressum — ImpactFlow</title>
+  <meta name="robots" content="noindex" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grey:   #878787;
+      --pink:   #f29cb6;
+      --mint:   #9dd3c7;
+      --dark:   #2d2d2d;
+      --light:  #faf9f7;
+      --white:  #ffffff;
+      --pink-soft: #fff0f4;
+      --mint-soft: #f0faf8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.65;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+    }
+
+    /* ── Navigation ──────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(242,156,182,0.15);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    nav img.logo { height: 44px; width: auto; }
+
+    nav .nav-cta {
+      background: var(--pink);
+      color: var(--white);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    nav .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(242,156,182,0.5);
+      background: #ee8aa6;
+    }
+
+    /* ── Legal Page Styles ───────────────────────────────── */
+    .legal-header {
+      padding: 120px 24px 60px;
+      background: linear-gradient(160deg, var(--white) 0%, var(--pink-soft) 50%, var(--mint-soft) 100%);
+      text-align: center;
+    }
+
+    .legal-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .legal-header p {
+      color: var(--grey);
+      font-size: 0.95rem;
+    }
+
+    .legal-content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    .legal-content h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 40px 0 14px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .legal-content h2:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .legal-content p,
+    .legal-content li {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .legal-content ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 16px;
+    }
+
+    .legal-content ul li::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--pink);
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .legal-content a {
+      color: var(--pink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .legal-content a:hover {
+      color: #ee8aa6;
+      text-decoration: underline;
+    }
+
+    .legal-content strong {
+      color: var(--dark);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--pink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 40px;
+      padding: 12px 24px;
+      border: 2px solid var(--pink);
+      border-radius: 50px;
+      transition: all 0.3s;
+    }
+    .back-link:hover {
+      background: var(--pink);
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      padding: 36px 24px;
+      background: var(--dark);
+      text-align: center;
+    }
+
+    footer img { height: 36px; margin-bottom: 14px; opacity: 0.6; }
+
+    footer p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+
+    @media (max-width: 600px) {
+      nav { justify-content: center; }
+      nav .nav-cta { display: none; }
+      .legal-header { padding: 100px 20px 40px; }
+      .legal-content { padding: 40px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav>
+    <a href="index.html">
+      <img
+        class="logo"
+        src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-color.png"
+        alt="ImpactFlow Logo"
+      />
+    </a>
+    <a href="index.html#whatsapp" class="nav-cta">Jetzt beitreten &#8594;</a>
+  </nav>
+
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <section class="legal-header">
+    <h1>Impressum</h1>
+    <p>Angaben gem&auml;ss Schweizer Recht (Art. 3 UWG)</p>
+  </section>
+
+
+  <!-- ── Content ────────────────────────────────────────── -->
+  <div class="legal-content">
+
+    <h2>Kontaktadresse</h2>
+    <p>
+      <strong>Impact Flow</strong><br />
+      Sperletweg 36<br />
+      8052 Z&uuml;rich, Schweiz<br />
+      E-Mail: <a href="mailto:go@impactflow.ch">go@impactflow.ch</a><br />
+      Webseite: <a href="https://impactflow.ch" target="_blank" rel="noopener">www.impactflow.ch</a>
+    </p>
+
+    <h2>Vertretungsberechtigte Stelle</h2>
+    <p>Impact Flow</p>
+
+    <h2>Haftungsausschluss</h2>
+    <p>
+      Der Autor &uuml;bernimmt keine Gew&auml;hr f&uuml;r die Richtigkeit, Genauigkeit, Aktualit&auml;t,
+      Zuverl&auml;ssigkeit und Vollst&auml;ndigkeit der Informationen auf dieser Webseite.
+    </p>
+    <p>
+      Haftungsanspr&uuml;che gegen den Autor wegen Sch&auml;den materieller oder immaterieller Art,
+      die aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der ver&ouml;ffentlichten Informationen,
+      durch Missbrauch der Verbindung oder durch technische St&ouml;rungen entstanden sind, werden ausgeschlossen.
+    </p>
+
+    <h2>Haftung f&uuml;r Links</h2>
+    <p>
+      Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres Verantwortungsbereichs.
+      Es wird jegliche Verantwortung f&uuml;r solche Webseiten abgelehnt. Der Zugriff und die Nutzung
+      solcher Webseiten erfolgen auf eigene Gefahr der jeweiligen Nutzerin oder des Nutzers.
+    </p>
+
+    <h2>Urheberrechte</h2>
+    <p>
+      Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf
+      dieser Webseite geh&ouml;ren ausschliesslich Impact Flow oder den speziell
+      genannten Rechteinhabern. F&uuml;r die Reproduktion jeglicher Elemente ist die schriftliche
+      Zustimmung des Urheberrechtstr&auml;gers im Voraus einzuholen.
+    </p>
+
+    <p><strong>Stand:</strong> M&auml;rz 2026 &mdash; Z&uuml;rich, Schweiz &#127464;&#127469;</p>
+
+    <a href="index.html" class="back-link">&#8592; Zur&uuml;ck zur Startseite</a>
+  </div>
+
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <footer>
+    <img
+      src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-white.png"
+      alt="ImpactFlow"
+    />
+    <p>
+      &copy; 2026 ImpactFlow &nbsp;&middot;&nbsp;
+      <a href="impressum.html">Impressum</a> &nbsp;&middot;&nbsp;
+      <a href="datenschutz.html">Datenschutz</a>
+    </p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "whatsapp-funnel",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8080", "-d", "/Users/jeanpierreseemann/Desktop/Alle Projeke/03_Experimente/whatsapp-funnel-landing"],
+      "port": 8080
+    }
+  ]
+}

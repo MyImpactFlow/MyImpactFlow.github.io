@@ -1,0 +1,3602 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- A/B-Test: Variante zuweisen BEVOR CSS/Body rendert -->
+  <script>
+    (function() {
+      var v = localStorage.getItem('ab_herz');
+      if (!v) {
+        v = Math.random() < 0.5 ? 'A' : 'B';
+        localStorage.setItem('ab_herz', v);
+        localStorage.setItem('ab_herz_ts', new Date().toISOString());
+      }
+      document.documentElement.setAttribute('data-variant', v);
+    })();
+  </script>
+  <title>Herzkraft-Analyse &mdash; Finde zur&uuml;ck zu deiner inneren St&auml;rke</title>
+  <meta name="description" content="Kostenlose 6-Minuten-Analyse: Entdecke, wo deine Energie verloren geht und wie du deine Herzkraft zur&uuml;ckholst." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Herzkraft-Analyse &mdash; Finde zur&uuml;ck zu deiner inneren St&auml;rke" />
+  <meta property="og:description" content="Kostenlose 6-Minuten-Analyse f&uuml;r Frauen, die &auml;usserlich stark sind &mdash; aber sp&uuml;ren, dass etwas fehlt." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── A/B-Test ─────────────────────────────────────────── */
+    .ab-b { display: none !important; }
+    html[data-variant="B"] .ab-b { display: block !important; }
+
+    /* ── Variant B: "Was du erfährst" Section ─────────────── */
+    .ab-discover {
+      padding: 80px 24px;
+      background: var(--mint-soft);
+      text-align: center;
+    }
+    .ab-discover .section-label { color: var(--mint); }
+    .ab-discover h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      margin-bottom: 48px;
+      color: var(--dark);
+    }
+    .ab-discover h2 span { color: var(--pink); }
+    .ab-discover-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .ab-discover-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+      transition: transform 0.3s;
+    }
+    .ab-discover-card:hover { transform: translateY(-3px); }
+    .ab-discover-card .ab-icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .ab-discover-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .ab-discover-card p {
+      font-size: 0.88rem;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    /* ── Variant B: "Typische Erkenntnisse" Section ───────── */
+    .ab-insights {
+      padding: 80px 24px;
+      background: var(--white);
+      text-align: center;
+    }
+    .ab-insights .section-label { color: var(--pink); }
+    .ab-insights h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+    .ab-insights-lead {
+      font-size: clamp(0.92rem, 1.8vw, 1.05rem);
+      color: var(--grey);
+      max-width: 560px;
+      margin: 0 auto 48px;
+    }
+    .ab-insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .ab-insight-card {
+      background: var(--light);
+      border-left: 3px solid var(--pink);
+      border-radius: 0 12px 12px 0;
+      padding: 24px 28px;
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .ab-insight-card:hover { transform: translateX(4px); }
+    .ab-insight-card::before {
+      content: '\201E';
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: var(--pink);
+      opacity: 0.3;
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      line-height: 1;
+    }
+    .ab-insight-card p {
+      font-size: 0.92rem;
+      color: var(--dark);
+      line-height: 1.65;
+      font-style: italic;
+      padding-left: 8px;
+    }
+
+    /* ── Variant B: Impuls-Vorgeschmack Box ───────────────── */
+    .ab-preview-box {
+      max-width: 680px;
+      margin: 0 auto 40px;
+      padding: 28px 32px;
+      background: var(--mint-soft);
+      border-radius: 16px;
+      border: 1px solid rgba(157,211,199,0.3);
+      text-align: left;
+      position: relative;
+    }
+    .ab-preview-box .ab-preview-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--mint);
+      margin-bottom: 12px;
+    }
+    .ab-preview-box p {
+      font-size: 0.95rem;
+      color: var(--dark);
+      line-height: 1.7;
+    }
+    .ab-preview-box em {
+      color: var(--pink);
+      font-style: italic;
+    }
+    .ab-preview-box .ab-preview-cta {
+      display: block;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--grey);
+    }
+
+    /* ── Reset & Variables ───────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --grey:       #878787;
+      --pink:       #f29cb6;
+      --mint:       #9dd3c7;
+      --dark:       #2d2d2d;
+      --light:      #faf9f7;
+      --white:      #ffffff;
+      --pink-soft:  #fff0f4;
+      --mint-soft:  #f0faf8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+    }
+
+    /* ── Scroll Animations ─────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Navigation ──────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(242,156,182,0.15);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled {
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    nav img.logo { height: 44px; width: auto; }
+
+    nav .nav-cta {
+      background: var(--pink);
+      color: var(--white);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    nav .nav-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(242,156,182,0.5);
+      background: #ee8aa6;
+    }
+
+    /* ── Social Proof Notification (Nav) ─────────────────── */
+    .nav-proof {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 18px;
+      background: var(--pink);
+      border: 3px solid transparent;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      opacity: 0;
+      transform: translateY(-6px) scale(0.95);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(242,156,182,0.3);
+    }
+    .nav-proof.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .nav-proof.glow {
+      border-color: var(--mint);
+      animation: proofGlow 1.5s ease-in-out infinite;
+    }
+    .nav-proof .proof-icon {
+      width: 20px; height: 20px; flex-shrink: 0;
+    }
+    .nav-proof .proof-body {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+    }
+    .nav-proof .proof-main {
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .nav-proof .proof-meta {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    @keyframes proofGlow {
+      0%   { box-shadow: 0 4px 16px rgba(242,156,182,0.3), 0 0 0 0 rgba(157,211,199,0.5); }
+      50%  { box-shadow: 0 4px 16px rgba(242,156,182,0.3), 0 0 12px 5px rgba(157,211,199,0.35); }
+      100% { box-shadow: 0 4px 16px rgba(242,156,182,0.3), 0 0 0 0 rgba(157,211,199,0.5); }
+    }
+    @media (max-width: 600px) {
+      .nav-proof {
+        padding: 6px 14px;
+        gap: 8px;
+        max-width: calc(100vw - 80px);
+      }
+      .nav-proof .proof-main { font-size: 0.72rem; }
+      .nav-proof .proof-meta { font-size: 0.72rem; }
+    }
+
+    /* ── Hero ────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 24px 80px;
+      background: linear-gradient(160deg, var(--white) 0%, var(--pink-soft) 40%, var(--mint-soft) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(242,156,182,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(157,211,199,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20px, -20px); }
+    }
+
+    .hero-container {
+      max-width: 1100px;
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .hero-image {
+      flex: 0 0 340px;
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 340px;
+      height: 340px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 6px rgba(255,255,255,0.6);
+    }
+
+    .hero-image::after {
+      content: '';
+      position: absolute;
+      bottom: -12px; right: -12px;
+      width: 80px; height: 80px;
+      background: var(--mint);
+      border-radius: 16px;
+      z-index: -1;
+      opacity: 0.5;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--pink);
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      color: var(--dark);
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      min-height: 2.6em;
+    }
+
+    .hero h1 span span {
+      color: var(--pink);
+    }
+
+    .hero-title-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 1.05em;
+      background: var(--pink);
+      margin-left: 3px;
+      vertical-align: text-bottom;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: #555;
+      max-width: 520px;
+      margin: 0 0 36px;
+      font-weight: 400;
+    }
+
+    /* ── Inline Form ───────────────────────────────────── */
+    .hero-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin-bottom: 16px;
+    }
+
+    .hero-form input[type="email"] {
+      flex: 1;
+      padding: 16px 20px;
+      border: 2px solid rgba(242,156,182,0.3);
+      border-right: none;
+      border-radius: 50px 0 0 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .hero-form input[type="email"]:focus {
+      border-color: var(--pink);
+    }
+    .hero-form input[type="email"]::placeholder {
+      color: #aaa;
+    }
+
+    .hero-form button {
+      background: var(--pink);
+      color: var(--white);
+      border: 2px solid var(--pink);
+      padding: 16px 28px;
+      border-radius: 0 50px 50px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+      animation: ctaPulse 2.2s ease-in-out infinite;
+    }
+    .hero-form button:hover {
+      animation: none;
+      background: #ee8aa6;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(242,156,182,0.5);
+    }
+
+    .form-success {
+      display: none;
+      padding: 20px 24px;
+      background: var(--mint-soft);
+      border: 2px solid var(--mint);
+      border-radius: 16px;
+      text-align: center;
+      max-width: 480px;
+    }
+    .form-success h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .form-success p {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* ── 2-Step Form ────────────────────────────────────── */
+    .hero-form-wrapper,
+    .final-form-wrapper { max-width: 520px; }
+    .final-form-wrapper { margin: 0 auto; }
+
+    .form-step-1.hidden { display: none; }
+    .form-live-count {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: var(--grey);
+      text-align: left;
+      margin: 8px 0 0 0;
+    }
+    .form-live-number {
+      font-weight: 700;
+      color: var(--mint);
+    }
+
+    .form-step-2 {
+      display: none;
+      background: var(--white);
+      border: 2px solid rgba(242,156,182,0.15);
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+    .form-step-2.active {
+      display: block;
+      animation: formSlideUp 0.4s ease;
+    }
+    @keyframes formSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-progress {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-family: 'Inter', sans-serif;
+    }
+    .fq-progress-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+      max-width: 320px;
+    }
+    .fq-pip {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(242,156,182,0.12);
+      color: #bbb;
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+    .fq-pip-line {
+      flex: 1;
+      height: 3px;
+      background: rgba(242,156,182,0.12);
+      transition: background 0.3s;
+    }
+    .fq-pip.fq-pip-active {
+      background: var(--pink-soft);
+      color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(242,156,182,0.2);
+      animation: fqNumPulse 1.5s ease-in-out infinite;
+    }
+    .fq-pip.fq-pip-done {
+      background: var(--mint);
+      color: var(--white);
+      box-shadow: none;
+      animation: none;
+    }
+    .fq-pip-line.fq-line-done {
+      background: var(--mint);
+    }
+    .fq-progress-label {
+      font-size: 0.78rem;
+      color: #999;
+    }
+    .fq-progress-complete {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--mint);
+      animation: fqSlideIn 0.4s ease forwards;
+    }
+    .fq-progress-complete.visible { display: flex; }
+
+    .form-q-name { margin-bottom: 24px; }
+    .form-q-name-label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .form-question { margin-bottom: 22px; }
+
+    .form-q-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      line-height: 1.4;
+    }
+    .form-q-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--pink-soft);
+      color: #d4748f;
+      font-size: 0.72rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .form-radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-radio-option { position: relative; }
+    .form-radio-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .form-radio-option label {
+      display: block;
+      padding: 11px 16px;
+      border: 2px solid rgba(242,156,182,0.12);
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+    .form-radio-option label:hover {
+      border-color: rgba(242,156,182,0.5);
+      background: rgba(242,156,182,0.05);
+    }
+    .form-radio-option input[type="radio"]:checked + label {
+      border-color: var(--pink);
+      background: var(--pink-soft);
+      color: var(--dark);
+      font-weight: 500;
+      animation: fieldPulse 2s ease-in-out infinite;
+    }
+
+    /* Pflichtfeld-Sternchen */
+    .form-q-required {
+      color: var(--pink);
+      font-weight: 700;
+      margin-left: 4px;
+      font-size: 1em;
+    }
+
+    /* Pulsierender Glow bei ausgefüllten Feldern */
+    @keyframes fieldPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(242,156,182,0.4); }
+      50%  { box-shadow: 0 0 8px 3px rgba(242,156,182,0.25); }
+      100% { box-shadow: 0 0 0 0 rgba(242,156,182,0.4); }
+    }
+
+    /* Textfeld mit Inhalt */
+    .form-text-input.has-value {
+      border-color: var(--pink);
+      animation: fieldPulse 2s ease-in-out infinite;
+    }
+
+    /* Shake-Animation bei fehlenden Pflichtfeldern */
+    @keyframes formShake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    .form-q-missing {
+      animation: formShake 0.5s ease;
+    }
+    .form-q-missing .form-q-label {
+      color: #e05a5a;
+    }
+    .form-q-missing .form-radio-option label {
+      border-color: rgba(224,90,90,0.3);
+    }
+    .form-q-missing .form-q-name-label {
+      color: #e05a5a;
+    }
+    .form-q-name-check {
+      display: none;
+      color: var(--mint);
+      font-size: 0.85rem;
+      margin-left: 4px;
+    }
+    .form-q-name.name-valid .form-q-name-check {
+      display: inline;
+    }
+    .form-q-name.name-valid .form-q-required {
+      display: none;
+    }
+    .form-q-missing .form-text-input {
+      border-color: rgba(224,90,90,0.4);
+    }
+
+    /* ── Progressive Form Disclosure ────────────────────── */
+    .form-question.fq-hidden,
+    .form-buttons.fq-hidden,
+    .form-trust-note.fq-hidden {
+      display: none !important;
+    }
+    .form-question.fq-reveal,
+    .form-buttons.fq-reveal {
+      animation: fqSlideIn 0.4s ease forwards;
+    }
+    @keyframes fqSlideIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Abgeschlossene Frage: Nummer wird mint-grün mit Häkchen */
+    .form-question.fq-done .form-q-number {
+      background: var(--mint);
+      color: var(--white);
+      transition: background 0.3s, color 0.3s;
+    }
+    /* Abgeschlossenes Label leicht gedimmt */
+    .form-question.fq-done .form-q-label {
+      opacity: 0.7;
+    }
+    /* Pflichtfeld-Stern ausblenden + Häkchen einblenden bei erledigter Frage */
+    .form-question.fq-done .form-q-required {
+      display: none;
+    }
+    .form-question.fq-done .form-q-label::after {
+      content: ' \2713';
+      color: var(--mint);
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    /* Aktive Frage: Nummer pulsiert pink */
+    .form-question.fq-active .form-q-number {
+      animation: fqNumPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes fqNumPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(242,156,182,0.5); }
+      50%  { box-shadow: 0 0 6px 3px rgba(242,156,182,0.3); }
+      100% { box-shadow: 0 0 0 0 rgba(242,156,182,0.5); }
+    }
+
+    /* Auto-Advance Hinweis unter Textfeldern */
+    .fq-auto-hint {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.72rem;
+      color: #bbb;
+      font-style: italic;
+      transition: all 0.4s ease;
+      min-height: 1.2em;
+    }
+    .fq-auto-hint.fq-hint-active {
+      color: var(--mint);
+      font-style: normal;
+      font-weight: 500;
+    }
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+    .fq-auto-hint.fq-hint-counting {
+      color: var(--pink);
+      animation: hintPulse 1.5s ease-in-out infinite;
+    }
+
+    /* Antworten-Zusammenfassung vor Submit */
+    .fq-summary {
+      background: rgba(242,156,182,0.06);
+      border: 1px solid rgba(242,156,182,0.15);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 24px;
+    }
+    .fq-summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 14px 0;
+    }
+    .fq-summary-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      padding: 8px 10px;
+      margin-bottom: 4px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .fq-summary-item:hover {
+      background: rgba(242,156,182,0.1);
+    }
+    .fq-summary-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--mint);
+      min-width: 18px;
+      height: 18px;
+      line-height: 18px;
+      text-align: center;
+      background: var(--mint-soft);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .fq-summary-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      color: var(--dark);
+      line-height: 1.35;
+    }
+    .fq-summary-answer {
+      color: var(--pink);
+      font-weight: 600;
+    }
+    .fq-summary-hint {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: #bbb;
+      text-align: center;
+      margin: 12px 0 0 0;
+      font-style: italic;
+    }
+
+    .form-text-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid rgba(242,156,182,0.12);
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem;
+      color: var(--dark);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+    .form-text-input:focus { border-color: var(--pink); }
+    .form-text-input::placeholder { color: #bbb; }
+
+    .form-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .form-confirm-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: var(--mint);
+      font-weight: 600;
+      margin: 0;
+      text-align: center;
+    }
+    .form-btn-submit {
+      width: 100%;
+      max-width: 340px;
+      padding: 16px 24px;
+      border: 2px solid var(--pink);
+      border-radius: 50px;
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: ctaPulse 2.2s ease-in-out infinite;
+    }
+    .form-btn-submit:hover {
+      animation: none;
+      background: #ee8aa6;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(242,156,182,0.5);
+    }
+    .form-trust-note {
+      text-align: center;
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+
+    .hero-trust {
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-trust span { color: var(--mint); font-size: 1rem; }
+
+    /* ── Pain Section ────────────────────────────────────── */
+    .pain {
+      padding: 100px 24px;
+      background: var(--light);
+      position: relative;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 14px;
+    }
+
+    .pain h2 {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 56px;
+      color: var(--dark);
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+    }
+
+    .pain-card {
+      --bp: 0;
+      border-radius: 20px;
+      padding: 32px 24px;
+      border: 3px solid transparent;
+      background:
+        linear-gradient(var(--white), var(--white)) padding-box,
+        conic-gradient(from 225deg, var(--pink) calc(var(--bp) * 1turn), transparent 0) border-box;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pain-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+    }
+
+    .pain-card .icon-wrap {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      background: var(--pink-soft);
+    }
+    .pain-card .icon-wrap svg {
+      width: 26px; height: 26px;
+      stroke: var(--pink);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .pain-card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .pain-card p {
+      font-size: 0.92rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* ── Promise Section ─────────────────────────────────── */
+    .promise {
+      padding: 100px 24px;
+      background: linear-gradient(135deg, var(--dark) 0%, #1a1a1a 100%);
+      color: var(--white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .promise::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(157,211,199,0.06) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .promise .section-label { color: var(--mint); }
+
+    .promise h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 20px;
+      color: var(--white);
+    }
+    .promise h2 span { color: var(--pink); }
+
+    .promise-lead {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.75);
+      max-width: 620px;
+      margin: 0 auto 56px;
+    }
+
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      text-align: left;
+    }
+
+    .promise-card {
+      --bp: 0;
+      border-radius: 20px;
+      padding: 32px;
+      border: 3px solid transparent;
+      background:
+        linear-gradient(#2e2e2e, #2e2e2e) padding-box,
+        conic-gradient(from 225deg, var(--pink) calc(var(--bp) * 1turn), rgba(255,255,255,0.08) 0) border-box;
+      transition: transform 0.3s;
+    }
+    .promise-card:hover { transform: translateY(-3px); }
+
+    .promise-card .p-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .promise-card .p-icon svg {
+      width: 26px; height: 26px;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .p-icon-pink { background: rgba(242,156,182,0.2); }
+    .p-icon-pink svg { stroke: var(--pink); }
+    .p-icon-mint { background: rgba(157,211,199,0.2); }
+    .p-icon-mint svg { stroke: var(--mint); }
+    .p-icon-white { background: rgba(255,255,255,0.1); }
+    .p-icon-white svg { stroke: rgba(255,255,255,0.7); }
+
+    .promise-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .promise-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.65;
+    }
+
+    /* ── Steps Section ───────────────────────────────────── */
+    .steps {
+      padding: 100px 24px;
+      background: var(--white);
+    }
+
+    .steps h2 {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 56px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .step {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .step.step-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 27px;
+      top: 60px;
+      bottom: -16px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--pink), var(--mint));
+      opacity: 0.5;
+    }
+
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--pink);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(242,156,182,0.35);
+      position: relative;
+      z-index: 1;
+    }
+
+    .step:nth-child(2) .step-num { background: var(--mint); box-shadow: 0 4px 16px rgba(157,211,199,0.35); }
+    .step:nth-child(3) .step-num { background: var(--dark); box-shadow: 0 4px 16px rgba(45,45,45,0.2); }
+
+    .step-content {
+      padding: 8px 0 44px;
+    }
+
+    .step-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+
+    .step-content p {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .step-content .step-time {
+      display: inline-block;
+      font-size: 0.78rem;
+      color: var(--grey);
+      margin-top: 6px;
+      background: var(--light);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* ── Quote Section ───────────────────────────────────── */
+    .quote-section {
+      padding: 80px 24px;
+      background: var(--pink-soft);
+      text-align: center;
+      position: relative;
+    }
+
+    .quote-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      color: var(--pink);
+      opacity: 0.2;
+      line-height: 1;
+      margin-bottom: -20px;
+    }
+
+    .quote-section blockquote {
+      max-width: 680px;
+      margin: 0 auto;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      color: var(--dark);
+      line-height: 1.5;
+      font-style: italic;
+      position: relative;
+      min-height: 3.2em;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--pink);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.7s step-end infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .quote-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      margin: 20px auto 8px;
+      box-shadow: 0 4px 16px rgba(242,156,182,0.3);
+      border: 3px solid var(--white);
+      overflow: hidden;
+      background: var(--pink-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .quote-section cite {
+      display: block;
+      margin-top: 4px;
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 0.9rem;
+      color: var(--grey);
+    }
+
+    /* ── Mini Testimonials ────────────────────────────────── */
+    .mini-testimonials {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 40px auto 0;
+    }
+
+    .mini-testimonial {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 20px 24px;
+      max-width: 340px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      text-align: left;
+    }
+
+    .mini-testimonial p {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .mini-testimonial cite {
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 0.8rem;
+      color: var(--grey);
+      font-weight: 500;
+    }
+
+    /* ── Final CTA Section ───────────────────────────────── */
+    .final-cta {
+      padding: 100px 24px;
+      background: linear-gradient(160deg, var(--mint-soft) 0%, var(--pink-soft) 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: -100px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .final-cta .section-inner { position: relative; z-index: 1; }
+
+    .final-cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin-bottom: 16px;
+    }
+    .final-cta h2 span { color: var(--pink); }
+
+    .final-cta .lead-text {
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      color: #555;
+      max-width: 520px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── Final CTA Form ──────────────────────────────────── */
+    .final-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto 16px;
+    }
+
+    .final-form input[type="email"] {
+      flex: 1;
+      padding: 18px 22px;
+      border: 2px solid rgba(242,156,182,0.3);
+      border-right: none;
+      border-radius: 50px 0 0 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: var(--dark);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .final-form input[type="email"]:focus {
+      border-color: var(--pink);
+    }
+    .final-form input[type="email"]::placeholder { color: #aaa; }
+
+    .final-form button {
+      background: var(--pink);
+      color: var(--white);
+      border: 2px solid var(--pink);
+      padding: 18px 32px;
+      border-radius: 0 50px 50px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.3s, box-shadow 0.3s, transform 0.3s;
+      animation: ctaPulse 2.5s ease-in-out infinite;
+    }
+    .final-form button:hover {
+      animation: none;
+      background: #ee8aa6;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(242,156,182,0.5);
+    }
+
+    .final-note {
+      margin-top: 16px;
+      font-size: 0.82rem;
+      color: #888;
+    }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    footer {
+      padding: 24px 24px;
+      background: var(--dark);
+      text-align: center;
+      transition: padding-bottom 0.3s ease;
+    }
+
+    footer img { height: 28px; margin-bottom: 8px; opacity: 0.6; }
+
+    footer p {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      margin: 0;
+    }
+
+    footer a {
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── Pulse animation on CTA ──────────────────────────── */
+    @keyframes ctaPulse {
+      0%   { box-shadow: 0 8px 30px rgba(242,156,182,0.35); transform: scale(1); }
+      50%  { box-shadow: 0 10px 50px rgba(242,156,182,0.6), 0 0 20px rgba(242,156,182,0.3); transform: scale(1.03); }
+      100% { box-shadow: 0 8px 30px rgba(242,156,182,0.35); transform: scale(1); }
+    }
+
+    /* ── Live Visitor Counter ────────────────────────────── */
+    .visitor-counter {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 90;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px;
+      padding: 14px 18px 14px 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: var(--dark);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: counterSlideIn 0.6s ease-out 2s forwards;
+      min-width: 200px;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .vc-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      border: none;
+      background: rgba(0,0,0,0.06);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #999;
+      line-height: 1;
+      transition: background 0.2s, color 0.2s;
+      padding: 0;
+    }
+    .vc-close:hover {
+      background: rgba(0,0,0,0.12);
+      color: #555;
+    }
+
+    .visitor-counter.vc-dragging {
+      cursor: grabbing;
+      box-shadow: 0 8px 36px rgba(0,0,0,0.14);
+      transition: box-shadow 0.2s;
+    }
+
+    @media (max-width: 600px) {
+      /* Oben-angeheftet: nur Positionierung */
+      .visitor-counter.vc-snap-top {
+        border-top: 3px solid var(--pink);
+        bottom: auto !important;
+        left: 12px;
+        right: 12px;
+        cursor: default;
+      }
+      /* Kein Drag auf Mobile — Hint + Magnete ausblenden */
+      .visitor-counter .vc-drag-hint,
+      .visitor-counter .vc-magnet {
+        display: none !important;
+      }
+      /* Kompakt-Modus: nur beim Scrollen */
+      .visitor-counter.vc-compact .vc-countries {
+        max-height: 0;
+        overflow: hidden;
+        margin: 0;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.2s ease, margin 0.3s ease;
+      }
+      .visitor-counter.vc-compact .vc-sources {
+        max-height: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        border: none;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.2s ease;
+      }
+      .visitor-counter.vc-compact .vc-header {
+        margin-bottom: 6px;
+      }
+      .visitor-counter.vc-compact .vc-datetime {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0;
+        opacity: 0;
+        transition: max-height 0.2s ease, opacity 0.2s ease;
+      }
+      .visitor-counter.vc-compact .vc-reading {
+        margin-top: 0;
+        padding-top: 6px;
+      }
+    }
+    @keyframes vcSnapPulse {
+      0%   { box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 0 0 0 rgba(242,156,182,0.4); }
+      50%  { box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 0 10px 4px rgba(242,156,182,0.3); }
+      100% { box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 0 0 0 rgba(242,156,182,0.4); }
+    }
+
+    .vc-magnet {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .vc-magnet-top { top: -14px; }
+    .vc-magnet-bottom { bottom: -14px; }
+    .vc-magnet-bottom svg { transform: rotate(180deg); }
+    @media (max-width: 600px) {
+      .vc-magnet {
+        display: none;
+      }
+    }
+    @keyframes vcMagnetBounce {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.15); }
+    }
+
+    .vc-drag-hint {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .vc-drag-hint-icon {
+      font-size: 0.7rem;
+      line-height: 1;
+      color: rgba(0,0,0,0.3);
+      transition: color 0.2s;
+    }
+
+    .vc-drag-hint-text {
+      font-size: 0.78rem;
+      color: rgba(0,0,0,0.32);
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .visitor-counter:hover .vc-drag-hint-text { color: rgba(0,0,0,0.5); }
+    .visitor-counter:hover .vc-drag-hint-icon { color: rgba(0,0,0,0.5); }
+    .visitor-counter.vc-dragging .vc-drag-hint-text { color: var(--pink); }
+    .visitor-counter.vc-dragging .vc-drag-hint-icon { color: var(--pink); }
+
+    .vc-datetime {
+      font-size: 0.7rem;
+      color: var(--dark);
+      text-align: center;
+      padding: 0 0 6px 0;
+      letter-spacing: 0.02em;
+    }
+
+    @keyframes counterSlideIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .vc-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .visitor-dot {
+      width: 10px; height: 10px;
+      background: #25D366;
+      border-radius: 50%;
+      animation: dotPulse 1.8s ease-in-out infinite;
+      flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(37,211,102,0.6);
+    }
+
+    @keyframes dotPulse {
+      0%   { opacity: 1; box-shadow: 0 0 4px 0 rgba(37,211,102,0.6); transform: scale(1); }
+      50%  { opacity: 0.85; box-shadow: 0 0 8px 5px rgba(37,211,102,0); transform: scale(1.2); }
+      100% { opacity: 1; box-shadow: 0 0 4px 0 rgba(37,211,102,0.6); transform: scale(1); }
+    }
+
+    .visitor-count {
+      font-weight: 700;
+      color: var(--dark);
+      min-width: 18px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .visitor-count.bump { transform: scale(1.15); }
+
+    .vc-header-text {
+      color: var(--grey);
+      font-weight: 400;
+      font-size: 0.8rem;
+    }
+
+    .vc-countries {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      max-height: 200px;
+      opacity: 1;
+      transition: max-height 0.3s ease, opacity 0.3s ease 0.1s, margin 0.3s ease;
+      overflow: hidden;
+    }
+
+    .vc-country {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: #666;
+      padding: 3px 0;
+      opacity: 0;
+      transform: translateX(-6px);
+      animation: countryFadeIn 0.4s ease-out forwards;
+    }
+
+    @keyframes countryFadeIn {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .vc-country-flag { font-size: 1rem; line-height: 1; flex-shrink: 0; }
+    .vc-country-name { flex: 1; font-weight: 400; }
+    .vc-country-count {
+      font-weight: 600;
+      color: var(--dark);
+      min-width: 18px;
+      text-align: right;
+      transition: transform 0.3s ease;
+    }
+    .vc-country-count.bump { transform: scale(1.15); }
+
+    .vc-bar-bg {
+      flex: 1;
+      max-width: 50px;
+      height: 5px;
+      background: rgba(0,0,0,0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .vc-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+    }
+
+    .vc-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);
+      animation: barShimmer 2.5s ease-in-out infinite;
+      border-radius: 3px;
+    }
+
+    @keyframes barShimmer {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .vc-bar-ch { background: var(--pink); }
+    .vc-bar-de { background: var(--mint); }
+    .vc-bar-at { background: #d4a574; }
+    .vc-bar-other { background: var(--grey); }
+
+    .vc-reading {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      opacity: 0;
+      animation: fadeIn 0.4s ease-out 3.2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .vc-reading-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      animation: readingPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes readingPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.7; transform: scale(1.1); }
+    }
+
+    .vc-reading-count {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--pink);
+    }
+
+    .vc-reading-text {
+      font-size: 0.72rem;
+      color: #888;
+    }
+
+    .vc-analyses {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      opacity: 0;
+      animation: fadeIn 0.4s ease-out 3.6s forwards;
+    }
+
+    .vc-analyses-icon {
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .vc-analyses-count {
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--mint);
+    }
+
+    .vc-analyses-text {
+      font-size: 0.72rem;
+      color: #888;
+    }
+
+    /* ── Social Media Sources ─────────────────────────── */
+    .vc-sources {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      opacity: 0;
+      animation: fadeIn 0.4s ease-out 4s forwards;
+      max-height: 100px;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease 0.1s, margin 0.3s ease, padding 0.3s ease;
+    }
+    .vc-sources-label {
+      font-size: 0.65rem;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .vc-sources-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .vc-source {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      background: rgba(0,0,0,0.03);
+      border-radius: 20px;
+      font-size: 0.7rem;
+      color: #666;
+      transition: background 0.2s;
+    }
+    .vc-source:hover {
+      background: rgba(0,0,0,0.06);
+    }
+    .vc-source svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+    .vc-source-count {
+      font-weight: 600;
+      color: #444;
+    }
+
+    @media (max-width: 600px) {
+      .visitor-counter {
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        min-width: auto;
+        padding: 12px 14px;
+        font-size: 0.78rem;
+        border-radius: 14px;
+      }
+      .vc-header { margin-bottom: 8px; }
+      .vc-country { font-size: 0.75rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .visitor-counter { animation: none; opacity: 1; transform: none; }
+      .visitor-dot { animation: none; }
+      .vc-country { animation: none; opacity: 1; transform: none; }
+      .vc-bar-fill { transition: none; }
+      .vc-bar-fill::after { animation: none; display: none; }
+      .hero-form button, .final-form button { animation: none; }
+      .vc-reading { animation: none; opacity: 1; }
+      .vc-reading-icon { animation: none; }
+      .vc-analyses { animation: none; opacity: 1; }
+      .vc-sources { animation: none; opacity: 1; }
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 800px) {
+      .hero-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        gap: 0;
+      }
+      .hero-text {
+        text-align: center;
+        display: contents;
+      }
+      .hero-badge { order: 1; margin-bottom: 24px; }
+      .hero-image { order: 2; flex: none; margin-bottom: 32px; }
+      .hero-image img { width: 280px; height: 280px; }
+      .hero h1 { order: 3; margin-bottom: 24px; }
+      .hero-sub { order: 4; margin: 0 auto 36px; }
+      .hero-form-wrapper { order: 5; margin: 0 auto 16px; width: 100%; }
+      .form-success { order: 5; margin: 0 auto; }
+      .hero-trust { order: 6; justify-content: center; margin-top: 20px; }
+    }
+
+    @media (max-width: 600px) {
+      nav .nav-cta { display: none; }
+      .hero { padding: 100px 20px 60px; transition: padding-top 0.35s ease; }
+      .hero-image img { width: 220px; height: 220px; border-radius: 24px; }
+      .hero-form { flex-direction: column; gap: 12px; }
+      .hero-form input[type="email"] {
+        border-right: 2px solid rgba(242,156,182,0.3);
+        border-radius: 50px;
+      }
+      .hero-form button {
+        border-radius: 50px;
+        padding: 16px 28px;
+      }
+      .final-form { flex-direction: column; gap: 12px; }
+      .final-form input[type="email"] {
+        border-right: 2px solid rgba(242,156,182,0.3);
+        border-radius: 50px;
+      }
+      .final-form button {
+        border-radius: 50px;
+        padding: 16px 28px;
+      }
+      .form-step-2 { padding: 24px 20px; }
+      .form-buttons { gap: 10px; }
+      .pain-grid { grid-template-columns: 1fr; }
+      .promise-grid { grid-template-columns: 1fr; }
+      .mini-testimonials { flex-direction: column; align-items: center; }
+      footer { padding-bottom: 24px; }
+    }
+    @media (min-width: 601px) {
+      .visitor-counter { touch-action: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────── -->
+  <nav>
+    <img
+      class="logo"
+      src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-color.png"
+      alt="ImpactFlow Logo"
+    />
+    <div class="nav-proof" id="nav-proof" aria-live="polite"></div>
+    <a href="#analyse" class="nav-cta">Kostenlose Analyse &#8594;</a>
+  </nav>
+
+
+  <!-- ── Hero ───────────────────────────────────────────── -->
+  <section class="hero" id="top">
+    <div class="hero-container">
+      <div class="hero-text">
+        <div class="hero-badge reveal">Kostenlos &middot; 6 Minuten &middot; Sofort per E-Mail</div>
+
+        <h1 id="hero-title"><span id="hero-title-text"></span><span class="hero-title-cursor"></span></h1>
+
+        <p class="hero-sub reveal">
+          Die Herzkraft-Analyse zeigt dir in 6 Minuten, wo deine Energie
+          verloren geht &mdash; und wie du sie zur&uuml;ckholst.
+        </p>
+
+        <form class="hero-form-wrapper reveal" id="hero-form" action="https://klick.impactflow.ch/public/forms/497/raw/submit" method="POST">
+          <input type="hidden" name="field_womit_m_chtest_du_dich_ger" value="1">
+          <input type="hidden" name="field_datenschutz_impactflow_ch" value="1">
+          <div class="hero-form form-step-1" id="hero-step-1">
+            <input type="email" name="mail" placeholder="Deine E-Mail-Adresse" required autocomplete="email" />
+            <button type="button" onclick="formNext('hero')">Weiter &rarr;</button>
+          </div>
+          <p class="form-live-count" id="hero-live-count">&#128200; <span class="form-live-number" id="hero-analysen-count">0</span> Analysen heute erstellt</p>
+          <div class="form-step-2" id="hero-step-2">
+            <div class="form-progress">
+              <div class="fq-progress-bar">
+                <span class="fq-pip fq-pip-active" data-q="1">1</span>
+                <span class="fq-pip-line"></span>
+                <span class="fq-pip" data-q="2">2</span>
+                <span class="fq-pip-line"></span>
+                <span class="fq-pip" data-q="3">3</span>
+                <span class="fq-pip-line"></span>
+                <span class="fq-pip" data-q="4">4</span>
+                <span class="fq-pip-line"></span>
+                <span class="fq-pip" data-q="5">5</span>
+              </div>
+              <span class="fq-progress-label">Deine pers&ouml;nliche Analyse &mdash; <span class="form-q-required">*</span> Pflichtfeld</span>
+            </div>
+            <div class="form-q-name">
+              <label class="form-q-name-label">Dein Vorname <span class="form-q-required">*</span><span class="form-q-name-check">&#10003;</span></label>
+              <input type="text" name="first_name" class="form-text-input" placeholder="z.B. Anna" required autocomplete="given-name" />
+            </div>
+            <div class="form-question" data-required="true">
+              <p class="form-q-label"><span class="form-q-number">1</span> Wie oft triffst du Entscheidungen aus dem Herzen? <span class="form-q-required">*</span></p>
+              <div class="form-radio-group">
+                <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="hq1_1" value="1sehrseltenmeinkopfhatfastimmerdasletztewort"><label for="hq1_1">Sehr selten &mdash; mein Kopf hat fast immer das letzte Wort.</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="hq1_2" value="2eherseltenmanchmalspreichmeinherzfolgeihmaberkaum"><label for="hq1_2">Eher selten &mdash; manchmal sp&uuml;re ich mein Herz, folge ihm aber kaum.</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="hq1_3" value="3manchmalichversuchebeideszuverbindenkopfundherz"><label for="hq1_3">Manchmal &mdash; ich versuche beides zu verbinden, Kopf und Herz.</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="hq1_4" value="4oftichhreaufmeingefhlauchwennesnichtimmerleichtist"><label for="hq1_4">Oft &mdash; ich h&ouml;re auf mein Gef&uuml;hl, auch wenn es nicht immer leicht ist.</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="hq1_5" value="5sehroftmeinherzfhrtmeinkopfuntersttzt"><label for="hq1_5">Sehr oft &mdash; mein Herz f&uuml;hrt, mein Kopf unterst&uuml;tzt.</label></div>
+              </div>
+            </div>
+            <div class="form-question" data-required="true">
+              <p class="form-q-label"><span class="form-q-number">2</span> Was f&auml;llt dir schwerer? <span class="form-q-required">*</span></p>
+              <div class="form-radio-group">
+                <div class="form-radio-option"><input type="radio" name="field_was_f_llt_dir_schwerer_" id="hq2_1" value="1"><label for="hq2_1">Sp&uuml;ren</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_was_f_llt_dir_schwerer_" id="hq2_2" value="2"><label for="hq2_2">Kommunizieren</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_was_f_llt_dir_schwerer_" id="hq2_3" value="3"><label for="hq2_3">Beides</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_was_f_llt_dir_schwerer_" id="hq2_4" value="4"><label for="hq2_4">Keines</label></div>
+              </div>
+            </div>
+            <div class="form-question" data-required="true">
+              <p class="form-q-label"><span class="form-q-number">3</span> Wann warst du zuletzt wirklich bei dir? <span class="form-q-required">*</span></p>
+              <input type="text" name="field_3_wann_warst_du_zuletzt_wi" class="form-text-input" placeholder="z.B. Gestern Abend, letzte Woche, weiss ich nicht mehr..." />
+            </div>
+            <div class="form-question" data-required="true">
+              <p class="form-q-label"><span class="form-q-number">4</span> Wobei verlierst du gerade Energie? <span class="form-q-required">*</span></p>
+              <div class="form-radio-group">
+                <div class="form-radio-option"><input type="radio" name="field_4_wobei_verlierst_du_gerad" id="hq4_1" value="1"><label for="hq4_1">Perfektionismus</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_4_wobei_verlierst_du_gerad" id="hq4_2" value="2"><label for="hq4_2">Fremderwartungen</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_4_wobei_verlierst_du_gerad" id="hq4_3" value="3"><label for="hq4_3">Selbstzweifel</label></div>
+                <div class="form-radio-option"><input type="radio" name="field_4_wobei_verlierst_du_gerad" id="hq4_4" value="4"><label for="hq4_4">Reiz&uuml;berflutung</label></div>
+              </div>
+            </div>
+            <div class="form-question" data-required="true">
+              <p class="form-q-label"><span class="form-q-number">5</span> Was w&uuml;nschst du dir, wenn deine Herzkraft w&auml;chst? <span class="form-q-required">*</span></p>
+              <input type="text" name="field_5_was_w_nschst_du_dir_wenn" class="form-text-input" placeholder="z.B. Mehr innere Ruhe, klare Entscheidungen, echte Verbindung..." />
+            </div>
+            <div class="form-buttons">
+              <p class="form-confirm-text">&#10003; Alles korrekt? Dann hol dir jetzt deinen Report!</p>
+              <button type="submit" class="form-btn-submit">PDF Report erhalten</button>
+            </div>
+            <p class="form-trust-note">&#128274; Deine Daten sind sicher. Kein Spam. Nur deine pers&ouml;nliche Analyse.</p>
+          </div>
+          <div class="form-success" id="hero-form-success" style="display:none">
+            <h3>&#10003; Deine pers&ouml;nliche Analyse wird erstellt!</h3>
+            <p>Basierend auf deinen Antworten erstellen wir jetzt dein individuelles PDF. Pr&uuml;fe deinen Posteingang &mdash; es kommt in wenigen Minuten.</p>
+          </div>
+        </form>
+
+        <p class="hero-trust reveal">
+          <span>&#10003;</span> Kostenlos &nbsp;&middot;&nbsp;
+          <span>&#10003;</span> Kein Spam &nbsp;&middot;&nbsp;
+          <span>&#10003;</span> Sofort per E-Mail
+        </p>
+      </div>
+
+      <div class="hero-image reveal">
+        <img
+          src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/illustrations/IF-Maskottchen-Frau-v1.jpg"
+          alt="Herzkraft-Analyse &mdash; Finde zur&uuml;ck zu deiner St&auml;rke"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Pain Points ─────────────────────────────────────── -->
+  <section class="pain">
+    <div class="section-inner">
+      <p class="section-label reveal">Kommt dir das bekannt vor?</p>
+      <h2 class="reveal">&Auml;usserlich stark. Innerlich leer.</h2>
+
+      <div class="pain-grid">
+        <div class="pain-card reveal reveal-delay-1">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9" stroke-width="3"/><line x1="15" y1="9" x2="15.01" y2="9" stroke-width="3"/><path d="M16 16l2 2" stroke-width="2"/></svg>
+          </div>
+          <h3>Getrieben statt gef&uuml;hrt.</h3>
+          <p>Du funktionierst perfekt &mdash; im Job, in der Familie, f&uuml;r alle anderen. Aber lebst du wirklich?</p>
+        </div>
+        <div class="pain-card reveal reveal-delay-2">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/><line x1="4" y1="4" x2="20" y2="20"/></svg>
+          </div>
+          <h3>Erfolg ohne Erf&uuml;llung.</h3>
+          <p>Nach aussen l&auml;uft alles &mdash; aber innerlich sp&uuml;rst du eine Leere, die sich mit nichts f&uuml;llen l&auml;sst.</p>
+        </div>
+        <div class="pain-card reveal reveal-delay-3">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+          </div>
+          <h3>Keine Energie mehr.</h3>
+          <p>Ersch&ouml;pft, obwohl du genug schl&auml;fst. M&uuml;de, obwohl du alles &bdquo;richtig&ldquo; machst.</p>
+        </div>
+        <div class="pain-card reveal reveal-delay-4">
+          <div class="icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14" stroke-dasharray="2 2"/></svg>
+          </div>
+          <h3>Allein mit allem.</h3>
+          <p>Niemand versteht wirklich, wie es dir geht &mdash; weil du es nicht einmal dir selbst eingestehst.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Variant B: Was du erf&auml;hrst ──────────────────── -->
+  <section class="ab-discover ab-b">
+    <div class="section-inner">
+      <p class="section-label reveal">Ein Blick in deine Analyse</p>
+      <h2 class="reveal">Was du in deiner <span>Analyse</span> erf&auml;hrst</h2>
+
+      <div class="ab-discover-grid">
+        <div class="ab-discover-card reveal reveal-delay-1">
+          <span class="ab-icon">&#128269;</span>
+          <h3>Deine aktuelle Situation</h3>
+          <p>Ehrliche Standortbestimmung basierend auf deinen Antworten &mdash; wo steht dein Herz, wo dominiert dein Kopf?</p>
+        </div>
+        <div class="ab-discover-card reveal reveal-delay-2">
+          <span class="ab-icon">&#128161;</span>
+          <h3>Was das f&uuml;r dich bedeutet</h3>
+          <p>Individuelle Interpretation deiner Herzkraft-Balance &mdash; und warum du dich manchmal so f&uuml;hlst, wie du dich f&uuml;hlst.</p>
+        </div>
+        <div class="ab-discover-card reveal reveal-delay-3">
+          <span class="ab-icon">&#129505;</span>
+          <h3>5 pers&ouml;nliche Impulse</h3>
+          <p>Sofort umsetzbare &Uuml;bungen f&uuml;r deinen Alltag &mdash; abgestimmt auf deine individuelle Situation.</p>
+        </div>
+        <div class="ab-discover-card reveal reveal-delay-4">
+          <span class="ab-icon">&#10024;</span>
+          <h3>Dein Weg nach vorne</h3>
+          <p>Konkrete n&auml;chste Schritte, die zu dir passen &mdash; kein allgemeiner Ratgeber, sondern dein Fahrplan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Promise ─────────────────────────────────────────── -->
+  <section class="promise">
+    <div class="section-inner">
+      <p class="section-label reveal">Was du in der Analyse erf&auml;hrst</p>
+      <h2 class="reveal">Deine Herzkraft in<br/><span>6 Minuten</span> verstehen</h2>
+      <p class="promise-lead reveal">
+        Die Herzkraft-Analyse ist kein oberfl&auml;chlicher Test &mdash; sie zeigt dir
+        ehrlich, wo du stehst, was dir Kraft raubt und was dich wieder
+        zur&uuml;ck zu dir selbst bringt.
+      </p>
+
+      <div class="promise-grid">
+        <div class="promise-card reveal reveal-delay-1">
+          <div class="p-icon p-icon-pink">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3>Dein Selbstverbindungs-Level</h3>
+          <p>Wie gut bist du wirklich mit dir verbunden? Du bekommst eine ehrliche Standortbestimmung &mdash; ohne Bewertung.</p>
+        </div>
+        <div class="promise-card reveal reveal-delay-2">
+          <div class="p-icon p-icon-mint">
+            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3>Deine Energieblocker</h3>
+          <p>Was zieht dir jeden Tag Kraft ab? Die Analyse deckt die versteckten Muster auf, die dich ausbremsen.</p>
+        </div>
+        <div class="promise-card reveal reveal-delay-3">
+          <div class="p-icon p-icon-white">
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <h3>3 sofort umsetzbare Impulse</h3>
+          <p>Keine Theorie, sondern drei konkrete Schritte, die du noch heute gehen kannst &mdash; zur&uuml;ck zu deiner Herzkraft.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Variant B: Typische Erkenntnisse ─────────────────── -->
+  <section class="ab-insights ab-b">
+    <div class="section-inner">
+      <p class="section-label reveal">Das sagen Frauen nach der Analyse</p>
+      <h2 class="reveal">Typische Erkenntnisse</h2>
+      <p class="ab-insights-lead reveal">
+        Immer wieder berichten Frauen von &auml;hnlichen Aha-Momenten &mdash;
+        vielleicht erkennst du dich in einem dieser Themen wieder.
+      </p>
+
+      <div class="ab-insights-grid">
+        <div class="ab-insight-card reveal reveal-delay-1">
+          <p>Warum dein Kopf die F&uuml;hrung &uuml;bernommen hat &mdash; und was das mit deiner Energie macht.</p>
+        </div>
+        <div class="ab-insight-card reveal reveal-delay-2">
+          <p>Wie st&auml;ndiges Analysieren und Abw&auml;gen dich ersch&ouml;pft &mdash; auch wenn es sich &bdquo;vern&uuml;nftig&ldquo; anf&uuml;hlt.</p>
+        </div>
+        <div class="ab-insight-card reveal reveal-delay-3">
+          <p>Der verborgene Zusammenhang zwischen Intuition und Lebensenergie &mdash; und warum beides zusammenh&auml;ngt.</p>
+        </div>
+        <div class="ab-insight-card reveal reveal-delay-4">
+          <p>Warum Grenzen setzen so schwerf&auml;llt &mdash; und ein &uuml;berraschend einfacher erster Schritt, der alles ver&auml;ndert.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Steps ───────────────────────────────────────────── -->
+  <section class="steps">
+    <div class="section-inner">
+      <p class="section-label reveal" style="text-align:center;">So einfach geht&#8217;s</p>
+      <h2 class="reveal">In 3 Schritten zu deiner Analyse</h2>
+
+      <div class="steps-list">
+        <div class="step" id="step-1">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>E-Mail eintragen</h3>
+            <p>Trage deine E-Mail ein &mdash; das war&rsquo;s schon. Kein Passwort, kein Account, kein Aufwand.</p>
+            <span class="step-time">&#9201; 30 Sekunden</span>
+          </div>
+        </div>
+
+        <div class="step" id="step-2">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>PDF &ouml;ffnen</h3>
+            <p>Deine pers&ouml;nliche Herzkraft-Analyse kommt sofort in dein Postfach &mdash; als sch&ouml;n gestaltete PDF.</p>
+            <span class="step-time">&#9993; Sofort per E-Mail</span>
+          </div>
+        </div>
+
+        <div class="step" id="step-3">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Herzkraft aktivieren</h3>
+            <p>Setze die 3 Impulse um &mdash; und sp&uuml;re, wie sich deine Energie ver&auml;ndert. In deinem Tempo.</p>
+            <span class="step-time">&#10024; Dein erster Schritt</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Quote ───────────────────────────────────────────── -->
+  <section class="quote-section">
+    <div class="reveal">
+      <div class="quote-mark">&ldquo;</div>
+      <blockquote id="typewriter-quote"><span id="typewriter-text"></span><span class="typewriter-cursor"></span></blockquote>
+      <div class="quote-avatar" aria-hidden="true">&#128156;</div>
+      <cite>&mdash; Anna, 42, Z&uuml;rich</cite>
+    </div>
+
+    <div class="mini-testimonials reveal">
+      <div class="mini-testimonial">
+        <p>&bdquo;Ich wusste, dass etwas fehlt &mdash; aber nicht was. Die Analyse hat es mir schwarz auf weiss gezeigt.&ldquo;</p>
+        <cite>&mdash; Monika, 51, Bern</cite>
+      </div>
+      <div class="mini-testimonial">
+        <p>&bdquo;Endlich mal kein oberfl&auml;chlicher Test, sondern etwas, das wirklich sitzt. Danke daf&uuml;r.&ldquo;</p>
+        <cite>&mdash; Claudia, 38, Wien</cite>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Final CTA ───────────────────────────────────────── -->
+  <section class="final-cta" id="analyse">
+    <div class="section-inner">
+      <p class="section-label reveal">Dein n&auml;chster Schritt</p>
+      <h2 class="reveal">Bereit, deine <span>Herzkraft</span> zu entdecken?</h2>
+      <p class="lead-text reveal">
+        6 Minuten, die dir zeigen, wo du wirklich stehst &mdash; und was dich
+        zur&uuml;ck zu deiner inneren St&auml;rke bringt.
+      </p>
+
+      <!-- ── Variant B: Impuls-Vorgeschmack ──────────────── -->
+      <div class="ab-preview-box ab-b reveal">
+        <span class="ab-preview-label">&#127793; Kleiner Vorgeschmack</span>
+        <p>
+          Einer deiner pers&ouml;nlichen Impulse k&ouml;nnte sein:
+          <em>&bdquo;Die Gedanken-Wolke ziehen lassen&ldquo;</em> &mdash;
+          eine einfache &Uuml;bung, die dir hilft, aus dem Gedankenkarussell
+          auszusteigen und wieder bei dir anzukommen.
+          Die vollst&auml;ndige Anleitung erh&auml;ltst du in deiner Analyse.
+        </p>
+        <span class="ab-preview-cta">&#8595; Jetzt deine pers&ouml;nlichen Impulse entdecken</span>
+      </div>
+
+      <form class="final-form-wrapper reveal" id="final-form" action="https://klick.impactflow.ch/public/forms/497/raw/submit" method="POST">
+          <input type="hidden" name="field_womit_m_chtest_du_dich_ger" value="1">
+          <input type="hidden" name="field_datenschutz_impactflow_ch" value="1">
+        <div class="final-form form-step-1" id="final-step-1">
+          <input type="email" name="mail" placeholder="Deine E-Mail-Adresse" required autocomplete="email" />
+          <button type="button" onclick="formNext('final')">Weiter &rarr;</button>
+        </div>
+        <p class="form-live-count" id="final-live-count">&#128200; <span class="form-live-number" id="final-analysen-count">0</span> Analysen heute erstellt</p>
+        <div class="form-step-2" id="final-step-2">
+          <div class="form-progress">
+            <div class="fq-progress-bar">
+              <span class="fq-pip fq-pip-active" data-q="1">1</span>
+              <span class="fq-pip-line"></span>
+              <span class="fq-pip" data-q="2">2</span>
+              <span class="fq-pip-line"></span>
+              <span class="fq-pip" data-q="3">3</span>
+              <span class="fq-pip-line"></span>
+              <span class="fq-pip" data-q="4">4</span>
+              <span class="fq-pip-line"></span>
+              <span class="fq-pip" data-q="5">5</span>
+            </div>
+            <span class="fq-progress-label">Deine pers&ouml;nliche Analyse &mdash; <span class="form-q-required">*</span> Pflichtfeld</span>
+          </div>
+          <div class="form-q-name">
+            <label class="form-q-name-label">Dein Vorname <span class="form-q-required">*</span><span class="form-q-name-check">&#10003;</span></label>
+            <input type="text" name="first_name" class="form-text-input" placeholder="z.B. Anna" required autocomplete="given-name" />
+          </div>
+          <div class="form-question" data-required="true">
+            <p class="form-q-label"><span class="form-q-number">1</span> Wie oft triffst du Entscheidungen aus dem Herzen? <span class="form-q-required">*</span></p>
+            <div class="form-radio-group">
+              <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="fq1_1" value="1sehrseltenmeinkopfhatfastimmerdasletztewort"><label for="fq1_1">Sehr selten &mdash; mein Kopf hat fast immer das letzte Wort.</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="fq1_2" value="2eherseltenmanchmalspreichmeinherzfolgeihmaberkaum"><label for="fq1_2">Eher selten &mdash; manchmal sp&uuml;re ich mein Herz, folge ihm aber kaum.</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="fq1_3" value="3manchmalichversuchebeideszuverbindenkopfundherz"><label for="fq1_3">Manchmal &mdash; ich versuche beides zu verbinden, Kopf und Herz.</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="fq1_4" value="4oftichhreaufmeingefhlauchwennesnichtimmerleichtist"><label for="fq1_4">Oft &mdash; ich h&ouml;re auf mein Gef&uuml;hl, auch wenn es nicht immer leicht ist.</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_1_wie_oft_triffst_du_entsc" id="fq1_5" value="5sehroftmeinherzfhrtmeinkopfuntersttzt"><label for="fq1_5">Sehr oft &mdash; mein Herz f&uuml;hrt, mein Kopf unterst&uuml;tzt.</label></div>
+            </div>
+          </div>
+          <div class="form-question" data-required="true">
+            <p class="form-q-label"><span class="form-q-number">2</span> Was f&auml;llt dir schwerer? <span class="form-q-required">*</span></p>
+            <div class="form-radio-group">
+              <div class="form-radio-option"><input type="radio" name="field_was_f_llt_dir_schwerer_" id="fq2_1" value="1"><label for="fq2_1">Sp&uuml;ren</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_was_f_llt_dir_schwerer_" id="fq2_2" value="2"><label for="fq2_2">Kommunizieren</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_was_f_llt_dir_schwerer_" id="fq2_3" value="3"><label for="fq2_3">Beides</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_was_f_llt_dir_schwerer_" id="fq2_4" value="4"><label for="fq2_4">Keines</label></div>
+            </div>
+          </div>
+          <div class="form-question" data-required="true">
+            <p class="form-q-label"><span class="form-q-number">3</span> Wann warst du zuletzt wirklich bei dir? <span class="form-q-required">*</span></p>
+            <input type="text" name="field_3_wann_warst_du_zuletzt_wi" class="form-text-input" placeholder="z.B. Gestern Abend, letzte Woche, weiss ich nicht mehr..." />
+          </div>
+          <div class="form-question" data-required="true">
+            <p class="form-q-label"><span class="form-q-number">4</span> Wobei verlierst du gerade Energie? <span class="form-q-required">*</span></p>
+            <div class="form-radio-group">
+              <div class="form-radio-option"><input type="radio" name="field_4_wobei_verlierst_du_gerad" id="fq4_1" value="1"><label for="fq4_1">Perfektionismus</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_4_wobei_verlierst_du_gerad" id="fq4_2" value="2"><label for="fq4_2">Fremderwartungen</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_4_wobei_verlierst_du_gerad" id="fq4_3" value="3"><label for="fq4_3">Selbstzweifel</label></div>
+              <div class="form-radio-option"><input type="radio" name="field_4_wobei_verlierst_du_gerad" id="fq4_4" value="4"><label for="fq4_4">Reiz&uuml;berflutung</label></div>
+            </div>
+          </div>
+          <div class="form-question" data-required="true">
+            <p class="form-q-label"><span class="form-q-number">5</span> Was w&uuml;nschst du dir, wenn deine Herzkraft w&auml;chst? <span class="form-q-required">*</span></p>
+            <input type="text" name="field_5_was_w_nschst_du_dir_wenn" class="form-text-input" placeholder="z.B. Mehr innere Ruhe, klare Entscheidungen, echte Verbindung..." />
+          </div>
+          <div class="form-buttons">
+            <p class="form-confirm-text">&#10003; Alles korrekt? Dann hol dir jetzt deinen Report!</p>
+            <button type="submit" class="form-btn-submit">PDF Report erhalten</button>
+          </div>
+          <p class="form-trust-note">&#128274; Deine Daten sind sicher. Kein Spam. Nur deine pers&ouml;nliche Analyse.</p>
+        </div>
+        <div class="form-success" id="final-form-success" style="display:none">
+          <h3>&#10003; Deine pers&ouml;nliche Analyse wird erstellt!</h3>
+          <p>Basierend auf deinen Antworten erstellen wir jetzt dein individuelles PDF. Pr&uuml;fe deinen Posteingang &mdash; es kommt in wenigen Minuten.</p>
+        </div>
+      </form>
+
+      <p class="final-note reveal">
+        &#10003; Kostenlos &nbsp;&middot;&nbsp; &#10003; Kein Spam &nbsp;&middot;&nbsp; &#10003; Jederzeit abmeldbar
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ── Live Visitor Counter ────────────────────────────── -->
+  <div class="visitor-counter" aria-live="polite" id="visitor-counter-widget">
+    <span class="vc-magnet vc-magnet-top" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 2h5v6a3 3 0 1 1-5 0V2z" fill="#e86b8a"/><path d="M15 2h5v6a3 3 0 1 1-5 0V2z" fill="#e86b8a"/><path d="M4 8v4a8 8 0 0 0 16 0V8h-5v4a3 3 0 1 1-6 0V8H4z" fill="#f29cb6"/></svg></span>
+    <span class="vc-magnet vc-magnet-bottom" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 2h5v6a3 3 0 1 1-5 0V2z" fill="#e86b8a"/><path d="M15 2h5v6a3 3 0 1 1-5 0V2z" fill="#e86b8a"/><path d="M4 8v4a8 8 0 0 0 16 0V8h-5v4a3 3 0 1 1-6 0V8H4z" fill="#f29cb6"/></svg></span>
+    <button class="vc-close" id="vc-close" aria-label="Kachel schliessen" title="Schliessen">&times;</button>
+    <div class="vc-drag-hint" aria-hidden="true">
+      <span class="vc-drag-hint-icon">&updownarrow;</span>
+      <span class="vc-drag-hint-text">Kachel verschieben</span>
+    </div>
+    <div class="vc-datetime" id="vc-datetime" aria-hidden="true"></div>
+    <div class="vc-header">
+      <span class="visitor-dot"></span>
+      <span class="visitor-count" id="visitor-count">19</span>
+      <span class="vc-header-text">Besucherinnen online</span>
+    </div>
+    <div class="vc-countries" id="vc-countries">
+      <div class="vc-country" style="animation-delay: 2.3s">
+        <span class="vc-country-flag">&#127464;&#127469;</span>
+        <span class="vc-country-name">Schweiz</span>
+        <div class="vc-bar-bg"><div class="vc-bar-fill vc-bar-ch" id="bar-ch"></div></div>
+        <span class="vc-country-count" id="vc-ch">9</span>
+      </div>
+      <div class="vc-country" style="animation-delay: 2.5s">
+        <span class="vc-country-flag">&#127465;&#127466;</span>
+        <span class="vc-country-name">Deutschland</span>
+        <div class="vc-bar-bg"><div class="vc-bar-fill vc-bar-de" id="bar-de"></div></div>
+        <span class="vc-country-count" id="vc-de">6</span>
+      </div>
+      <div class="vc-country" style="animation-delay: 2.7s">
+        <span class="vc-country-flag">&#127462;&#127481;</span>
+        <span class="vc-country-name">&Ouml;sterreich</span>
+        <div class="vc-bar-bg"><div class="vc-bar-fill vc-bar-at" id="bar-at"></div></div>
+        <span class="vc-country-count" id="vc-at">3</span>
+      </div>
+      <div class="vc-country" style="animation-delay: 2.9s">
+        <span class="vc-country-flag" id="vc-other-flag">&#127470;&#127481;</span>
+        <span class="vc-country-name" id="vc-other-name">Italien</span>
+        <div class="vc-bar-bg"><div class="vc-bar-fill vc-bar-other" id="bar-other"></div></div>
+        <span class="vc-country-count" id="vc-other">1</span>
+      </div>
+    </div>
+    <div class="vc-reading">
+      <svg class="vc-reading-icon" viewBox="0 0 24 24" fill="none" stroke="#f29cb6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      <span class="vc-reading-count" id="vc-reading">4</span>
+      <span class="vc-reading-text">lesen gerade die Analyse</span>
+    </div>
+    <div class="vc-analyses">
+      <span class="vc-analyses-icon">&#128196;</span>
+      <span class="vc-analyses-count" id="vc-analyses">617</span>
+      <span class="vc-analyses-text">Analysen heute erstellt</span>
+    </div>
+    <div class="vc-sources">
+      <span class="vc-sources-label">Besucher kommen von</span>
+      <div class="vc-sources-list">
+        <div class="vc-source">
+          <svg viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          <span class="vc-source-count" id="vc-src-ig">0</span>
+        </div>
+        <div class="vc-source">
+          <svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <span class="vc-source-count" id="vc-src-li">0</span>
+        </div>
+        <div class="vc-source">
+          <svg viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span class="vc-source-count" id="vc-src-fb">0</span>
+        </div>
+        <div class="vc-source">
+          <svg viewBox="0 0 24 24" fill="#000"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.73a8.19 8.19 0 004.78 1.53V6.79a4.85 4.85 0 01-1.02-.1z"/></svg>
+          <span class="vc-source-count" id="vc-src-tt">0</span>
+        </div>
+        <div class="vc-source">
+          <svg viewBox="0 0 24 24" fill="#34B7F1"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span class="vc-source-count" id="vc-src-wa">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <footer>
+    <img
+      src="https://raw.githubusercontent.com/MyImpactFlow/impactflow-assets/main/logos/IF-logo-white.png"
+      alt="ImpactFlow"
+    />
+    <p>
+      &copy; 2026 ImpactFlow &nbsp;&middot;&nbsp;
+      <a href="impressum.html">Impressum</a> &nbsp;&middot;&nbsp;
+      <a href="datenschutz.html">Datenschutz</a> &nbsp;&middot;&nbsp;
+      <a href="revlink-herzkraft.html">Ref-Link Generator</a>
+    </p>
+  </footer>
+
+
+  <!-- ── Scripts ──────────────────────────────────────────── -->
+  <script>
+    // ── Scroll Reveal ─────────────────────────────────────
+    var reveals = document.querySelectorAll('.reveal');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { observer.observe(el); });
+
+    // Nav scroll shadow
+    window.addEventListener('scroll', function() {
+      document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ── 2-Step Form Logic ─────────────────────────────────
+    function formNext(prefix) {
+      var step1 = document.getElementById(prefix + '-step-1');
+      var step2 = document.getElementById(prefix + '-step-2');
+      var emailInput = step1.querySelector('input[name="mail"]');
+
+      if (!emailInput.value || !emailInput.validity.valid) {
+        emailInput.focus();
+        emailInput.reportValidity();
+        return;
+      }
+
+      step1.classList.add('hidden');
+      // Analysen-Zähler auch verstecken
+      var liveCount = document.getElementById(prefix + '-live-count');
+      if (liveCount) liveCount.style.display = 'none';
+      step2.classList.add('active');
+
+      var nameInput = step2.querySelector('input[name="first_name"]');
+      if (nameInput) {
+        setTimeout(function() { nameInput.focus(); }, 400);
+      }
+    }
+
+    // ── Progressive Form Disclosure (Schritt für Schritt) ──
+    (function() {
+      ['hero', 'final'].forEach(function(prefix) {
+        var step2 = document.getElementById(prefix + '-step-2');
+        if (!step2) return;
+
+        var questions = step2.querySelectorAll('.form-question');
+        var buttons = step2.querySelector('.form-buttons');
+        var trustNote = step2.querySelector('.form-trust-note');
+        var pips = step2.querySelectorAll('.fq-pip');
+        var pipLines = step2.querySelectorAll('.fq-pip-line');
+        var progressLabel = step2.querySelector('.fq-progress-label');
+        if (!questions.length) return;
+
+        // Initial: alle ausser erste Frage verstecken
+        questions.forEach(function(q, i) {
+          if (i === 0) {
+            q.classList.add('fq-active');
+          } else {
+            q.classList.add('fq-hidden');
+          }
+        });
+        if (buttons) buttons.classList.add('fq-hidden');
+        if (trustNote) trustNote.classList.add('fq-hidden');
+
+        // Auto-Advance Hinweis für Textfragen
+        questions.forEach(function(q) {
+          var textInput = q.querySelector('.form-text-input:not([name="first_name"])');
+          if (textInput) {
+            var hint = document.createElement('span');
+            hint.className = 'fq-auto-hint';
+            hint.textContent = '\u270E Schreib einen kurzen Satz...';
+            q.appendChild(hint);
+            q._autoHint = hint;
+            q._debounceTimer = null;
+          }
+        });
+
+        var currentIdx = 0;
+
+        // Fortschrittsanzeige updaten
+        function updateProgress(doneIdx) {
+          pips.forEach(function(pip, i) {
+            pip.classList.remove('fq-pip-active', 'fq-pip-done');
+            if (i < doneIdx) {
+              pip.classList.add('fq-pip-done');
+              pip.textContent = '\u2713';
+            } else if (i === doneIdx && doneIdx < questions.length) {
+              pip.classList.add('fq-pip-active');
+            }
+          });
+          pipLines.forEach(function(line, i) {
+            if (i < doneIdx) {
+              line.classList.add('fq-line-done');
+            } else {
+              line.classList.remove('fq-line-done');
+            }
+          });
+          // Alle erledigt → Label grün
+          if (doneIdx >= questions.length && progressLabel) {
+            progressLabel.innerHTML = '&#10003; Alle Felder ausgef&uuml;llt &mdash; bereit zum Absenden!';
+            progressLabel.style.color = 'var(--mint)';
+            progressLabel.style.fontWeight = '600';
+          }
+        }
+
+        function advanceTo(nextIdx) {
+          var current = questions[currentIdx];
+          current.classList.remove('fq-active');
+          current.classList.add('fq-done');
+
+          // Nummer → Häkchen
+          var numEl = current.querySelector('.form-q-number');
+          if (numEl) numEl.textContent = '\u2713';
+
+          currentIdx = nextIdx;
+          updateProgress(currentIdx);
+
+          if (currentIdx < questions.length) {
+            var next = questions[currentIdx];
+            next.classList.remove('fq-hidden');
+            next.classList.add('fq-reveal', 'fq-active');
+            setTimeout(function() {
+              next.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 250);
+          } else {
+            // Alle Fragen beantwortet → Zusammenfassung + Submit zeigen
+            buildSummary();
+            if (buttons) {
+              buttons.classList.remove('fq-hidden');
+              buttons.classList.add('fq-reveal');
+            }
+            if (trustNote) {
+              trustNote.classList.remove('fq-hidden');
+              trustNote.classList.add('fq-reveal');
+            }
+            setTimeout(function() {
+              var summaryEl = step2.querySelector('.fq-summary');
+              if (summaryEl) summaryEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 250);
+          }
+        }
+
+        // Zusammenfassung aller Antworten generieren
+        function buildSummary() {
+          // Bestehende Zusammenfassung entfernen (falls erneut aufgerufen)
+          var existing = step2.querySelector('.fq-summary');
+          if (existing) existing.remove();
+
+          var summary = document.createElement('div');
+          summary.className = 'fq-summary fq-reveal';
+
+          var title = document.createElement('p');
+          title.className = 'fq-summary-title';
+          title.innerHTML = '&#128203; Deine Antworten im &Uuml;berblick';
+          summary.appendChild(title);
+
+          // Vorname als erste Zeile
+          var nameInput = step2.querySelector('input[name="first_name"]');
+          if (nameInput && nameInput.value.trim()) {
+            var nameItem = document.createElement('div');
+            nameItem.className = 'fq-summary-item';
+            var nameIcon = document.createElement('span');
+            nameIcon.className = 'fq-summary-num';
+            nameIcon.textContent = '\u2713';
+            var nameText = document.createElement('span');
+            nameText.className = 'fq-summary-text';
+            nameText.innerHTML = 'Vorname<br><span class="fq-summary-answer">\u2192 ' + nameInput.value.trim() + '</span>';
+            nameItem.appendChild(nameIcon);
+            nameItem.appendChild(nameText);
+            nameItem.addEventListener('click', function() {
+              nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              nameInput.focus();
+            });
+            summary.appendChild(nameItem);
+          }
+
+          questions.forEach(function(q, i) {
+            var label = q.querySelector('.form-q-label');
+            // Frage-Text extrahieren (ohne Nummer und Sternchen)
+            var labelClone = label.cloneNode(true);
+            var numSpan = labelClone.querySelector('.form-q-number');
+            var reqSpan = labelClone.querySelector('.form-q-required');
+            if (numSpan) numSpan.remove();
+            if (reqSpan) reqSpan.remove();
+            var questionText = labelClone.textContent.trim();
+
+            // Antwort ermitteln
+            var answer = '';
+            var radios = q.querySelectorAll('input[type="radio"]');
+            if (radios.length) {
+              radios.forEach(function(r) {
+                if (r.checked) {
+                  var radioLabel = q.querySelector('label[for="' + r.id + '"]');
+                  answer = radioLabel ? radioLabel.textContent.trim() : r.value;
+                }
+              });
+            }
+            var textInput = q.querySelector('.form-text-input:not([name="first_name"])');
+            if (textInput && textInput.value.trim()) {
+              answer = textInput.value.trim();
+              if (answer.length > 40) answer = answer.substring(0, 40) + '\u2026';
+              answer = '\u201E' + answer + '\u201C';
+            }
+
+            // Zusammenfassungs-Zeile erstellen
+            var item = document.createElement('div');
+            item.className = 'fq-summary-item';
+            item.setAttribute('data-question-idx', i);
+
+            var num = document.createElement('span');
+            num.className = 'fq-summary-num';
+            num.textContent = (i + 1);
+
+            var text = document.createElement('span');
+            text.className = 'fq-summary-text';
+            text.innerHTML = questionText + '<br><span class="fq-summary-answer">\u2192 ' + answer + '</span>';
+
+            item.appendChild(num);
+            item.appendChild(text);
+            summary.appendChild(item);
+
+            // Klick → zur Frage scrollen
+            item.addEventListener('click', function() {
+              var targetQ = questions[i];
+              targetQ.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              // Kurz hervorheben
+              targetQ.style.transition = 'box-shadow 0.3s';
+              targetQ.style.boxShadow = '0 0 0 3px rgba(242,156,182,0.4)';
+              setTimeout(function() { targetQ.style.boxShadow = 'none'; }, 1500);
+            });
+          });
+
+          var hint = document.createElement('p');
+          hint.className = 'fq-summary-hint';
+          hint.innerHTML = '&#9998; Tippe auf eine Antwort zum &Auml;ndern';
+          summary.appendChild(hint);
+
+          // Vor den Buttons einfügen
+          if (buttons) {
+            buttons.parentNode.insertBefore(summary, buttons);
+          }
+        }
+
+        // Live-Update: Zusammenfassung aktualisieren wenn Antworten geändert werden
+        function refreshSummary() {
+          if (step2.querySelector('.fq-summary')) buildSummary();
+        }
+        questions.forEach(function(q) {
+          q.querySelectorAll('input[type="radio"]').forEach(function(r) {
+            r.addEventListener('change', refreshSummary);
+          });
+          var ti = q.querySelector('.form-text-input:not([name="first_name"])');
+          if (ti) ti.addEventListener('input', refreshSummary);
+        });
+        var nameField = step2.querySelector('input[name="first_name"]');
+        if (nameField) nameField.addEventListener('input', refreshSummary);
+
+        // Event-Listener für jede Frage
+        questions.forEach(function(q, i) {
+          // Radio-Auswahl → automatisch weiter nach 600ms
+          var radios = q.querySelectorAll('input[type="radio"]');
+          if (radios.length) {
+            radios.forEach(function(r) {
+              r.addEventListener('change', function() {
+                if (q.classList.contains('fq-active') && !q.classList.contains('fq-done')) {
+                  setTimeout(function() { advanceTo(i + 1); }, 600);
+                }
+              });
+            });
+          }
+
+          // Textfelder: Debounce Auto-Advance (1.5s Tipp-Pause, 5+ Zeichen)
+          var textInput = q.querySelector('.form-text-input:not([name="first_name"])');
+          if (textInput) {
+            var hint = q._autoHint;
+
+            textInput.addEventListener('input', function() {
+              var len = textInput.value.trim().length;
+
+              // Laufenden Timer zurücksetzen
+              if (q._debounceTimer) {
+                clearTimeout(q._debounceTimer);
+                q._debounceTimer = null;
+              }
+
+              if (len >= 5) {
+                // Hinweis: "Wird automatisch fortgesetzt..."
+                if (hint) {
+                  hint.textContent = 'Wird automatisch fortgesetzt\u2026';
+                  hint.classList.remove('fq-hint-active');
+                  hint.classList.add('fq-hint-counting');
+                }
+                // Nach 1.5s Tipp-Pause → auto-advance
+                q._debounceTimer = setTimeout(function() {
+                  if (q.classList.contains('fq-active') && !q.classList.contains('fq-done')) {
+                    if (hint) {
+                      hint.textContent = '\u2713 Gespeichert';
+                      hint.classList.remove('fq-hint-counting');
+                      hint.classList.add('fq-hint-active');
+                    }
+                    advanceTo(i + 1);
+                  }
+                }, 1500);
+              } else if (len > 0) {
+                // Noch zu kurz
+                if (hint) {
+                  hint.textContent = '\u270E Schreib einen kurzen Satz...';
+                  hint.classList.remove('fq-hint-counting', 'fq-hint-active');
+                }
+              } else {
+                // Leer
+                if (hint) {
+                  hint.textContent = '\u270E Schreib einen kurzen Satz...';
+                  hint.classList.remove('fq-hint-counting', 'fq-hint-active');
+                }
+              }
+            });
+
+            // Enter-Taste als Fallback (5+ Zeichen)
+            textInput.addEventListener('keydown', function(e) {
+              if (e.key === 'Enter' && textInput.value.trim().length >= 5) {
+                e.preventDefault();
+                if (q._debounceTimer) { clearTimeout(q._debounceTimer); q._debounceTimer = null; }
+                if (hint) {
+                  hint.textContent = '\u2713 Gespeichert';
+                  hint.classList.remove('fq-hint-counting');
+                  hint.classList.add('fq-hint-active');
+                }
+                advanceTo(i + 1);
+              }
+            });
+          }
+        });
+      });
+    })();
+
+    // ── Textfeld has-value Feedback ──────────────────────
+    (function() {
+      var textInputs = document.querySelectorAll('.form-text-input');
+      textInputs.forEach(function(input) {
+        function checkValue() {
+          if (input.value.trim()) {
+            input.classList.add('has-value');
+          } else {
+            input.classList.remove('has-value');
+          }
+          // Vorname: Grüner Haken wenn >= 2 Zeichen
+          if (input.name === 'first_name') {
+            var nameWrapper = input.closest('.form-q-name');
+            if (nameWrapper) {
+              if (input.value.trim().length >= 2) {
+                nameWrapper.classList.add('name-valid');
+              } else {
+                nameWrapper.classList.remove('name-valid');
+              }
+            }
+          }
+        }
+        input.addEventListener('input', checkValue);
+        input.addEventListener('change', checkValue);
+      });
+    })();
+
+    // ── Form Submit Handler (Quentn Integration) ──────────
+    (function() {
+      var forms = [
+        { form: document.getElementById('hero-form'), success: document.getElementById('hero-form-success') },
+        { form: document.getElementById('final-form'), success: document.getElementById('final-form-success') }
+      ];
+
+      forms.forEach(function(f) {
+        if (!f.form) return;
+        f.form.addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          var email = f.form.querySelector('input[name="mail"]').value;
+          if (!email) return;
+
+          // Vorname prüfen (Pflichtfeld)
+          var nameInput = f.form.querySelector('input[name="first_name"]');
+          if (nameInput && nameInput.value.trim().length < 2) {
+            var nameWrapper = nameInput.closest('.form-q-name');
+            if (nameWrapper) {
+              nameWrapper.classList.add('form-q-missing');
+              nameWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              nameInput.focus();
+              setTimeout(function() { nameWrapper.classList.remove('form-q-missing'); }, 600);
+            }
+            return;
+          }
+
+          // Pflichtfeld-Validierung (alle 5 Fragen)
+          var requiredQs = f.form.querySelectorAll('.form-question[data-required="true"]');
+          var firstMissing = null;
+          requiredQs.forEach(function(q) {
+            q.classList.remove('form-q-missing');
+            var answered = false;
+
+            // Radio-Gruppen prüfen
+            var radios = q.querySelectorAll('input[type="radio"]');
+            if (radios.length) {
+              radios.forEach(function(r) { if (r.checked) answered = true; });
+            }
+
+            // Textfelder prüfen (min. 5 Zeichen)
+            var textInput = q.querySelector('.form-text-input:not([name="first_name"])');
+            if (textInput) {
+              answered = textInput.value.trim().length >= 5;
+            }
+
+            if (!answered) {
+              q.classList.add('form-q-missing');
+              if (!firstMissing) firstMissing = q;
+              setTimeout(function() { q.classList.remove('form-q-missing'); }, 600);
+            }
+          });
+          if (firstMissing) {
+            firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+
+          // Button deaktivieren
+          var submitBtn = f.form.querySelector('.form-btn-submit');
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Wird gesendet\u2026';
+          }
+
+          // Vorname für Redirect
+          var firstnameInput = f.form.querySelector('input[name="first_name"]');
+          var nameVal = firstnameInput ? firstnameInput.value.trim() : '';
+          var redirectUrl = 'danke.html?name=' + encodeURIComponent(nameVal) + '&email=' + encodeURIComponent(email);
+
+          // CTA Tracking senden (sendBeacon überlebt Navigation)
+          var partner = localStorage.getItem('if_partner') || '';
+          var source = localStorage.getItem('if_source') || 'direkt';
+          if (partner) {
+            var payload = JSON.stringify({
+              partner: partner,
+              source: source,
+              button: f.form.id === 'hero-form' ? 'hero-form' : 'final-form',
+              timestamp: new Date().toISOString(),
+              email: email,
+              variant: localStorage.getItem('ab_herz') || 'unknown'
+            });
+            if (navigator.sendBeacon) {
+              navigator.sendBeacon(
+                'https://erfolg-n8n.peaknetworks.cloud/webhook/reflink-conversion',
+                new Blob([payload], { type: 'application/json' })
+              );
+            }
+          }
+
+          // An Quentn senden, dann redirect
+          var action = f.form.getAttribute('action');
+          if (action && action !== '#') {
+            var formData = new FormData(f.form);
+
+            // Formular-Antworten in localStorage sichern (für E-Mail-Korrektur auf danke.html)
+            try {
+              var savedFields = {};
+              formData.forEach(function(value, key) {
+                if (key !== 'mail') savedFields[key] = value;
+              });
+              localStorage.setItem('hk_form_fields', JSON.stringify(savedFields));
+            } catch(e) {}
+
+            // ── Formular-Tracking: Alle Antworten in DataTable speichern ──
+            try {
+              var sessionId = (crypto.randomUUID ? crypto.randomUUID() : 'sid-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9));
+              localStorage.setItem('hk_session_id_tracking', sessionId);
+              var trackPayload = {
+                action: 'submit',
+                session_id: sessionId,
+                email: email,
+                vorname: (formData.get('first_name') || '').trim(),
+                frage_1: formData.get('field_1_wie_oft_triffst_du_entsc') || '',
+                frage_2: formData.get('field_was_f_llt_dir_schwerer_') || '',
+                frage_3: formData.get('field_3_wann_warst_du_zuletzt_wi') || '',
+                frage_4: formData.get('field_4_wobei_verlierst_du_gerad') || '',
+                frage_5: formData.get('field_5_was_w_nschst_du_dir_wenn') || '',
+                ab_variante: localStorage.getItem('ab_herz') || 'unknown',
+                partner: partner,
+                source: source,
+                formular: f.form.id || 'unknown',
+                zeitstempel: new Date().toISOString()
+              };
+              if (navigator.sendBeacon) {
+                navigator.sendBeacon(
+                  'https://erfolg-n8n.peaknetworks.cloud/webhook/herzkraft-form-tracking',
+                  new Blob([JSON.stringify(trackPayload)], { type: 'application/json' })
+                );
+              }
+            } catch(e) {}
+
+            fetch(action, { method: 'POST', body: formData, mode: 'no-cors' })
+              .then(function() {
+                window.location.href = redirectUrl;
+              })
+              .catch(function() {
+                // Auch bei Fehler redirect (Daten wurden wahrscheinlich gesendet)
+                window.location.href = redirectUrl;
+              });
+
+            // Fallback-Timeout falls fetch hängt
+            setTimeout(function() {
+              window.location.href = redirectUrl;
+            }, 3000);
+          } else {
+            window.location.href = redirectUrl;
+          }
+        });
+      });
+    })();
+
+    // ── Live Visitor Counter ──────────────────────────────
+    (function() {
+      var totalEl = document.getElementById('visitor-count');
+      if (!totalEl) return;
+
+      var vcWidget = document.getElementById('visitor-counter-widget');
+      if (vcWidget) {
+        setTimeout(function() {
+          vcWidget.style.opacity = '1';
+          vcWidget.style.transform = 'translateY(0)';
+        }, 2700);
+      }
+
+      // DateTime
+      var dtEl = document.getElementById('vc-datetime');
+      if (dtEl) {
+        function updateDateTime() {
+          var now = new Date();
+          var tage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+          var tag = tage[now.getDay()];
+          var d = now.getDate();
+          var monate = ['Jan', 'Feb', 'M\u00e4r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+          var mon = monate[now.getMonth()];
+          var h = String(now.getHours()).padStart(2, '0');
+          var m = String(now.getMinutes()).padStart(2, '0');
+          dtEl.textContent = tag + ', ' + d + '. ' + mon + ' \u00b7 ' + h + ':' + m;
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 30000);
+      }
+
+      // Close-Button
+      var vcClose = document.getElementById('vc-close');
+      if (vcClose && vcWidget) {
+        vcClose.addEventListener('click', function(e) {
+          e.stopPropagation();
+          vcWidget.style.transition = 'opacity 0.3s, transform 0.3s';
+          vcWidget.style.opacity = '0';
+          vcWidget.style.transform = 'translateY(20px)';
+          setTimeout(function() {
+            vcWidget.style.display = 'none';
+            // Hero-Padding zurücksetzen
+            var h = document.querySelector('.hero');
+            if (h) h.style.paddingTop = '';
+          }, 300);
+        });
+      }
+
+      // Time-based baseline
+      var hour = new Date().getHours();
+      var base;
+      if (hour >= 7 && hour < 9) base = 14;
+      else if (hour >= 9 && hour < 12) base = 24;
+      else if (hour >= 12 && hour < 14) base = 20;
+      else if (hour >= 14 && hour < 18) base = 28;
+      else if (hour >= 18 && hour < 21) base = 32;
+      else if (hour >= 21 && hour < 23) base = 18;
+      else base = 8;
+
+      var otherCountries = [
+        { flag: '\u{1F1EE}\u{1F1F9}', name: 'Italien' },
+        { flag: '\u{1F1EB}\u{1F1F7}', name: 'Frankreich' },
+        { flag: '\u{1F1F3}\u{1F1F1}', name: 'Niederlande' },
+        { flag: '\u{1F1F1}\u{1F1EE}', name: 'Liechtenstein' },
+        { flag: '\u{1F1EA}\u{1F1F8}', name: 'Spanien' },
+        { flag: '\u{1F1EC}\u{1F1E7}', name: 'UK' }
+      ];
+
+      var otherIdx = Math.floor(Math.random() * otherCountries.length);
+      var otherFlagEl = document.getElementById('vc-other-flag');
+      var otherNameEl = document.getElementById('vc-other-name');
+      if (otherFlagEl) otherFlagEl.textContent = otherCountries[otherIdx].flag;
+      if (otherNameEl) otherNameEl.textContent = otherCountries[otherIdx].name;
+
+      function splitCountries(total) {
+        var ch = Math.max(1, Math.round(total * (0.43 + Math.random() * 0.06)));
+        var de = Math.max(1, Math.round(total * (0.27 + Math.random() * 0.06)));
+        var at = Math.max(1, Math.round(total * (0.12 + Math.random() * 0.06)));
+        var other = Math.max(1, total - ch - de - at);
+        var diff = total - (ch + de + at + other);
+        ch += diff;
+        if (ch < 1) { ch = 1; de = Math.max(1, de - 1); }
+        return { ch: ch, de: de, at: at, other: other };
+      }
+
+      var barCh = document.getElementById('bar-ch');
+      var barDe = document.getElementById('bar-de');
+      var barAt = document.getElementById('bar-at');
+      var barOther = document.getElementById('bar-other');
+      [barCh, barDe, barAt, barOther].forEach(function(b) { if (b) b.style.width = '0%'; });
+
+      function updateBars(countries, total) {
+        var ref = total || (countries.ch + countries.de + countries.at + countries.other);
+        var scale = 1.9;
+        if (barCh) barCh.style.width = Math.min(96, Math.round((countries.ch / ref) * 100 * scale)) + '%';
+        if (barDe) barDe.style.width = Math.min(96, Math.round((countries.de / ref) * 100 * scale)) + '%';
+        if (barAt) barAt.style.width = Math.min(96, Math.round((countries.at / ref) * 100 * scale)) + '%';
+        if (barOther) barOther.style.width = Math.min(96, Math.round((countries.other / ref) * 100 * scale)) + '%';
+      }
+
+      var chEl = document.getElementById('vc-ch');
+      var deEl = document.getElementById('vc-de');
+      var atEl = document.getElementById('vc-at');
+      var otherEl = document.getElementById('vc-other');
+
+      function bump(el) {
+        if (!el) return;
+        el.classList.add('bump');
+        setTimeout(function() { el.classList.remove('bump'); }, 300);
+      }
+
+      var readingEl = document.getElementById('vc-reading');
+      var readingValue = 0;
+
+      function calcReading(total) {
+        var rate = 0.12 + Math.random() * 0.18;
+        var val = Math.max(1, Math.round(total * rate));
+        if (readingValue > 0) {
+          if (val > readingValue + 1) val = readingValue + 1;
+          if (val < readingValue - 1) val = readingValue - 1;
+        }
+        val = Math.max(1, Math.min(val, total - 1));
+        readingValue = val;
+        return val;
+      }
+
+      // Analysen-Zähler wird vom Kachel-Counter gesteuert (siehe unten)
+
+      // Besucher-Zähler: Nie unter den letzten gespeicherten Wert fallen
+      var storedVisitors = parseInt(localStorage.getItem('vc_visitors') || '0');
+      var current = base + Math.floor(Math.random() * 5) + 1;
+      current = Math.max(current, storedVisitors);
+      localStorage.setItem('vc_visitors', current);
+      totalEl.textContent = current;
+      var countries = splitCountries(current);
+      if (chEl) chEl.textContent = countries.ch;
+      if (deEl) deEl.textContent = countries.de;
+      if (atEl) atEl.textContent = countries.at;
+      if (otherEl) otherEl.textContent = countries.other;
+      updateBars(countries, current);
+      if (readingEl) readingEl.textContent = calcReading(current);
+
+      setInterval(function() {
+        var change = Math.floor(Math.random() * 3);
+        current = current + change;
+        localStorage.setItem('vc_visitors', current);
+        totalEl.textContent = current;
+        bump(totalEl);
+
+        countries = splitCountries(current);
+        if (chEl) { chEl.textContent = countries.ch; bump(chEl); }
+        if (deEl) { deEl.textContent = countries.de; bump(deEl); }
+        if (atEl) { atEl.textContent = countries.at; bump(atEl); }
+        if (otherEl) { otherEl.textContent = countries.other; bump(otherEl); }
+        updateBars(countries, current);
+        if (readingEl) {
+          var newReading = calcReading(current);
+          if (parseInt(readingEl.textContent) !== newReading) {
+            readingEl.textContent = newReading;
+            bump(readingEl);
+          }
+        }
+      }, 4000 + Math.random() * 3000);
+
+      setInterval(function() {
+        otherIdx = (otherIdx + 1 + Math.floor(Math.random() * (otherCountries.length - 1))) % otherCountries.length;
+        if (otherFlagEl) otherFlagEl.textContent = otherCountries[otherIdx].flag;
+        if (otherNameEl) {
+          otherNameEl.style.opacity = '0';
+          setTimeout(function() {
+            otherNameEl.textContent = otherCountries[otherIdx].name;
+            otherNameEl.style.opacity = '1';
+          }, 200);
+        }
+      }, 30000 + Math.random() * 30000);
+
+      // ── Analysen heute Counter ──────────────────────────
+      var analysesEl = document.getElementById('vc-analyses');
+      if (analysesEl) {
+        var today = new Date().toISOString().slice(0, 10);
+        var stored = localStorage.getItem('vc_analyses');
+        var storedDate = localStorage.getItem('vc_analyses_date');
+        var analysesCount;
+
+        // Tageszeit-basierte Baseline berechnen
+        var aHour = new Date().getHours();
+        var baseline;
+        if (aHour < 7) baseline = 2 + Math.floor(Math.random() * 3);
+        else if (aHour < 10) baseline = 5 + Math.floor(Math.random() * 6);
+        else if (aHour < 13) baseline = 15 + Math.floor(Math.random() * 11);
+        else if (aHour < 17) baseline = 25 + Math.floor(Math.random() * 11);
+        else if (aHour < 20) baseline = 40 + Math.floor(Math.random() * 16);
+        else baseline = 50 + Math.floor(Math.random() * 11);
+
+        if (storedDate === today && stored) {
+          // Gleicher Tag: gespeicherter Wert ist Minimum, Baseline kann höher sein
+          analysesCount = Math.max(parseInt(stored), baseline);
+        } else {
+          // Neuer Tag: Baseline verwenden
+          analysesCount = baseline;
+        }
+
+        localStorage.setItem('vc_analyses', analysesCount);
+        localStorage.setItem('vc_analyses_date', today);
+
+        analysesEl.textContent = analysesCount;
+
+        // Formular-Zähler synchron halten
+        var heroAC = document.getElementById('hero-analysen-count');
+        var finalAC = document.getElementById('final-analysen-count');
+        function syncFormAnalysen() {
+          if (heroAC) heroAC.textContent = analysesCount;
+          if (finalAC) finalAC.textContent = analysesCount;
+        }
+        syncFormAnalysen();
+
+        setInterval(function() {
+          var increment = Math.floor(Math.random() * 3) + 1;
+          analysesCount += increment;
+          analysesEl.textContent = analysesCount;
+          bump(analysesEl);
+          localStorage.setItem('vc_analyses', analysesCount);
+          syncFormAnalysen();
+        }, 30000 + Math.random() * 60000);
+      }
+
+      // ── Social Media Sources Counter ────────────────────
+      var srcIg = document.getElementById('vc-src-ig');
+      var srcLi = document.getElementById('vc-src-li');
+      var srcFb = document.getElementById('vc-src-fb');
+      var srcTt = document.getElementById('vc-src-tt');
+      var srcWa = document.getElementById('vc-src-wa');
+
+      if (srcIg) {
+        // Verteilung: IG 35%, LI 25%, FB 20%, TT 12%, WA 8%
+        function calcSources(total) {
+          var ig = Math.round(total * 0.35);
+          var li = Math.round(total * 0.25);
+          var fb = Math.round(total * 0.20);
+          var tt = Math.round(total * 0.12);
+          var wa = Math.max(1, total - ig - li - fb - tt);
+          return { ig: ig, li: li, fb: fb, tt: tt, wa: wa };
+        }
+
+        function updateSources() {
+          var aTotal = parseInt(analysesEl ? analysesEl.textContent : '47');
+          var s = calcSources(aTotal);
+          // Kleine Zufallsvariation
+          s.ig += Math.floor(Math.random() * 3) - 1;
+          s.li += Math.floor(Math.random() * 2) - 1;
+          s.fb += Math.floor(Math.random() * 2) - 1;
+          s.ig = Math.max(1, s.ig);
+          s.li = Math.max(1, s.li);
+          s.fb = Math.max(1, s.fb);
+          s.tt = Math.max(1, s.tt);
+          s.wa = Math.max(1, s.wa);
+
+          srcIg.textContent = s.ig;
+          srcLi.textContent = s.li;
+          srcFb.textContent = s.fb;
+          srcTt.textContent = s.tt;
+          srcWa.textContent = s.wa;
+        }
+
+        // Initial + periodisches Update
+        setTimeout(updateSources, 4200);
+        setInterval(function() {
+          updateSources();
+          bump(srcIg); bump(srcLi);
+        }, 45000 + Math.random() * 30000);
+      }
+    })();
+
+    // ── Social Proof Notification (Nav) ───────────────────
+    (function() {
+      var el = document.getElementById('nav-proof');
+      if (!el) return;
+
+      var people = [
+        { name: 'Susanne', city: 'Z\u00fcrich', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Claudia', city: 'Basel', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Petra', city: 'Bern', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Karin', city: 'Luzern', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Stefanie', city: 'St. Gallen', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Sandra', city: 'Winterthur', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Daniela', city: 'Z\u00fcrich', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Silvia', city: 'Bern', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Anna', city: 'Z\u00fcrich', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Anja', city: 'Thun', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Sonja', city: 'Zug', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Simone', city: 'Basel', flag: '\u{1F1E8}\u{1F1ED}' },
+        { name: 'Michaela', city: 'M\u00fcnchen', flag: '\u{1F1E9}\u{1F1EA}' },
+        { name: 'Sabine', city: 'Hamburg', flag: '\u{1F1E9}\u{1F1EA}' },
+        { name: 'Monika', city: 'Berlin', flag: '\u{1F1E9}\u{1F1EA}' },
+        { name: 'Nicole', city: 'K\u00f6ln', flag: '\u{1F1E9}\u{1F1EA}' },
+        { name: 'Christina', city: 'Stuttgart', flag: '\u{1F1E9}\u{1F1EA}' },
+        { name: 'Heike', city: 'Frankfurt', flag: '\u{1F1E9}\u{1F1EA}' },
+        { name: 'Birgit', city: 'D\u00fcsseldorf', flag: '\u{1F1E9}\u{1F1EA}' },
+        { name: 'Tanja', city: 'M\u00fcnchen', flag: '\u{1F1E9}\u{1F1EA}' },
+        { name: 'Andrea', city: 'Wien', flag: '\u{1F1E6}\u{1F1F9}' },
+        { name: 'Brigitte', city: 'Graz', flag: '\u{1F1E6}\u{1F1F9}' },
+        { name: 'Martina', city: 'Salzburg', flag: '\u{1F1E6}\u{1F1F9}' },
+        { name: 'Barbara', city: 'Innsbruck', flag: '\u{1F1E6}\u{1F1F9}' }
+      ];
+
+      var messages = [
+        function(p) { return p.name + ' aus ' + p.city + ' \u2014 Analyse erhalten'; },
+        function(p) { return p.name + ' aus ' + p.city + ' hat ihre Analyse angefordert'; },
+        function(p) { return p.name + ' aus ' + p.city + ' liest gerade ihre Analyse'; }
+      ];
+
+      var iconSvg = '<svg class="proof-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>';
+
+      var timeOptions = [
+        { val: 2, unit: 'Min.' }, { val: 5, unit: 'Min.' }, { val: 8, unit: 'Min.' },
+        { val: 14, unit: 'Min.' }, { val: 23, unit: 'Min.' }, { val: 38, unit: 'Min.' },
+        { val: 1, unit: 'Std.' }, { val: 2, unit: 'Std.' }, { val: 3, unit: 'Std.' }
+      ];
+      var lastIdx = -1;
+
+      function show() {
+        var idx;
+        do { idx = Math.floor(Math.random() * people.length); } while (idx === lastIdx);
+        lastIdx = idx;
+        var p = people[idx];
+        var t = timeOptions[Math.floor(Math.random() * timeOptions.length)];
+        var msg = messages[Math.floor(Math.random() * messages.length)](p);
+        el.innerHTML = iconSvg +
+          '<div class="proof-body">' +
+            '<span class="proof-main">' + msg + '</span>' +
+            '<span class="proof-meta">' + p.flag + ' vor ' + t.val + ' ' + t.unit + '</span>' +
+          '</div>';
+        el.classList.add('visible', 'glow');
+        setTimeout(function() {
+          el.classList.remove('visible', 'glow');
+        }, 6000);
+        schedule();
+      }
+
+      function schedule() {
+        setTimeout(show, (Math.random() * 7 + 8) * 1000);
+      }
+
+      setTimeout(schedule, 5000);
+    })();
+
+    // ── Visitor Counter: Position + Kompakt-Logik ──────────
+    (function() {
+      var widget = document.getElementById('visitor-counter-widget');
+      if (!widget) return;
+      var isMobile = window.innerWidth <= 600;
+      var heroEl = document.querySelector('.hero');
+
+      // ── Mobile: Oben anheften, voll anzeigen, einmal kompakt ──
+      if (isMobile) {
+        var navH = (document.querySelector('nav') || {}).offsetHeight || 76;
+        widget.classList.add('vc-snap-top');
+        widget.style.top = (navH + 8) + 'px';
+
+        // Hero-Padding dynamisch anpassen
+        function updateHeroPadding() {
+          if (!heroEl || !widget) return;
+          if (widget.style.display === 'none') { heroEl.style.paddingTop = ''; return; }
+          var rect = widget.getBoundingClientRect();
+          heroEl.style.paddingTop = (rect.bottom + 16) + 'px';
+        }
+
+        // ResizeObserver: Hero-Padding updaten wenn Kachel-Grösse sich ändert
+        if (typeof ResizeObserver !== 'undefined') {
+          new ResizeObserver(updateHeroPadding).observe(widget);
+        }
+
+        // Initial: Hero-Padding setzen nach Widget-Animation (2s delay + 0.6s slide-in)
+        setTimeout(updateHeroPadding, 2800);
+
+        // Einmal kompakt beim ersten Scrollen — bleibt dann kompakt
+        var hasCompacted = false;
+        var scrollTick = false;
+        function onFirstScroll() {
+          if (hasCompacted) return;
+          if (scrollTick) return;
+          scrollTick = true;
+          requestAnimationFrame(function() {
+            scrollTick = false;
+            var sy = window.scrollY || window.pageYOffset;
+            if (sy > 50) {
+              hasCompacted = true;
+              widget.classList.add('vc-compact');
+            }
+          });
+        }
+        window.addEventListener('scroll', onFirstScroll, { passive: true });
+
+      } else {
+        // ── Desktop: Drag-Positionierung ──
+        var isDragging = false;
+        var startY = 0, startX = 0, startBottom = 0, startLeft = 0;
+
+        function getPos() {
+          var cs = window.getComputedStyle(widget);
+          return { bottom: parseInt(cs.bottom) || 24, left: parseInt(cs.left) || 24 };
+        }
+
+        function onStart(e) {
+          if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+          if (e.target.closest('.vc-close')) return;
+          isDragging = true;
+          var touch = e.type === 'touchstart' ? e.touches[0] : e;
+          startX = touch.clientX;
+          startY = touch.clientY;
+          var pos = getPos();
+          startBottom = pos.bottom;
+          startLeft = pos.left;
+          widget.classList.add('vc-dragging');
+          e.preventDefault();
+        }
+
+        function onMove(e) {
+          if (!isDragging) return;
+          var touch = e.type === 'touchmove' ? e.touches[0] : e;
+          var deltaY = startY - touch.clientY;
+          var newBottom = Math.max(8, startBottom + deltaY);
+          widget.style.bottom = newBottom + 'px';
+          var deltaX = touch.clientX - startX;
+          var maxLeft = window.innerWidth - widget.offsetWidth - 8;
+          widget.style.left = Math.max(8, Math.min(maxLeft, startLeft + deltaX)) + 'px';
+          widget.style.right = 'auto';
+          e.preventDefault();
+        }
+
+        function onEnd() {
+          if (!isDragging) return;
+          isDragging = false;
+          widget.classList.remove('vc-dragging');
+          try { localStorage.setItem('vc_pos', JSON.stringify({ bottom: widget.style.bottom, left: widget.style.left })); } catch(ex) {}
+        }
+
+        try {
+          var saved = localStorage.getItem('vc_pos');
+          if (saved) {
+            var pos = JSON.parse(saved);
+            if (pos.bottom) widget.style.bottom = pos.bottom;
+            if (pos.left) { widget.style.left = pos.left; widget.style.right = 'auto'; }
+          }
+        } catch(e) {}
+
+        widget.addEventListener('mousedown', onStart);
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onEnd);
+      }
+    })();
+
+    // ── Steps Sequential Reveal ───────────────────────────
+    (function() {
+      var steps = document.querySelectorAll('.step');
+      if (!steps.length) return;
+      function updateSteps() {
+        var viewH = window.innerHeight;
+        steps.forEach(function(step, idx) {
+          var rect = step.getBoundingClientRect();
+          var threshold = viewH * (0.85 - idx * 0.1);
+          if (rect.top < threshold) step.classList.add('step-visible');
+          else step.classList.remove('step-visible');
+        });
+      }
+      window.addEventListener('scroll', updateSteps, { passive: true });
+      updateSteps();
+    })();
+
+    // ── Card Border Animation ─────────────────────────────
+    (function() {
+      var cards = document.querySelectorAll('.pain-card, .promise-card');
+      if (!cards.length) return;
+      function updateBorders() {
+        var viewH = window.innerHeight;
+        cards.forEach(function(card) {
+          var rect = card.getBoundingClientRect();
+          var progress = (viewH - rect.top) / (viewH * 0.7);
+          card.style.setProperty('--bp', Math.max(0, Math.min(1, progress)));
+        });
+      }
+      window.addEventListener('scroll', updateBorders, { passive: true });
+      updateBorders();
+    })();
+
+    // ── Hero Title Typewriter ─────────────────────────────
+    (function() {
+      var el = document.getElementById('hero-title-text');
+      var h1 = document.getElementById('hero-title');
+      if (!el || !h1) return;
+
+      var lines = [
+        { text: 'Aussen stark.', pink: false },
+        { text: 'Innen leer?', pink: false },
+        { text: 'Finde deine Herzkraft.', pink: true }
+      ];
+
+      var chars = [];
+      lines.forEach(function(line, idx) {
+        for (var i = 0; i < line.text.length; i++) {
+          chars.push({ ch: line.text[i], pink: line.pink });
+        }
+        if (idx < lines.length - 1) chars.push({ ch: '\n', pink: false });
+      });
+
+      var charIdx = 0;
+      var cursor = h1.querySelector('.hero-title-cursor');
+
+      function buildHTML(upTo) {
+        var html = '';
+        var inPink = false;
+        for (var i = 0; i < upTo; i++) {
+          var c = chars[i];
+          if (c.ch === '\n') {
+            if (inPink) { html += '</span>'; inPink = false; }
+            html += '<br>';
+            continue;
+          }
+          if (c.pink && !inPink) { html += '<span>'; inPink = true; }
+          if (!c.pink && inPink) { html += '</span>'; inPink = false; }
+          if (c.ch === '<') html += '&lt;';
+          else if (c.ch === '>') html += '&gt;';
+          else if (c.ch === '&') html += '&amp;';
+          else html += c.ch;
+        }
+        if (inPink) html += '</span>';
+        return html;
+      }
+
+      function typeNext() {
+        if (charIdx >= chars.length) {
+          setTimeout(function() { if (cursor) cursor.style.display = 'none'; }, 2000);
+          return;
+        }
+        charIdx++;
+        el.innerHTML = buildHTML(charIdx);
+        var delay = 50 + Math.random() * 35;
+        if (chars[charIdx - 1].ch === '\n') delay += 200;
+        setTimeout(typeNext, delay);
+      }
+
+      setTimeout(typeNext, 800);
+    })();
+
+    // ── Typewriter Quote with Typo Corrections ────────────
+    (function() {
+      var el = document.getElementById('typewriter-text');
+      if (!el) return;
+
+      var finalText = 'Endlich verstehe ich, warum ich trotz Erfolg so ersch\u00f6pft bin. Diese Analyse hat mir die Augen ge\u00f6ffnet.';
+
+      var typos = [
+        { at: 20, wrong: 'waurm', correct: 'warum' },
+        { at: 48, wrong: 'ersch\u00f6ft', correct: 'ersch\u00f6pft' }
+      ];
+
+      var actions = [];
+      var pos = 0;
+      typos.sort(function(a, b) { return a.at - b.at; });
+
+      typos.forEach(function(t) {
+        if (t.at > pos) {
+          for (var i = pos; i < t.at; i++) actions.push({ type: 'char', ch: finalText[i] });
+        }
+        var commonLen = 0;
+        while (commonLen < t.wrong.length && commonLen < t.correct.length && t.wrong[commonLen] === t.correct[commonLen]) commonLen++;
+        for (var i = 0; i < commonLen; i++) actions.push({ type: 'char', ch: t.correct[i] });
+        for (var i = commonLen; i < t.wrong.length; i++) actions.push({ type: 'char', ch: t.wrong[i] });
+        actions.push({ type: 'pause', ms: 350 });
+        for (var i = 0; i < t.wrong.length - commonLen; i++) actions.push({ type: 'delete' });
+        for (var i = commonLen; i < t.correct.length; i++) actions.push({ type: 'char', ch: t.correct[i] });
+        pos = t.at + t.correct.length;
+      });
+
+      for (var i = pos; i < finalText.length; i++) actions.push({ type: 'char', ch: finalText[i] });
+
+      var displayed = '';
+      var actionIdx = 0;
+      var runId = 0;
+      var quoteSection = el.closest('.quote-section');
+      var cursor = el.parentElement ? el.parentElement.querySelector('.typewriter-cursor') : null;
+
+      function executeAction(rid) {
+        if (rid !== runId) return;
+        if (actionIdx >= actions.length) {
+          setTimeout(function() { if (cursor) cursor.style.display = 'none'; }, 2000);
+          return;
+        }
+        var a = actions[actionIdx];
+        actionIdx++;
+        if (a.type === 'char') {
+          displayed += a.ch;
+          el.textContent = displayed;
+          setTimeout(function() { executeAction(rid); }, 55 + Math.random() * 30);
+        } else if (a.type === 'delete') {
+          displayed = displayed.slice(0, -1);
+          el.textContent = displayed;
+          setTimeout(function() { executeAction(rid); }, 45);
+        } else if (a.type === 'pause') {
+          setTimeout(function() { executeAction(rid); }, a.ms);
+        }
+      }
+
+      function startTyping() {
+        runId++;
+        displayed = '';
+        actionIdx = 0;
+        el.textContent = '';
+        if (cursor) cursor.style.display = '';
+        executeAction(runId);
+      }
+
+      if (quoteSection) {
+        var quoteObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) startTyping();
+          });
+        }, { threshold: 0.3 });
+        quoteObserver.observe(quoteSection);
+      }
+    })();
+
+    // ── RevLink: Partner via ?wa= Parameter ───────────────
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var waParam = params.get('wa');
+      var partnerUrl = null;
+
+      if (waParam) {
+        try {
+          var decoded = decodeURIComponent(escape(atob(waParam)));
+          if (decoded.startsWith('http')) partnerUrl = decoded;
+        } catch(e) {}
+        if (!partnerUrl) partnerUrl = 'https://myimpactflow.ch/' + waParam;
+        localStorage.setItem('if_partner', partnerUrl);
+
+        var srcParam = params.get('src');
+        if (srcParam) localStorage.setItem('if_source', srcParam);
+      }
+
+      if (!partnerUrl) partnerUrl = localStorage.getItem('if_partner');
+    })();
+
+    // ── A/B Pageview Tracking ─────────────────────────────
+    (function() {
+      var abVariant = localStorage.getItem('ab_herz');
+      if (abVariant && navigator.sendBeacon) {
+        navigator.sendBeacon(
+          'https://erfolg-n8n.peaknetworks.cloud/webhook/ab-tracking',
+          new Blob([JSON.stringify({
+            event: 'pageview',
+            variant: abVariant,
+            page: 'herz-analyse',
+            timestamp: new Date().toISOString(),
+            referrer: document.referrer || 'direct'
+          })], { type: 'application/json' })
+        );
+      }
+    })();
+  </script>
+</body>
+</html>

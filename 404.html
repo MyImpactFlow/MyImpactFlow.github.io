@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weiterleitung…</title>
+  <script>
+    // RevLink Redirect: go.myimpactflow.ch/GSa7A7?src=linkedin → /?wa=GSa7A7&src=linkedin
+    (function() {
+      var path = window.location.pathname;
+      var code = path.replace(/^\//, '').replace(/\/$/, '');
+      var search = window.location.search;
+      var extra = search ? '&' + search.substring(1) : '';
+      if (code && code !== 'index.html') {
+        window.location.replace('/?wa=' + code + extra);
+      } else {
+        window.location.replace('/');
+      }
+    })();
+  </script>
+</head>
+<body></body>
+</html>
