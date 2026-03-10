@@ -1930,8 +1930,7 @@
         <form class="hero-form-wrapper reveal" id="hero-form" action="https://klick.impactflow.ch/public/forms/497/raw/submit" method="POST">
           <input type="hidden" name="field_womit_m_chtest_du_dich_ger" value="1">
           <input type="hidden" name="field_datenschutz_impactflow_ch" value="1">
-          <input type="hidden" name="field_empfehlungsgeber_vorname" value="">
-          <input type="hidden" name="field_empfehlungsgeber_nachname" value="">
+          <input type="hidden" name="field_impactflowpartnerid" value="">
           <div class="hero-form form-step-1" id="hero-step-1">
             <input type="email" name="mail" placeholder="Deine E-Mail-Adresse" required autocomplete="email" />
             <button type="button" onclick="formNext('hero')">Weiter &rarr;</button>
@@ -2246,8 +2245,7 @@
       <form class="final-form-wrapper reveal" id="final-form" action="https://klick.impactflow.ch/public/forms/497/raw/submit" method="POST">
           <input type="hidden" name="field_womit_m_chtest_du_dich_ger" value="1">
           <input type="hidden" name="field_datenschutz_impactflow_ch" value="1">
-          <input type="hidden" name="field_empfehlungsgeber_vorname" value="">
-          <input type="hidden" name="field_empfehlungsgeber_nachname" value="">
+          <input type="hidden" name="field_impactflowpartnerid" value="">
         <div class="final-form form-step-1" id="final-step-1">
           <input type="email" name="mail" placeholder="Deine E-Mail-Adresse" required autocomplete="email" />
           <button type="button" onclick="formNext('final')">Weiter &rarr;</button>
@@ -2883,13 +2881,8 @@
           // Partner-Name ins Hidden-Feld schreiben (falls noch nicht gesetzt)
           var storedPartnerName = localStorage.getItem('if_partner_name') || '';
           if (storedPartnerName) {
-            var pParts = storedPartnerName.trim().split(/\s+/);
-            var pNachname = pParts.length > 1 ? pParts.pop() : '';
-            var pVorname = pParts.join(' ');
-            var vnField = f.form.querySelector('input[name="field_empfehlungsgeber_vorname"]');
-            var nnField = f.form.querySelector('input[name="field_empfehlungsgeber_nachname"]');
-            if (vnField) vnField.value = pVorname;
-            if (nnField) nnField.value = pNachname;
+            var pidField = f.form.querySelector('input[name="field_impactflowpartnerid"]');
+            if (pidField) pidField.value = storedPartnerName;
           }
 
           // An Quentn senden, dann redirect
@@ -3597,18 +3590,11 @@
 
       if (!partnerUrl) partnerUrl = localStorage.getItem('if_partner');
 
-      // Partner-Name in alle Formulare eintragen (Hidden-Felder für Quentn)
+      // Partner-Name in alle Formulare eintragen (Hidden-Feld für Quentn)
       var partnerName = localStorage.getItem('if_partner_name') || '';
       if (partnerName) {
-        // Name aufteilen: letztes Wort = Nachname, Rest = Vorname
-        var nameParts = partnerName.trim().split(/\s+/);
-        var nachname = nameParts.length > 1 ? nameParts.pop() : '';
-        var vorname = nameParts.join(' ');
-        document.querySelectorAll('input[name="field_empfehlungsgeber_vorname"]').forEach(function(el) {
-          el.value = vorname;
-        });
-        document.querySelectorAll('input[name="field_empfehlungsgeber_nachname"]').forEach(function(el) {
-          el.value = nachname;
+        document.querySelectorAll('input[name="field_impactflowpartnerid"]').forEach(function(el) {
+          el.value = partnerName;
         });
       }
     })();
