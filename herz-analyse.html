@@ -2885,6 +2885,24 @@
             if (pidField) pidField.value = storedPartnerName;
           }
 
+          // Partner-Tracking: Partner-Name direkt an n8n senden
+          // (Quentn-Form #497 leitet field_impactflowpartnerid nicht weiter)
+          if (storedPartnerName && email) {
+            try {
+              var partnerPayload = JSON.stringify({
+                action: 'save',
+                email: email,
+                partner_name: storedPartnerName
+              });
+              if (navigator.sendBeacon) {
+                navigator.sendBeacon(
+                  'https://erfolg-n8n.peaknetworks.cloud/webhook/herzkraft-partner-track',
+                  new Blob([partnerPayload], { type: 'application/json' })
+                );
+              }
+            } catch(e) {}
+          }
+
           // An Quentn senden, dann redirect
           var action = f.form.getAttribute('action');
           if (action && action !== '#') {
