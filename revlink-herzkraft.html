@@ -115,16 +115,112 @@
       display: block;
     }
 
+    /* ── Name-Row: Vorname + Nachname nebeneinander ─────── */
+    .name-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .name-row .name-field label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+      display: block;
+    }
+    @media (max-width: 480px) {
+      .name-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .name-row .name-field:last-child {
+        margin-top: 12px;
+      }
+    }
+
+    /* ── Tooltip Info-Icon ────────────────────────────────── */
+    .info-tooltip {
+      position: relative;
+      display: inline-block;
+      margin-left: 6px;
+      cursor: help;
+    }
+    .info-tooltip .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--mint);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      font-style: normal;
+      line-height: 1;
+      vertical-align: middle;
+      transition: background 0.2s;
+    }
+    .info-tooltip:hover .info-icon {
+      background: var(--pink);
+    }
+    .info-tooltip .info-text {
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      padding: 12px 14px;
+      background: var(--dark);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 400;
+      line-height: 1.5;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transition: opacity 0.25s, visibility 0.25s;
+      z-index: 50;
+      pointer-events: none;
+    }
+    .info-tooltip .info-text::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--dark);
+    }
+    .info-tooltip:hover .info-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    @media (max-width: 600px) {
+      .info-tooltip .info-text {
+        width: 220px;
+        left: auto;
+        right: -10px;
+        transform: none;
+      }
+      .info-tooltip .info-text::after {
+        left: auto;
+        right: 16px;
+        transform: none;
+      }
+    }
+
     .revlink-input {
       width: 100%;
-      padding: 14px 16px;
+      padding: 14px 40px 14px 16px;
       border: 2px solid var(--mint);
       border-radius: 12px;
       font-family: 'Inter', sans-serif;
       font-size: 0.9rem;
       color: var(--dark);
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color 0.3s, box-shadow 0.3s;
     }
     .revlink-input:focus {
       border-color: #88c9bb;
@@ -132,6 +228,57 @@
     }
     .revlink-input::placeholder {
       color: #bbb;
+    }
+
+    /* ── Live-Validierung: Status-Icons ─────────────────── */
+    .field-wrap {
+      position: relative;
+    }
+    .field-wrap .field-status {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      line-height: 1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .field-wrap.valid .field-status {
+      opacity: 1;
+      color: #27ae60;
+    }
+    .field-wrap.valid .field-status::after {
+      content: '\2713';
+    }
+    .field-wrap.valid .revlink-input {
+      border-color: #27ae60;
+    }
+    .field-wrap.invalid .field-status {
+      opacity: 1;
+      color: #e74c3c;
+    }
+    .field-wrap.invalid .field-status::after {
+      content: '\2717';
+    }
+    .field-wrap.invalid .revlink-input {
+      border-color: #e74c3c;
+    }
+
+    /* ── Warnhinweis-Box ────────────────────────────────── */
+    .hinweis-box {
+      background: #fff8e1;
+      border: 1.5px solid #ffd54f;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #5d4e00;
+    }
+    .hinweis-box strong {
+      color: #e65100;
     }
 
     .revlink-error {
@@ -452,32 +599,138 @@
   <!-- ── Header ─────────────────────────────────────────── -->
   <section class="legal-header">
     <h1>Herzkraft-Analyse Ref-Link Generator</h1>
-    <p>Erstelle deinen persönlichen Empfehlungslink für die Herzkraft-Analyse. Teile ihn mit deinem Netzwerk — wir sehen, wer über dich kommt.</p>
+    <p>Erstelle deinen persönlichen Empfehlungslink und Produktlink für die Herzkraft-Analyse. Beide Links erscheinen automatisch im PDF-Report deiner Empfehlungen.</p>
   </section>
 
   <!-- ── Tool ───────────────────────────────────────────── -->
   <div class="revlink-tool">
 
-    <label class="revlink-label" for="partner-input">Dein Name</label>
-    <input
-      type="text"
-      id="partner-input"
-      class="revlink-input"
-      placeholder="z.B. Jean Pierre oder MaxMuster"
-      autocomplete="off"
-      spellcheck="false"
-    />
-    <p class="revlink-error" id="revlink-error">Bitte deinen Namen eingeben (mind. 2 Zeichen)</p>
+    <div class="hinweis-box">
+      <strong>Wichtig:</strong> Bitte fülle alle Felder sorgfältig aus. Dein Name, deine E-Mail und deine Partner-ID werden für die Zuordnung deiner Empfehlungen und Provisionen verwendet. Fehlerhafte Angaben können dazu führen, dass Bestellungen nicht korrekt zugeordnet werden.
+    </div>
+
+    <div class="name-row">
+      <div class="name-field">
+        <label for="partner-vorname">Vorname <span style="color:var(--pink);">*</span>
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="info-text">Dein Vorname, wie er im PDF-Report als Empfehlungsgeber erscheint. Achte auf die richtige Schreibweise.</span>
+          </span>
+        </label>
+        <div class="field-wrap" data-field="vorname">
+          <input
+            type="text"
+            id="partner-vorname"
+            class="revlink-input"
+            placeholder="z.B. Jean Pierre"
+            autocomplete="given-name"
+            spellcheck="false"
+            required
+          />
+          <span class="field-status"></span>
+        </div>
+      </div>
+      <div class="name-field">
+        <label for="partner-nachname">Nachname <span style="color:var(--pink);">*</span>
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="info-text">Dein Nachname — wird zusammen mit dem Vornamen im PDF und für die Link-Zuordnung verwendet.</span>
+          </span>
+        </label>
+        <div class="field-wrap" data-field="nachname">
+          <input
+            type="text"
+            id="partner-nachname"
+            class="revlink-input"
+            placeholder="z.B. Seemann"
+            autocomplete="family-name"
+            spellcheck="false"
+            required
+          />
+          <span class="field-status"></span>
+        </div>
+      </div>
+    </div>
+
+    <label class="revlink-label" for="partner-email" style="margin-top:12px;">Deine E-Mail <span style="color:var(--pink);">*</span>
+      <span class="info-tooltip">
+        <span class="info-icon">i</span>
+        <span class="info-text">Deine E-Mail-Adresse zur Zuordnung deines Partnerkontos. Wir verwenden gängige E-Mail-Anbieter wie Gmail, Outlook, GMX usw. Bitte keine Wegwerf-Adressen.</span>
+      </span>
+    </label>
+    <div class="field-wrap" data-field="email">
+      <input
+        type="email"
+        id="partner-email"
+        class="revlink-input"
+        placeholder="z.B. max@gmail.com"
+        autocomplete="email"
+        spellcheck="false"
+        required
+      />
+      <span class="field-status"></span>
+    </div>
+
+    <label class="revlink-label" for="partner-titel" style="margin-top:12px;">Dein Titel <span style="color:var(--pink);">*</span>
+      <span class="info-tooltip">
+        <span class="info-icon">i</span>
+        <span class="info-text">Deine Rolle oder Beschreibung, die unter deinem Namen im PDF-Report erscheint. Z.B. «Herzkraft-Coach», «Dein Wellness-Berater» oder «Impact Flow Team».</span>
+      </span>
+    </label>
+    <div class="field-wrap" data-field="titel">
+      <input
+        type="text"
+        id="partner-titel"
+        class="revlink-input"
+        placeholder="z.B. Herzkraft-Coach"
+        autocomplete="off"
+        spellcheck="false"
+        required
+      />
+      <span class="field-status"></span>
+    </div>
+
+    <label class="revlink-label" for="ethno-id" style="margin-top:12px;">Partner-ID <span style="color:var(--pink);">*</span>
+      <span class="info-tooltip">
+        <span class="info-icon">i</span>
+        <span class="info-text">Deine persönliche Ethno Health Partner-ID. Du findest sie in deinem Ethno Health Dashboard unter «Mein Konto» → «Partnerprogramm». Es ist eine mehrsteillige Zahlenfolge (z.B. 98546411). Der QR-Code im PDF wird damit verknüpft — so erhältst du die Provision.</span>
+      </span>
+    </label>
+    <div class="field-wrap" data-field="ethno">
+      <input
+        type="text"
+        id="ethno-id"
+        class="revlink-input"
+        placeholder="z.B. 98546411"
+        autocomplete="off"
+        spellcheck="false"
+        inputmode="numeric"
+        required
+      />
+      <span class="field-status"></span>
+    </div>
+    <p class="revlink-error" id="revlink-error"></p>
 
     <button class="revlink-generate" id="revlink-generate" type="button">
       <svg viewBox="0 0 24 24"><path d="M13.7 2.1L5 12h5v10l8.7-9.9H14V2.1z"/></svg>
       Link generieren
     </button>
 
+    <p style="text-align:center;margin-top:14px;font-size:0.8rem;color:var(--grey);">
+      Unsicher beim Ausfüllen? <a href="https://www.etermin.net/Love369Wins/calserviceid/206227/576811?noinitscroll=1" target="_blank" rel="noopener" style="color:var(--pink);font-weight:600;text-decoration:none;">Buche einen kurzen Support-Termin</a> — wir helfen dir, alles richtig einzutragen.
+    </p>
+
     <!-- Output -->
     <div class="revlink-output" id="revlink-output">
       <hr class="revlink-divider" />
-      <label class="revlink-label">Dein persönlicher RevLink</label>
+
+      <!-- Empfehlungslink (Landing Page) -->
+      <label class="revlink-label">📢 Empfehlungslink <span style="font-weight:400;color:#aaa;">— Landing Page weiterempfehlen</span>
+        <span class="info-tooltip">
+          <span class="info-icon">i</span>
+          <span class="info-text">Diesen Link teilst du mit deinem Netzwerk. Wer ihn anklickt, landet auf der Herzkraft-Analyse und wird dir als Empfehlung zugeordnet. Er erscheint auch in der «Weitersagen»-Box im PDF.</span>
+        </span>
+      </label>
       <input
         type="text"
         id="revlink-result"
@@ -487,6 +740,27 @@
       <button class="revlink-copy" id="revlink-copy" type="button">
         In Zwischenablage kopieren
       </button>
+
+      <!-- Produktlink (Ethno Health) -->
+      <div id="produktlink-section" style="margin-top:16px;display:none;">
+        <label class="revlink-label">🛒 Produktlink <span style="font-weight:400;color:#aaa;">— Herzkraft bei Ethno Health bestellen</span>
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="info-text">Dieser Link führt direkt zur Herzkraft-Produktseite bei Ethno Health — mit deiner Partner-ID. Er wird als QR-Code im PDF-Report eingebettet. Wenn jemand darüber bestellt, erhältst du die Provision.</span>
+          </span>
+        </label>
+        <input
+          type="text"
+          id="produktlink-result"
+          class="revlink-result"
+          style="border-color:var(--mint);"
+          readonly
+        />
+        <button class="revlink-copy" id="produktlink-copy" type="button" style="background:var(--mint);">
+          In Zwischenablage kopieren
+        </button>
+      </div>
+
       <!-- Plattform-Links -->
       <div class="platform-section" id="platform-section">
         <p class="platform-section-title">Plattform-Links (optional):</p>
@@ -509,7 +783,7 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Als ZIP herunterladen
       </button>
-      <p class="revlink-hint">Diesen Link kannst du teilen. Besucher landen auf der Herzkraft-Analyse und werden dir persönlich zugeordnet.</p>
+      <p class="revlink-hint">Der <strong>Empfehlungslink</strong> führt zur Herzkraft-Analyse — Besucher werden dir zugeordnet. Der <strong>Produktlink</strong> führt direkt zu Herzkraft bei Ethno Health. Beide Links erscheinen automatisch im PDF-Report deiner Empfehlungen.</p>
     </div>
 
     <a href="herz-analyse.html" class="back-link">&#8592; Zurück zur Herzkraft-Analyse</a>
@@ -532,28 +806,161 @@
 
   <script>
     (function() {
-      var input = document.getElementById('partner-input');
+      var vornameInput = document.getElementById('partner-vorname');
+      var nachnameInput = document.getElementById('partner-nachname');
+      var emailInput = document.getElementById('partner-email');
+      var titelInput = document.getElementById('partner-titel');
+      var ethnoIdInput = document.getElementById('ethno-id');
       var btn = document.getElementById('revlink-generate');
       var error = document.getElementById('revlink-error');
       var output = document.getElementById('revlink-output');
       var result = document.getElementById('revlink-result');
       var copyBtn = document.getElementById('revlink-copy');
+      var produktlinkSection = document.getElementById('produktlink-section');
+      var produktlinkResult = document.getElementById('produktlink-result');
+      var produktlinkCopy = document.getElementById('produktlink-copy');
 
-      // Produktions-URL & Shortener API
+      // Produktions-URLs & Shortener API
       var PROD = 'https://go.myimpactflow.ch/herz-analyse.html';
+      var ETHNO_BASE = 'https://www.ethno-health.com/artikeldetail/39/herzkraft/p/r/';
       var SHORTEN_API = 'https://erfolg-n8n.peaknetworks.cloud/webhook/revlink-shorten-v2';
 
-      function isValidPartner(val) {
-        val = val.trim();
-        return val.length >= 2;
+      // Felder-Array
+      var allFields = [vornameInput, nachnameInput, emailInput, titelInput, ethnoIdInput];
+
+      // ── Validierungsfunktionen ──────────────────────────────
+      function isValidName(val) {
+        return val.trim().length >= 2;
       }
 
-      // URL über n8n → Short.io kürzen (+ partner/platform für DataTable)
+      // Strenge E-Mail-Validierung: Format + bekannte Endungen
+      var VALID_TLDS = ['ch','de','at','com','net','org','info','io','co','eu','li','fr','it','uk','nl','be','us','ca','au','biz','me','app','dev','tech','online','shop','store','site','cloud','pro','health','life','world','email','mail','cc','tv','studio','design','media','agency','digital','solutions','consulting','coach','academy'];
+      function isValidEmail(val) {
+        val = val.trim().toLowerCase();
+        // Basis-Format: x@x.xx
+        if (!/^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/.test(val)) return false;
+        // TLD prüfen
+        var parts = val.split('.');
+        var tld = parts[parts.length - 1];
+        if (tld.length < 2 || tld.length > 10) return false;
+        // Bekannte Wegwerf-Domains blockieren
+        var domain = val.split('@')[1];
+        var blocked = ['tempmail','throwaway','guerrilla','mailinator','yopmail','trashmail','fakeinbox','sharklasers','guerrillamail','grr.la','dispostable','maildrop'];
+        for (var i = 0; i < blocked.length; i++) {
+          if (domain.indexOf(blocked[i]) !== -1) return false;
+        }
+        return true;
+      }
+
+      function isValidTitel(val) {
+        return val.trim().length >= 2;
+      }
+
+      function isValidEthnoId(val) {
+        return val.trim().length >= 4 && /^\d+$/.test(val.trim());
+      }
+
+      function getFullName() {
+        return (vornameInput.value.trim() + ' ' + nachnameInput.value.trim()).trim();
+      }
+
+      // ── Live-Validierung: Häkchen/Kreuz in Echtzeit ────────
+      var fieldValidators = {
+        vorname:  function() { return isValidName(vornameInput.value); },
+        nachname: function() { return isValidName(nachnameInput.value); },
+        email:    function() { return isValidEmail(emailInput.value); },
+        titel:    function() { return isValidTitel(titelInput.value); },
+        ethno:    function() { return isValidEthnoId(ethnoIdInput.value); }
+      };
+
+      function updateFieldStatus(inputEl) {
+        var wrap = inputEl.closest('.field-wrap');
+        if (!wrap) return;
+        var fieldName = wrap.getAttribute('data-field');
+        var validator = fieldValidators[fieldName];
+        if (!validator) return;
+        var val = inputEl.value.trim();
+
+        wrap.classList.remove('valid', 'invalid');
+        if (val.length === 0) return; // leer → kein Status
+        if (validator()) {
+          wrap.classList.add('valid');
+        } else if (val.length >= 2) {
+          // Erst nach 2+ Zeichen als ungültig markieren (kein sofortiges Rot)
+          wrap.classList.add('invalid');
+        }
+      }
+
+      // Events auf allen Feldern
+      allFields.forEach(function(el) {
+        el.addEventListener('input', function() { updateFieldStatus(el); });
+        el.addEventListener('blur', function() {
+          // Bei blur immer Status zeigen (auch bei 1 Zeichen)
+          var wrap = el.closest('.field-wrap');
+          if (!wrap) return;
+          var fieldName = wrap.getAttribute('data-field');
+          var validator = fieldValidators[fieldName];
+          if (!validator) return;
+          wrap.classList.remove('valid', 'invalid');
+          if (el.value.trim().length === 0) return;
+          wrap.classList.add(validator() ? 'valid' : 'invalid');
+        });
+      });
+
+      // ── Gesamtvalidierung beim Absenden ─────────────────────
+      function validateAll() {
+        // Alle Felder-Status aktualisieren
+        allFields.forEach(function(el) {
+          var wrap = el.closest('.field-wrap');
+          if (!wrap) return;
+          var fieldName = wrap.getAttribute('data-field');
+          var validator = fieldValidators[fieldName];
+          if (!validator) return;
+          wrap.classList.remove('valid', 'invalid');
+          if (el.value.trim().length === 0) {
+            wrap.classList.add('invalid');
+          } else {
+            wrap.classList.add(validator() ? 'valid' : 'invalid');
+          }
+        });
+
+        if (!isValidName(vornameInput.value)) {
+          vornameInput.focus();
+          return 'Bitte deinen Vornamen eingeben (mind. 2 Zeichen).';
+        }
+        if (!isValidName(nachnameInput.value)) {
+          nachnameInput.focus();
+          return 'Bitte deinen Nachnamen eingeben (mind. 2 Zeichen).';
+        }
+        if (!isValidEmail(emailInput.value)) {
+          emailInput.focus();
+          return 'Bitte eine gültige E-Mail-Adresse eingeben (z.B. name@gmail.com).';
+        }
+        if (!isValidTitel(titelInput.value)) {
+          titelInput.focus();
+          return 'Bitte deinen Titel eingeben (z.B. «Herzkraft-Coach»).';
+        }
+        if (!isValidEthnoId(ethnoIdInput.value)) {
+          ethnoIdInput.focus();
+          return 'Bitte deine Partner-ID eingeben (nur Zahlen, mind. 4 Stellen).';
+        }
+        return null;
+      }
+
+      // URL über n8n → Short.io kürzen (+ alle Partner-Daten für DataTable)
       function shortenUrl(longUrl, partner, platform) {
+        var payload = {
+          url: longUrl,
+          partner: partner || '',
+          platform: platform || '',
+          email: emailInput.value.trim(),
+          titel: titelInput.value.trim(),
+          partner_id: ethnoIdInput.value.trim()
+        };
         return fetch(SHORTEN_API, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ url: longUrl, partner: partner || '', platform: platform || '' })
+          body: JSON.stringify(payload)
         })
         .then(function(r) { return r.json(); })
         .then(function(data) { return data.shortUrl || longUrl; })
@@ -627,17 +1034,35 @@
         });
       });
 
+      // Produktlink Copy-Button
+      produktlinkCopy.addEventListener('click', function() {
+        var url = produktlinkResult.value;
+        if (!url) return;
+        navigator.clipboard.writeText(url).then(function() {
+          produktlinkCopy.textContent = 'Kopiert \u2713';
+          produktlinkCopy.classList.add('copied');
+          setTimeout(function() {
+            produktlinkCopy.textContent = 'In Zwischenablage kopieren';
+            produktlinkCopy.classList.remove('copied');
+          }, 3000);
+        });
+      });
+
       btn.addEventListener('click', function() {
-        var val = input.value.trim();
+        var validationError = validateAll();
         error.classList.remove('visible');
 
-        if (!val || !isValidPartner(val)) {
+        if (validationError) {
+          error.textContent = validationError;
           error.classList.add('visible');
           output.classList.remove('visible');
           platformSection.classList.remove('visible');
+          produktlinkSection.style.display = 'none';
           return;
         }
 
+        var val = getFullName();
+        var ethnoId = ethnoIdInput.value.trim();
         currentPartner = val;
         platformShortUrls = {}; // Reset bei neuem Partner
 
@@ -645,9 +1070,13 @@
         btn.disabled = true;
         btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M13.7 2.1L5 12h5v10l8.7-9.9H14V2.1z"/></svg> Wird gek\u00fcrzt\u2026';
 
-        // Basis-Link + Plattform-Links parallel kürzen
+        // Basis-Link (Landing Page) + Ethno Health Produktlink + Plattform-Links parallel kürzen
         var baseUrl = PROD + '?wa=' + encodeURIComponent(val);
-        var shortenPromises = [shortenUrl(baseUrl, val, '')];
+        var ethnoUrl = ETHNO_BASE + ethnoId;
+        var shortenPromises = [
+          shortenUrl(baseUrl, val, ''),
+          shortenUrl(ethnoUrl, val, 'produkt')
+        ];
 
         // Plattform-Links parallel kürzen
         var checkboxes = platformGrid.querySelectorAll('input[type="checkbox"]');
@@ -660,14 +1089,19 @@
         });
 
         Promise.all(shortenPromises).then(function(results) {
-          // Erster Result = Basis-Link
+          // Erster Result = Empfehlungslink (Landing Page)
           var shortBase = results[0];
           result.value = shortBase;
           currentRevlink = shortBase;
 
-          // Plattform-Links cachen
+          // Zweiter Result = Produktlink (Ethno Health)
+          var shortProdukt = results[1];
+          produktlinkResult.value = shortProdukt;
+          produktlinkSection.style.display = 'block';
+
+          // Plattform-Links cachen (ab Index 2)
           for (var i = 0; i < platforms.length; i++) {
-            platformShortUrls[platforms[i]] = results[i + 1];
+            platformShortUrls[platforms[i]] = results[i + 2];
           }
 
           output.classList.add('visible');
@@ -682,8 +1116,10 @@
         });
       });
 
-      input.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') btn.click();
+      allFields.forEach(function(el) {
+        el.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') btn.click();
+        });
       });
 
       // ── PDF Download ──────────────────────────────────────

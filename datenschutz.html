@@ -227,7 +227,7 @@
         alt="ImpactFlow Logo"
       />
     </a>
-    <a href="index.html#whatsapp" class="nav-cta">Jetzt beitreten &#8594;</a>
+    <a href="herz-analyse.html" class="nav-cta">Kostenlose Analyse &#8594;</a>
   </nav>
 
 
@@ -273,15 +273,27 @@
       in der <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Datenschutzerkl&auml;rung von GitHub</a>.
     </p>
 
-    <h3>2.2 Kontaktaufnahme via WhatsApp</h3>
+    <h3>2.2 Formulare und personalisierte Analysen</h3>
     <p>
-      Wenn Sie uns &uuml;ber WhatsApp kontaktieren, werden Ihre Nachricht, Ihr Name und Ihre
-      Telefonnummer durch WhatsApp (Meta Platforms Ireland Ltd.) verarbeitet. Die Kommunikation
-      ist Ende-zu-Ende verschl&uuml;sselt.
+      Wenn Sie auf unserer Webseite ein Formular ausf&uuml;llen (z.&thinsp;B. f&uuml;r eine kostenlose Analyse),
+      werden die eingegebenen Daten (E-Mail-Adresse, Antworten auf Fragen) an unseren
+      E-Mail-Marketing-Dienstleister Quentn GmbH (Deutschland) &uuml;bermittelt und dort verarbeitet.
     </p>
     <p>
-      Weitere Informationen finden Sie in der
-      <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">Datenschutzerkl&auml;rung von WhatsApp</a>.
+      Auf Basis Ihrer Antworten wird eine personalisierte Auswertung (PDF-Report) erstellt
+      und Ihnen per E-Mail zugesendet. Ihre Daten werden ausschliesslich f&uuml;r die Erstellung
+      der Analyse und die weitere Kommunikation mit Ihnen verwendet.
+    </p>
+    <p>
+      Weitere Informationen:
+      <a href="https://www.quentn.com/datenschutzerklaerung" target="_blank" rel="noopener">Datenschutzerkl&auml;rung von Quentn</a>.
+    </p>
+
+    <h3>2.3 Kontaktaufnahme</h3>
+    <p>
+      Wenn Sie uns per E-Mail oder &uuml;ber andere Kommunikationskan&auml;le kontaktieren,
+      werden Ihre Angaben (Name, E-Mail-Adresse, Nachrichteninhalt) zur Bearbeitung
+      Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht ohne Ihre Einwilligung.
     </p>
 
     <h2>3. Externe Dienste</h2>
@@ -340,7 +352,7 @@
     </p>
     <p><strong>Stand:</strong> M&auml;rz 2026 &mdash; Z&uuml;rich, Schweiz &#127464;&#127469;</p>
 
-    <a href="index.html" class="back-link">&#8592; Zur&uuml;ck zur Startseite</a>
+    <a href="herz-analyse.html" class="back-link">&#8592; Zur&uuml;ck zur Herzanalyse</a>
   </div>
 
 
@@ -357,5 +369,30 @@
     </p>
   </footer>
 
+  <!-- Kontext-Erkennung: Passt Links an je nachdem woher der Besucher kommt -->
+  <script>
+    (function() {
+      var ref = document.referrer || '';
+      var fromWhatsApp = ref.indexOf('index.html') !== -1 ||
+        (ref.indexOf('go.myimpactflow.ch') !== -1 &&
+         ref.indexOf('herz') === -1 &&
+         ref.indexOf('impressum') === -1 &&
+         ref.indexOf('datenschutz') === -1 &&
+         ref.indexOf('revlink') === -1);
+
+      if (fromWhatsApp) {
+        var cta = document.querySelector('.nav-cta');
+        if (cta) {
+          cta.href = 'index.html#whatsapp';
+          cta.innerHTML = 'Jetzt beitreten \u2192';
+        }
+        var back = document.querySelector('.back-link');
+        if (back) {
+          back.href = 'index.html';
+          back.innerHTML = '\u2190 Zur\u00fcck zur Startseite';
+        }
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -214,7 +214,7 @@
         alt="ImpactFlow Logo"
       />
     </a>
-    <a href="index.html#whatsapp" class="nav-cta">Jetzt beitreten &#8594;</a>
+    <a href="herz-analyse.html" class="nav-cta">Kostenlose Analyse &#8594;</a>
   </nav>
 
 
@@ -268,7 +268,7 @@
 
     <p><strong>Stand:</strong> M&auml;rz 2026 &mdash; Z&uuml;rich, Schweiz &#127464;&#127469;</p>
 
-    <a href="index.html" class="back-link">&#8592; Zur&uuml;ck zur Startseite</a>
+    <a href="herz-analyse.html" class="back-link">&#8592; Zur&uuml;ck zur Herzanalyse</a>
   </div>
 
 
@@ -285,5 +285,30 @@
     </p>
   </footer>
 
+  <!-- Kontext-Erkennung: Passt Links an je nachdem woher der Besucher kommt -->
+  <script>
+    (function() {
+      var ref = document.referrer || '';
+      var fromWhatsApp = ref.indexOf('index.html') !== -1 ||
+        (ref.indexOf('go.myimpactflow.ch') !== -1 &&
+         ref.indexOf('herz') === -1 &&
+         ref.indexOf('impressum') === -1 &&
+         ref.indexOf('datenschutz') === -1 &&
+         ref.indexOf('revlink') === -1);
+
+      if (fromWhatsApp) {
+        var cta = document.querySelector('.nav-cta');
+        if (cta) {
+          cta.href = 'index.html#whatsapp';
+          cta.innerHTML = 'Jetzt beitreten \u2192';
+        }
+        var back = document.querySelector('.back-link');
+        if (back) {
+          back.href = 'index.html';
+          back.innerHTML = '\u2190 Zur\u00fcck zur Startseite';
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
