@@ -1930,6 +1930,7 @@
         <form class="hero-form-wrapper reveal" id="hero-form" action="https://klick.impactflow.ch/public/forms/497/raw/submit" method="POST">
           <input type="hidden" name="field_womit_m_chtest_du_dich_ger" value="1">
           <input type="hidden" name="field_datenschutz_impactflow_ch" value="1">
+          <input type="hidden" name="field_partner_referenz" value="">
           <div class="hero-form form-step-1" id="hero-step-1">
             <input type="email" name="mail" placeholder="Deine E-Mail-Adresse" required autocomplete="email" />
             <button type="button" onclick="formNext('hero')">Weiter &rarr;</button>
@@ -2244,6 +2245,7 @@
       <form class="final-form-wrapper reveal" id="final-form" action="https://klick.impactflow.ch/public/forms/497/raw/submit" method="POST">
           <input type="hidden" name="field_womit_m_chtest_du_dich_ger" value="1">
           <input type="hidden" name="field_datenschutz_impactflow_ch" value="1">
+          <input type="hidden" name="field_partner_referenz" value="">
         <div class="final-form form-step-1" id="final-step-1">
           <input type="email" name="mail" placeholder="Deine E-Mail-Adresse" required autocomplete="email" />
           <button type="button" onclick="formNext('final')">Weiter &rarr;</button>
@@ -2874,6 +2876,13 @@
                 new Blob([payload], { type: 'application/json' })
               );
             }
+          }
+
+          // Partner-Name ins Hidden-Feld schreiben (falls noch nicht gesetzt)
+          var partnerNameField = f.form.querySelector('input[name="field_partner_referenz"]');
+          var storedPartnerName = localStorage.getItem('if_partner_name') || '';
+          if (partnerNameField && storedPartnerName) {
+            partnerNameField.value = storedPartnerName;
           }
 
           // An Quentn senden, dann redirect
@@ -3573,12 +3582,21 @@
         } catch(e) {}
         if (!partnerUrl) partnerUrl = 'https://myimpactflow.ch/' + waParam;
         localStorage.setItem('if_partner', partnerUrl);
+        localStorage.setItem('if_partner_name', waParam);
 
         var srcParam = params.get('src');
         if (srcParam) localStorage.setItem('if_source', srcParam);
       }
 
       if (!partnerUrl) partnerUrl = localStorage.getItem('if_partner');
+
+      // Partner-Name in alle Formulare eintragen (Hidden-Feld für Quentn)
+      var partnerName = localStorage.getItem('if_partner_name') || '';
+      if (partnerName) {
+        document.querySelectorAll('input[name="field_partner_referenz"]').forEach(function(el) {
+          el.value = partnerName;
+        });
+      }
     })();
 
     // ── A/B Pageview Tracking ─────────────────────────────
