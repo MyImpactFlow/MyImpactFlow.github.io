@@ -182,14 +182,25 @@ Partner-Link: https://myimpactflow.ch/GSa7A7
 ## Deployment
 
 ```bash
-# Änderungen pushen → GitHub Pages deployed automatisch
-cd ~/Desktop/Alle\ Projeke/03_Experimente/whatsapp-funnel-landing
+# WICHTIG: Dieses Repo ist jetzt MyImpactFlow.github.io (nicht mehr whatsapp-funnel!)
+cd ~/Desktop/Alle\ Projeke/01_Produkte/MyImpactFlow.github.io
+
+# VOR dem Deployment: Alle Live-URLs prüfen
+python3 check-live-urls.py --pre
+
+# Änderungen pushen
 git add .
 git commit -m "Beschreibung"
 git push origin main
+
+# NACH dem Deployment: Prüfen ob alles noch online ist
+python3 check-live-urls.py --post
 ```
 
 **Live-URL:** `https://go.myimpactflow.ch`
+**Repository:** `https://github.com/MyImpactFlow/MyImpactFlow.github.io`
+
+⚠️ **Achtung:** Das alte `whatsapp-funnel` Repo ist nur noch Archiv. Alle Änderungen an Landing Pages gehen in dieses Repo (`MyImpactFlow.github.io`).
 
 ---
 
@@ -197,7 +208,7 @@ git push origin main
 
 ```bash
 # Preview-Server starten (Port 8081)
-cd ~/Desktop/Alle\ Projeke/03_Experimente/whatsapp-funnel-landing
+cd ~/Desktop/Alle\ Projeke/01_Produkte/MyImpactFlow.github.io
 python3 -m http.server 8081
 
 # Oder via Claude Code Preview (.claude/launch.json)

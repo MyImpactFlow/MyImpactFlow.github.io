@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+._*
+
+# URL-Check Snapshots (lokal)
+.url-snapshots/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude
+.claude/

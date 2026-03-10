@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "beschreibung": "Zentrale Registry aller Live-URLs unter go.myimpactflow.ch",
+    "domain": "go.myimpactflow.ch",
+    "letzteAktualisierung": "2026-03-10",
+    "hinweis": "VOR jeder Deployment-Änderung: python3 check-live-urls.py --pre"
+  },
+  "seiten": [
+    {
+      "url": "https://go.myimpactflow.ch/",
+      "datei": "index.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "WhatsApp Funnel Landing Page — Haupt-Conversion-Seite",
+      "kritisch": true
+    },
+    {
+      "url": "https://go.myimpactflow.ch/herz-analyse.html",
+      "datei": "herz-analyse.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "Herz-Analyse Landing Page",
+      "kritisch": true
+    },
+    {
+      "url": "https://go.myimpactflow.ch/danke.html",
+      "datei": "danke.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "Danke-Seite nach Buchung",
+      "kritisch": true
+    },
+    {
+      "url": "https://go.myimpactflow.ch/danke-v1.0.html",
+      "datei": "danke-v1.0.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "Danke-Seite Version 1.0 (Legacy)",
+      "kritisch": false
+    },
+    {
+      "url": "https://go.myimpactflow.ch/impressum.html",
+      "datei": "impressum.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "Impressum (rechtlich erforderlich)",
+      "kritisch": true
+    },
+    {
+      "url": "https://go.myimpactflow.ch/datenschutz.html",
+      "datei": "datenschutz.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "Datenschutzerklärung (rechtlich erforderlich)",
+      "kritisch": true
+    },
+    {
+      "url": "https://go.myimpactflow.ch/revlink.html",
+      "datei": "revlink.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "Ref-Link Generator für Partner",
+      "kritisch": true
+    },
+    {
+      "url": "https://go.myimpactflow.ch/revlink-herzkraft.html",
+      "datei": "revlink-herzkraft.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "Ref-Link Generator Herzkraft-Edition",
+      "kritisch": false
+    },
+    {
+      "url": "https://go.myimpactflow.ch/konzept-reflink-herzkraft.html",
+      "datei": "konzept-reflink-herzkraft.html",
+      "repo": "MyImpactFlow.github.io",
+      "beschreibung": "Konzept Ref-Link Herzkraft",
+      "kritisch": false
+    },
+    {
+      "url": "https://go.myimpactflow.ch/impact-flow-slides/",
+      "datei": "index.html",
+      "repo": "impact-flow-slides",
+      "beschreibung": "Impact Flow Slides Dashboard",
+      "kritisch": true
+    },
+    {
+      "url": "https://go.myimpactflow.ch/impact-flow-slides/praesentationen/online-kundengewinnung.html",
+      "datei": "praesentationen/online-kundengewinnung.html",
+      "repo": "impact-flow-slides",
+      "beschreibung": "Präsentation: Online-Kundengewinnung",
+      "kritisch": true
+    },
+    {
+      "url": "https://go.myimpactflow.ch/impact-flow-slides/praesentationen/impact-flow-intro.html",
+      "datei": "praesentationen/impact-flow-intro.html",
+      "repo": "impact-flow-slides",
+      "beschreibung": "Präsentation: Impact Flow Einführung",
+      "kritisch": true
+    }
+  ]
+}
