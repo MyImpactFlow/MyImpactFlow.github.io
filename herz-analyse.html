@@ -2465,6 +2465,26 @@
       document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
 
+    // ── Herzanalyse Event Tracking (Unified Endpoint) ─────
+    var HERZ_EVENT_URL = 'https://erfolg-n8n.peaknetworks.cloud/webhook/herzanalyse-events';
+    function trackHerzEvent(eventType, step, value) {
+      try {
+        var payload = JSON.stringify({
+          event_type: eventType,
+          session_id: localStorage.getItem('hk_session_id_tracking') || 'pre-' + Date.now(),
+          step: step || '',
+          value: typeof value === 'object' ? JSON.stringify(value) : String(value || ''),
+          source: localStorage.getItem('if_source') || 'direkt',
+          partner: localStorage.getItem('if_partner') || '',
+          timestamp: new Date().toISOString(),
+          user_agent: navigator.userAgent || ''
+        });
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(HERZ_EVENT_URL, new Blob([payload], { type: 'application/json' }));
+        }
+      } catch(e) {}
+    }
+
     // ── 2-Step Form Logic ─────────────────────────────────
     function formNext(prefix) {
       var step1 = document.getElementById(prefix + '-step-1');
@@ -2482,6 +2502,9 @@
       var liveCount = document.getElementById(prefix + '-live-count');
       if (liveCount) liveCount.style.display = 'none';
       step2.classList.add('active');
+
+      // Funnel-Tracking: Email eingegeben → Fragen gestartet
+      trackHerzEvent('step_reached', 'questions_started', prefix);
 
       // Bild-Psychologie: Bild auf linke Seite verschieben (Desktop)
       var heroContainer = document.querySelector('.hero-container');
@@ -2575,6 +2598,18 @@
           var current = questions[currentIdx];
           current.classList.remove('fq-active');
           current.classList.add('fq-done');
+
+          // Funnel-Tracking: Frage beantwortet
+          var answeredStep = 'q' + (currentIdx + 1);
+          var answerVal = '';
+          var radios = current.querySelectorAll('input[type="radio"]:checked');
+          if (radios.length) {
+            var radioLabel = current.querySelector('label[for="' + radios[0].id + '"]');
+            answerVal = radioLabel ? radioLabel.textContent.trim() : radios[0].value;
+          }
+          var textInput = current.querySelector('.form-text-input:not([name="first_name"])');
+          if (textInput && textInput.value.trim()) answerVal = textInput.value.trim();
+          trackHerzEvent('question_answered', answeredStep, answerVal);
 
           // Nummer → Häkchen
           var numEl = current.querySelector('.form-q-number');
@@ -2917,6 +2952,8 @@
                 new Blob([payload], { type: 'application/json' })
               );
             }
+            // Unified Event Tracking
+            trackHerzEvent('reflink_conversion', 'form_submit', { partner: partner, source: source, variant: localStorage.getItem('ab_herz') || 'unknown' });
           }
 
           // Partner-Name ins Hidden-Feld schreiben (falls noch nicht gesetzt)
@@ -2984,6 +3021,8 @@
                   new Blob([JSON.stringify(trackPayload)], { type: 'application/json' })
                 );
               }
+              // Unified Event Tracking: Formular abgesendet
+              trackHerzEvent('form_submit', 'email', email);
             } catch(e) {}
 
             fetch(action, { method: 'POST', body: formData, mode: 'no-cors' })
@@ -3682,6 +3721,11 @@
             referrer: document.referrer || 'direct'
           })], { type: 'application/json' })
         );
+      }
+      // Unified Event Tracking: Seite aufgerufen + A/B Variante
+      trackHerzEvent('page_view', 'landing', document.referrer || 'direct');
+      if (abVariant) {
+        trackHerzEvent('ab_variant', 'assigned', abVariant);
       }
     })();
   </script>

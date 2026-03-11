@@ -1672,6 +1672,23 @@
               stepsCompleted: 0
             })
           }).catch(function() {});
+          // Unified Event Tracking: Danke-Seite erreicht
+          var herzPayload = JSON.stringify({
+            event_type: 'danke_page',
+            session_id: localStorage.getItem('hk_session_id_tracking') || sessionId,
+            step: 'danke',
+            value: userName || 'Unbekannt',
+            source: localStorage.getItem('if_source') || 'direkt',
+            partner: localStorage.getItem('if_partner') || '',
+            timestamp: new Date().toISOString(),
+            user_agent: navigator.userAgent || ''
+          });
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(
+              'https://erfolg-n8n.peaknetworks.cloud/webhook/herzanalyse-events',
+              new Blob([herzPayload], { type: 'application/json' })
+            );
+          }
         } catch(e) {}
         sessionStorage.setItem('hk_page_view', '1');
       }
