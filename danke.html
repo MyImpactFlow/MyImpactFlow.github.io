@@ -875,7 +875,7 @@
         <span class="step-number">Schritt 2</span>
         <h3>Deine Analyse wird erstellt</h3>
         <p>
-          Unsere KI analysiert deine Antworten und erstellt ein <strong>mehrseitiges PDF</strong>,
+          Unsere KI analysiert deine Antworten und erstellt ein <strong id="pdf-page-info">mehrseitiges PDF</strong>,
           das genau auf dich zugeschnitten ist. Das dauert etwa <strong>1&ndash;2 Minuten</strong>.
         </p>
         <!-- Phase-Progress -->
@@ -955,6 +955,7 @@
         localStorage.removeItem('hk_session_id');
         localStorage.removeItem('hk_timer_start');
         localStorage.removeItem('hk_pdf_link');
+        localStorage.removeItem('hk_pdf_pages');
         localStorage.removeItem('hk_gen_start');
         localStorage.removeItem('hk_phase');
         localStorage.removeItem('hk_stay_banner_closed');
@@ -1324,6 +1325,17 @@
       var pdfReady = false;
       var pdfLink = localStorage.getItem('hk_pdf_link') || '';
       var pollCount = 0;
+      var pdfPageInfoEl = document.getElementById('pdf-page-info');
+
+      // Seitenzahl dynamisch aktualisieren
+      function updatePageCountDisplay(count) {
+        if (!pdfPageInfoEl || !count || count <= 0) return;
+        pdfPageInfoEl.textContent = count + '-seitiges PDF';
+      }
+
+      // Gespeicherte Seitenzahl wiederherstellen
+      var savedPages = localStorage.getItem('hk_pdf_pages');
+      if (savedPages) updatePageCountDisplay(parseInt(savedPages, 10));
       var pdfPollInterval = null;
       var elapsedInterval = null;
       var genStartTime = null;
@@ -1540,6 +1552,11 @@
               pdfLink = data.downloadLink;
               if (pdfPollInterval) { clearInterval(pdfPollInterval); pdfPollInterval = null; }
               localStorage.setItem('hk_pdf_link', pdfLink);
+              // Seitenzahl dynamisch anzeigen
+              if (data.pageCount && data.pageCount > 0) {
+                localStorage.setItem('hk_pdf_pages', data.pageCount);
+                updatePageCountDisplay(data.pageCount);
+              }
               // Direkt zu COMPLETE Phase
               transitionToComplete(true);
             }
@@ -1681,6 +1698,7 @@
 
         localStorage.removeItem('hk_phase');
         localStorage.removeItem('hk_pdf_link');
+        localStorage.removeItem('hk_pdf_pages');
         localStorage.removeItem('hk_gen_start');
         localStorage.removeItem('hk_steps');
         localStorage.removeItem('hk_timer_start');
@@ -1688,6 +1706,7 @@
 
         // UI zur\u00fccksetzen
         applyPhaseUI();
+        if (pdfPageInfoEl) pdfPageInfoEl.textContent = 'mehrseitiges PDF';
         step3Title.innerHTML = 'Dein PDF &ouml;ffnen';
         step3Text.innerHTML = 'Sobald dein PDF bereit ist, erscheint hier dein pers&ouml;nlicher Download-Button. Du bekommst es zus&auml;tzlich per E-Mail.';
         if (downloadContainer) downloadContainer.classList.remove('visible');
