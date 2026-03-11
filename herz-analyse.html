@@ -3649,8 +3649,18 @@
 
       if (!partnerUrl) partnerUrl = localStorage.getItem('if_partner');
 
-      // Partner-Name in alle Formulare eintragen (Hidden-Feld für Quentn)
+      // Default-Partner: Wenn kein REF-Link vorhanden → Jean Pierre (ImpactFlow)
       var partnerName = localStorage.getItem('if_partner_name') || '';
+      if (!partnerName) {
+        partnerName = 'impactflow';
+        localStorage.setItem('if_partner_name', partnerName);
+        if (!partnerUrl) {
+          partnerUrl = 'https://myimpactflow.ch/impactflow';
+          localStorage.setItem('if_partner', partnerUrl);
+        }
+      }
+
+      // Partner-Name in alle Formulare eintragen (Hidden-Feld für Quentn)
       if (partnerName) {
         document.querySelectorAll('input[name="field_impactflowpartnerid"]').forEach(function(el) {
           el.value = partnerName;
