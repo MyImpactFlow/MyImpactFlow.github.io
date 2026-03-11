@@ -387,6 +387,8 @@
       object-position: center;
       border-radius: 32px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 0 0 6px rgba(255,255,255,0.6);
+      transform: scaleX(-1); /* Bild-Psychologie: Frau schaut zum Formular */
+      transition: transform 0.5s ease;
     }
 
     .hero-image::after {
@@ -398,6 +400,19 @@
       border-radius: 16px;
       z-index: -1;
       opacity: 0.5;
+      transition: left 0.5s ease, right 0.5s ease;
+    }
+
+    /* Quiz-Modus: Bild links, ungespiegelt — Frau schaut zu den Fragen */
+    .hero-container.quiz-active {
+      flex-direction: row-reverse;
+    }
+    .hero-container.quiz-active .hero-image img {
+      transform: scaleX(1);
+    }
+    .hero-container.quiz-active .hero-image::after {
+      right: auto;
+      left: -12px;
     }
 
     .hero-badge {
@@ -1852,6 +1867,10 @@
         text-align: center;
         gap: 0;
       }
+      /* Mobile: Keine Bild-Spiegelung, kein Quiz-Layout-Wechsel */
+      .hero-image img { transform: scaleX(1) !important; }
+      .hero-container.quiz-active { flex-direction: column !important; }
+      .hero-container.quiz-active .hero-image::after { right: -12px; left: auto; }
       .hero-text {
         text-align: center;
         display: contents;
@@ -2457,6 +2476,10 @@
       var liveCount = document.getElementById(prefix + '-live-count');
       if (liveCount) liveCount.style.display = 'none';
       step2.classList.add('active');
+
+      // Bild-Psychologie: Bild auf linke Seite verschieben (Desktop)
+      var heroContainer = document.querySelector('.hero-container');
+      if (heroContainer) heroContainer.classList.add('quiz-active');
 
       var nameInput = step2.querySelector('input[name="first_name"]');
       if (nameInput) {
