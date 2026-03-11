@@ -406,17 +406,15 @@
     /* Quiz-Modus: Bild links, ungespiegelt — Frau schaut zu den Fragen */
     .hero-container.quiz-active {
       flex-direction: row-reverse;
-      align-items: stretch;
+      align-items: flex-start;
     }
-    .hero-container.quiz-active .hero-image {
-      display: flex;
-      align-items: stretch;
-    }
+    /* Titel und Subtitle im Quiz-Modus ausblenden */
+    .hero-container.quiz-active .hero-badge,
+    .hero-container.quiz-active h1,
+    .hero-container.quiz-active .hero-sub,
+    .hero-container.quiz-active .hero-trust { display: none; }
     .hero-container.quiz-active .hero-image img {
       transform: none !important;
-      width: 100%;
-      height: 100%;
-      min-height: 400px;
     }
     .hero-container.quiz-active .hero-image::after {
       right: auto;
@@ -2487,7 +2485,19 @@
 
       // Bild-Psychologie: Bild auf linke Seite verschieben (Desktop)
       var heroContainer = document.querySelector('.hero-container');
-      if (heroContainer) heroContainer.classList.add('quiz-active');
+      if (heroContainer && window.innerWidth > 800) {
+        heroContainer.classList.add('quiz-active');
+        // Bild-Höhe an Formular anpassen
+        var heroImg = document.querySelector('.hero-image');
+        var heroImgEl = document.querySelector('.hero-image img');
+        if (heroImg && step2) {
+          setTimeout(function() {
+            var formH = step2.offsetHeight;
+            heroImgEl.style.height = formH + 'px';
+            heroImgEl.style.width = '100%';
+          }, 100);
+        }
+      }
 
       var nameInput = step2.querySelector('input[name="first_name"]');
       if (nameInput) {
