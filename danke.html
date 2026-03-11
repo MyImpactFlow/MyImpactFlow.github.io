@@ -1548,6 +1548,7 @@
           .then(function(res) { return res.json(); })
           .then(function(data) {
             if (data && data.ready && data.downloadLink) {
+              // PDF ist fertig → COMPLETE
               pdfReady = true;
               pdfLink = data.downloadLink;
               if (pdfPollInterval) { clearInterval(pdfPollInterval); pdfPollInterval = null; }
@@ -1557,8 +1558,16 @@
                 localStorage.setItem('hk_pdf_pages', data.pageCount);
                 updatePageCountDisplay(data.pageCount);
               }
-              // Direkt zu COMPLETE Phase
-              transitionToComplete(true);
+              // Falls noch in WAITING_EMAIL → kurz GENERATING zeigen, dann COMPLETE
+              if (phase === 'WAITING_EMAIL') {
+                transitionToGenerating();
+                setTimeout(function() { transitionToComplete(true); }, 2000);
+              } else {
+                transitionToComplete(true);
+              }
+            } else if (data && data.emailConfirmed && phase === 'WAITING_EMAIL') {
+              // E-Mail bestaetigt, PDF wird noch generiert → GENERATING
+              transitionToGenerating();
             }
           })
           .catch(function() {}); // Stille Fehler
@@ -1622,23 +1631,9 @@
           if (savedGen) genStartTime = parseInt(savedGen, 10);
         }
 
-        // Automatische Erkennung: PDF bereit OHNE explizite E-Mail-Best\u00e4tigung
-        // (z.B. E-Mail in anderem Tab best\u00e4tigt) -> PDF kommt trotzdem
-        // Das wird durch das PDF-Polling abgedeckt: wenn ready -> direkt COMPLETE
-
-        // Simulierte E-Mail-Best\u00e4tigung:
-        // Da wir kein echtes E-Mail-Confirm-Polling haben,
-        // wechseln wir automatisch zu GENERATING sobald das PDF-Polling startet
-        // (der Nutzer hat das Formular ausgef\u00fcllt -> Workflow l\u00e4uft sowieso)
-        if (phase === 'WAITING_EMAIL' && userEmail) {
-          // Nach 20 Sek automatisch zu GENERATING wechseln
-          // (realistisch: E-Mail wird schnell best\u00e4tigt oder Workflow l\u00e4uft schon)
-          setTimeout(function() {
-            if (phase === 'WAITING_EMAIL' && !pdfReady) {
-              transitionToGenerating();
-            }
-          }, 20000);
-        }
+        // E-Mail-Bestaetigung wird jetzt ECHT erkannt:
+        // check_pdf_status liefert emailConfirmed: true sobald der Workflow gestartet wurde
+        // (Herzkraft-Workflow sendet email_confirmed am Anfang)
       }
 
       // ---- Stay-Banner zeigen ---------------------------------------
@@ -1725,12 +1720,6 @@
           }
         }, 5000);
 
-        // Auto-Transition nach 20 Sek
-        setTimeout(function() {
-          if (phase === 'WAITING_EMAIL' && !pdfReady) {
-            transitionToGenerating();
-          }
-        }, 20000);
       };
 
       // ---- 10-Minuten-Timeout Fallback ------------------------------
