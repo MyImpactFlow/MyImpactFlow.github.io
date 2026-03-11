@@ -638,6 +638,73 @@
       75%  { margin-left: -30px; }
     }
 
+    /* ── PDF Download Button ────────────────────────────── */
+    .pdf-download-container {
+      display: none;
+      margin-top: 16px;
+      animation: stepReveal 0.5s ease both;
+    }
+    .pdf-download-container.visible {
+      display: block;
+    }
+    .pdf-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--pink), #e88aa6);
+      color: var(--white);
+      border: none;
+      border-radius: 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 20px rgba(242,156,182,0.35);
+    }
+    .pdf-download-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 28px rgba(242,156,182,0.5);
+    }
+    .pdf-download-btn .btn-icon {
+      font-size: 1.2rem;
+    }
+    .pdf-download-hint {
+      display: block;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: #999;
+      font-style: italic;
+    }
+    .pdf-loading-indicator {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 18px;
+      background: var(--pink-soft);
+      border: 1.5px solid rgba(242,156,182,0.3);
+      border-radius: 12px;
+      font-size: 0.85rem;
+      color: #999;
+    }
+    .pdf-loading-indicator.visible {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pdf-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(242,156,182,0.3);
+      border-top-color: var(--pink);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     /* ── Responsive ──────────────────────────────────────── */
     @media (max-width: 600px) {
       main { padding: 100px 16px 40px; }
@@ -768,10 +835,25 @@
       <div class="step-content">
         <span class="step-number">Schritt 3</span>
         <h3>PDF &ouml;ffnen &amp; lesen</h3>
-        <p>
-          Du erh&auml;ltst dein pers&ouml;nliches PDF direkt per E-Mail.
-          Nimm dir <strong>6 Minuten in Ruhe</strong> daf&uuml;r &mdash; es lohnt sich.
+        <p id="step-3-text">
+          Dein PDF wird gerade erstellt &mdash; sobald es fertig ist, erscheint hier dein Download-Button.
+          Du bekommst es zus&auml;tzlich per E-Mail.
         </p>
+        <!-- PDF Loading Indicator -->
+        <div class="pdf-loading-indicator" id="pdf-loading">
+          <div class="pdf-spinner"></div>
+          <span>Deine Analyse wird finalisiert&hellip;</span>
+        </div>
+        <!-- PDF Download Button (wird dynamisch eingeblendet) -->
+        <div class="pdf-download-container" id="pdf-download-container">
+          <a class="pdf-download-btn" id="pdf-download-btn" href="#" target="_blank" rel="noopener noreferrer">
+            <span class="btn-icon">&#128196;</span>
+            Deine Herzkraft-Analyse &ouml;ffnen
+          </a>
+          <span class="pdf-download-hint">
+            &#128274; Dein pers&ouml;nliches PDF &mdash; nimm dir 6 Minuten in Ruhe daf&uuml;r.
+          </span>
+        </div>
         <button class="step-check-btn" type="button">&#9744; Erledigt</button>
       </div>
     </div>
@@ -1499,6 +1581,119 @@
           }
         }
       });
+    })();
+
+    // ── PDF-Download Polling ─────────────────────────────
+    // Pollt den n8n Formular-Tracking Webhook bis das PDF bereit ist
+    (function() {
+      var PDF_STATUS_URL = 'https://erfolg-n8n.peaknetworks.cloud/webhook/herzkraft-form-tracking';
+      var POLL_INTERVAL = 10000; // alle 10 Sekunden
+      var MAX_POLLS = 60;       // max 10 Minuten
+      var pollCount = 0;
+      var pdfPollInterval = null;
+      var pdfReady = false;
+
+      var downloadContainer = document.getElementById('pdf-download-container');
+      var downloadBtn = document.getElementById('pdf-download-btn');
+      var loadingIndicator = document.getElementById('pdf-loading');
+      var step3Text = document.getElementById('step-3-text');
+
+      // Pr&uuml;fen ob PDF-Link bereits in localStorage gespeichert
+      var savedPdfLink = localStorage.getItem('hk_pdf_link');
+      if (savedPdfLink) {
+        showPdfDownload(savedPdfLink);
+        return; // Kein Polling n&ouml;tig
+      }
+
+      function checkPdfStatus() {
+        if (pdfReady || !userEmail) return;
+        pollCount++;
+
+        if (pollCount > MAX_POLLS) {
+          // Timeout — aufh&ouml;ren zu pollen
+          if (pdfPollInterval) { clearInterval(pdfPollInterval); pdfPollInterval = null; }
+          if (loadingIndicator) loadingIndicator.classList.remove('visible');
+          if (step3Text) {
+            step3Text.innerHTML = 'Dein PDF wurde dir per E-Mail zugesendet. Pr&uuml;fe deinen Posteingang.';
+          }
+          return;
+        }
+
+        fetch(PDF_STATUS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'check_pdf_status', email: userEmail })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data && data.ready && data.downloadLink) {
+            pdfReady = true;
+            if (pdfPollInterval) { clearInterval(pdfPollInterval); pdfPollInterval = null; }
+            // PDF-Link in localStorage cachen
+            localStorage.setItem('hk_pdf_link', data.downloadLink);
+            showPdfDownload(data.downloadLink);
+          }
+        })
+        .catch(function() {}); // Stille Fehler — weiter pollen
+      }
+
+      function showPdfDownload(link) {
+        pdfReady = true;
+        // Loading ausblenden
+        if (loadingIndicator) loadingIndicator.classList.remove('visible');
+        // Download-Button einblenden
+        if (downloadBtn) downloadBtn.href = link;
+        if (downloadContainer) downloadContainer.classList.add('visible');
+        // Text aktualisieren
+        if (step3Text) {
+          step3Text.innerHTML = 'Deine Herzkraft-Analyse ist fertig! &#127881; ' +
+            'Klicke auf den Button, um dein PDF zu &ouml;ffnen. ' +
+            'Du hast es zus&auml;tzlich per E-Mail erhalten.';
+        }
+        // Toast & Konfetti wenn Step 3 sichtbar
+        var step3El = document.getElementById('step-3');
+        if (step3El && !step3El.classList.contains('step-hidden')) {
+          showToast('&#127881; Dein PDF ist bereit!', 4000);
+          launchConfetti();
+        }
+      }
+
+      // Polling starten — beginnt sofort und läuft im Hintergrund
+      function startPdfPolling() {
+        if (pdfReady || pdfPollInterval) return;
+        // Loading-Indikator in Step 3 zeigen
+        if (loadingIndicator) loadingIndicator.classList.add('visible');
+        // Erste Prüfung nach 3 Sekunden
+        setTimeout(checkPdfStatus, 3000);
+        // Dann alle 10 Sekunden
+        pdfPollInterval = setInterval(checkPdfStatus, POLL_INTERVAL);
+      }
+
+      // Polling sofort starten (läuft parallel zu den Steps)
+      if (userEmail && !pdfReady) {
+        startPdfPolling();
+      }
+
+      // Bei E-Mail-Korrektur: Polling zurücksetzen
+      var origResetEmailProcess = window.resetEmailProcess;
+      window.resetEmailProcess = function() {
+        // PDF-Status zurücksetzen
+        pdfReady = false;
+        pollCount = 0;
+        localStorage.removeItem('hk_pdf_link');
+        if (pdfPollInterval) { clearInterval(pdfPollInterval); pdfPollInterval = null; }
+        if (downloadContainer) downloadContainer.classList.remove('visible');
+        if (loadingIndicator) loadingIndicator.classList.remove('visible');
+        if (step3Text) {
+          step3Text.innerHTML = 'Dein PDF wird gerade erstellt &mdash; sobald es fertig ist, erscheint hier dein Download-Button. Du bekommst es zus&auml;tzlich per E-Mail.';
+        }
+        // Original-Reset aufrufen
+        if (typeof origResetEmailProcess === 'function') {
+          origResetEmailProcess();
+        }
+        // Polling neu starten nach Korrektur
+        setTimeout(startPdfPolling, 5000);
+      };
     })();
   </script>
 
