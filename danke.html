@@ -1620,8 +1620,22 @@
         // Phase aus localStorage wiederherstellen
         applyPhaseUI();
 
-        // PDF-Polling immer starten (l\u00e4uft parallel)
-        if (userEmail) {
+        // Neue Einreichung: Altes PDF im Backend loeschen BEVOR Polling startet
+        if (userEmail && !sessionStorage.getItem('hk_reset_sent')) {
+          sessionStorage.setItem('hk_reset_sent', '1');
+          fetch(PDF_STATUS_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'new_submission', email: userEmail })
+          }).then(function() {
+            // Nach Reset: Polling starten
+            startPdfPolling();
+          }).catch(function() {
+            // Auch bei Fehler: Polling starten
+            startPdfPolling();
+          });
+        } else if (userEmail) {
+          // Bei Reload: Direkt pollen (Reset wurde schon gesendet)
           startPdfPolling();
         }
 
