@@ -191,6 +191,44 @@
       padding-left: 8px;
     }
 
+    /* Booking Details */
+    .booking-details {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      margin-bottom: 32px;
+      display: none;
+    }
+    .booking-details.visible { display: block; }
+
+    .booking-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .booking-row:last-child { border-bottom: none; }
+
+    .booking-row .icon {
+      font-size: 1.2rem;
+      width: 32px;
+      text-align: center;
+    }
+    .booking-row .label {
+      font-size: 0.82rem;
+      color: var(--grey);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 60px;
+    }
+    .booking-row .value {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--dark);
+    }
+
     /* CTA */
     .cta-link {
       display: inline-block;
@@ -253,8 +291,27 @@
   </div>
 
   <!-- Heading -->
-  <h1 class="fade-in">Dein Termin ist gebucht!</h1>
-  <p class="subtitle fade-in">Ich freue mich auf unser Erstgespräch.</p>
+  <h1 class="fade-in" id="main-heading">Dein Termin ist gebucht!</h1>
+  <p class="subtitle fade-in" id="subtitle">Ich freue mich auf unser Erstgespräch.</p>
+
+  <!-- Booking Details (dynamisch befüllt) -->
+  <div class="booking-details fade-in" id="booking-details">
+    <div class="booking-row" id="row-date">
+      <span class="icon">📅</span>
+      <span class="label">Wann</span>
+      <span class="value" id="booking-date"></span>
+    </div>
+    <div class="booking-row" id="row-name">
+      <span class="icon">👤</span>
+      <span class="label">Name</span>
+      <span class="value" id="booking-name"></span>
+    </div>
+    <div class="booking-row" id="row-email">
+      <span class="icon">✉️</span>
+      <span class="label">E-Mail</span>
+      <span class="value" id="booking-email"></span>
+    </div>
+  </div>
 
   <!-- Steps -->
   <div class="card fade-in">
@@ -297,6 +354,70 @@
   </div>
 
 </div>
+
+<script>
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+
+    const name = params.get('name') || params.get('Vorname') || '';
+    const email = params.get('email') || '';
+    const dateRaw = params.get('date') || '';
+
+    // Personalisierte Überschrift
+    if (name) {
+      const firstName = name.split(' ')[0];
+      document.getElementById('main-heading').textContent =
+        'Danke, ' + firstName + ' — dein Termin steht!';
+      document.getElementById('subtitle').textContent =
+        'Ich freue mich auf unser Erstgespräch.';
+    }
+
+    // Buchungsdetails anzeigen
+    const detailsCard = document.getElementById('booking-details');
+    let hasData = false;
+
+    // Datum formatieren
+    if (dateRaw) {
+      try {
+        const d = new Date(dateRaw);
+        if (!isNaN(d.getTime())) {
+          const wochentage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+          const monate = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+                          'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+          const tag = wochentage[d.getDay()];
+          const datum = d.getDate() + '. ' + monate[d.getMonth()] + ' ' + d.getFullYear();
+          const zeit = d.getHours().toString().padStart(2, '0') + ':' + d.getMinutes().toString().padStart(2, '0') + ' Uhr';
+          document.getElementById('booking-date').textContent = tag + ', ' + datum + ' — ' + zeit;
+          hasData = true;
+        }
+      } catch (e) { /* Datum ungültig — Zeile ausblenden */ }
+    }
+    if (!dateRaw || !document.getElementById('booking-date').textContent) {
+      document.getElementById('row-date').style.display = 'none';
+    }
+
+    // Name
+    if (name) {
+      document.getElementById('booking-name').textContent = name;
+      hasData = true;
+    } else {
+      document.getElementById('row-name').style.display = 'none';
+    }
+
+    // E-Mail
+    if (email) {
+      document.getElementById('booking-email').textContent = email;
+      hasData = true;
+    } else {
+      document.getElementById('row-email').style.display = 'none';
+    }
+
+    // Karte nur anzeigen wenn Daten vorhanden
+    if (hasData) {
+      detailsCard.classList.add('visible');
+    }
+  })();
+</script>
 
 </body>
 </html>
